@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-import Home from '../views/Home.vue'
+import Home from '@/views/Home.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -12,7 +12,17 @@ const routes: Array<RouteRecordRaw> = [
   //   path: '/about',
   //   name: 'About',
   //   component: () => import('../views/About')
-  // }
+  // },
+  // {
+  //   path: '/',
+  //   name: 'Home',
+  //   component: () => import('@/views/Home.vue')
+  // },
+  {
+    path: '/setting',
+    name: 'Setting',
+    component: () => import('@/views/Setting.vue')
+  },
   {
     path: '/',
     name: 'Home',
@@ -29,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/start-vue3/'),
   // history: createWebHistory(process.env.BASE_URL),
   routes
 })

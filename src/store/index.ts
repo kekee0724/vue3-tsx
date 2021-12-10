@@ -11,8 +11,14 @@ import { createStore } from 'vuex'
 export default createStore({
   state,
   mutations: {
+    increment (state) {
+      state.count++
+    }
   },
   actions: {
+    increment (context) {
+      context.commit('increment')
+    }
   },
   modules: {
   }

@@ -8,6 +8,10 @@ const pathResolve = (pathStr: string) => {
 }
 
 export default defineConfig({
+  server: {
+    port: 2233,
+    open: true
+  },
   resolve: {
     alias: {
       '@': pathResolve('src'),
@@ -17,6 +21,18 @@ export default defineConfig({
       '@router': pathResolve('src/router'),
       '@store': pathResolve('src/store')
     }
+  },
+  optimizeDeps: {
+    include: ['@ant-design/icons-vue']
+  },
+  // otherwise, may assets 404 or visit with index.html
+  base: '/start-vue3/',
+  build: {
+    target: 'es2015',
+    outDir: 'dist',
+    assetsDir: 'assets',
+    assetsInlineLimit: 2048,
+    cssCodeSplit: true
   },
   plugins: [vue(), vueJsx()]
 })
