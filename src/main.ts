@@ -1,5 +1,6 @@
 import 'ant-design-vue/dist/antd.css'
 import './registerServiceWorker'
+import '@/style/index.scss'
 
 import { createApp } from 'vue'
 
