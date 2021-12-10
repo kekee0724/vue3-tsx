@@ -1,18 +1,20 @@
 {
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "compilerOptions": {
-    "jsx": "preserve",
-    "target": "esnext",
-    "module": "esnext",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "lib": ["esnext", "dom"],
-    "types": ["vite/client", "node"],
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "noUnusedLocals": true,
-    "noImplicitReturns": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "plugins": [{ "name": "@vuedx/typescript-plugin-vue" }]
-  }
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["./src"]
 }
