@@ -5,9 +5,10 @@
  * @LastEditors: 可可同学
  * @Description:
  */
-import { defineComponent } from 'vue';
-import HelloWord from '@levi-m/core-ui/components/HelloWord';
-import Logo from '@/assets/images/logo.png';
+import { defineComponent } from "vue";
+
+import Logo from "@/assets/images/logo.png";
+import { HelloWord } from "@/core-ui/components/HelloWord";
 
 export default defineComponent({
   name: 'App',
