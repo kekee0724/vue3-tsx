@@ -14,7 +14,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [ "src/*" ],
+      "@levi-m/core": ["./src/core/index"],
+      "@levi-m/core-ui": ["./src/core-ui/index"]
+    }
   },
   "include": ["./src"]
 }

@@ -1,10 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import config from './src/config'
+import path from 'path'
 
+const pathResolve = (pathStr: string) => {
+  return path.resolve(__dirname, pathStr)
+}
 const env = process.argv[process.argv.length - 1]
 const base = config[env]
 console.log('process:::env', base)
+
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
@@ -18,6 +23,13 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '') // 将 /api 重写为空
       }
+    },
+  },
+  resolve: {
+    alias: {
+      '~': pathResolve('./'), // 根路径
+      '@': pathResolve('src'), // src 路径
+      '@levi-m': pathResolve('src') // src 路径
     }
   },
   plugins: [react()]

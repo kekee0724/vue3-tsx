@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { Button } from 'antd-mobile';
 
-import { get } from '../../core/utils';
+import { get } from '@levi-m/core';
 
 export default function About() {
   console.log('import.meta.env', import.meta.env)
