@@ -39,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/start-vue3/'),
+  history: createWebHistory('/start-vue/'),
   // history: createWebHistory(process.env.BASE_URL),
   routes
 })
