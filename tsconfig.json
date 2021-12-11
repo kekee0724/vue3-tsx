@@ -8,7 +8,7 @@
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true, 
+    "esModuleInterop": true,
     "importHelpers": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
@@ -18,7 +18,9 @@
     "paths": {
       "@/*": ["src/*"],
       "@levi-m/core": ["./src/core/index"],
-      "@levi-m/core-ui": ["./src/core-ui/index"]
+      "@levi-m/core-ui": ["./src/core-ui/index"],
+
+      "@levi-a/views": ["./src/apps/views/index"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
