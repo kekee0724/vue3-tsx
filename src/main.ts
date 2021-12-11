@@ -1,7 +1,8 @@
-import { createApp } from 'vue';
-import App from './App';
-import router from './router';
-import store from './store';
-import '@/style/index.scss';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
 
-createApp(App).use(router).use(store).mount('#app');
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  await app.listen(3000);
+}
+bootstrap();
