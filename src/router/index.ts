@@ -6,17 +6,17 @@ const routes: Array<RouteRecordRaw> = [
   // {
   //   path: '/',
   //   name: 'Home',
-  //   component: () => import('../views/Home')
+  //   component: () => import('@/apps/views/Home')
   // },
   // {
   //   path: '/about',
   //   name: 'About',
-  //   component: () => import('../views/About')
+  //   component: () => import('@/apps/views/About')
   // },
   // {
   //   path: '/',
   //   name: 'Home',
-  //   component: () => import('@/views/Home.vue')
+  //   component: () => import('@/apps/views/Home.vue')
   // },
   {
     path: '/setting',

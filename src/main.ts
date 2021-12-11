@@ -1,5 +1,5 @@
 import 'ant-design-vue/dist/antd.css'
-import '@/style/index.scss'
+import '@/assets/css/index.scss'
 
 import { createApp } from 'vue'
 
