@@ -19,7 +19,11 @@
     "paths": {
       "@/*": [ "src/*" ],
       "@levi-m/core": ["./src/core/index"],
-      "@levi-m/core-ui": ["./src/core-ui/index"]
+      "@levi-m/core-ui": ["./src/core-ui/index"],
+
+      "@levi-a/about": ["./src/apps/about/index"],
+      "@levi-a/index": ["./src/apps/index/index"],
+
     }
   },
   "include": ["./src"]

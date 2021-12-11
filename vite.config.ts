@@ -29,7 +29,9 @@ export default defineConfig({
     alias: {
       '~': pathResolve('./'), // 根路径
       '@': pathResolve('src'), // src 路径
-      '@levi-m': pathResolve('src') // src 路径
+      '@levi-m/core': pathResolve('src/core'), // core 路径
+      '@levi-m/core-ui': pathResolve('src/core-ui'), // core-ui 路径
+      '@levi-a': pathResolve('src/apps') // apps 路径
     }
   },
   plugins: [react()]
