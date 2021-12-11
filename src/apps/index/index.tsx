@@ -1,8 +1,10 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import './index.css';
 
-function App() {
+import React, { useState } from 'react';
+
+import logo from '../../logo.svg';
+
+export default function Index() {
   const [count, setCount] = useState(0)
 
   return (
@@ -16,7 +18,7 @@ function App() {
           </button>
         </p>
         <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
+          Edit <code>index.tsx</code> and save to test HMR updates.
         </p>
         <p>
           <a
@@ -41,5 +43,3 @@ function App() {
     </div>
   )
 }
-
-export default App
