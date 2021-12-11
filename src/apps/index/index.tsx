@@ -1,4 +1,4 @@
-import './index.css';
+import './index.less';
 
 import React, { useState } from 'react';
 
