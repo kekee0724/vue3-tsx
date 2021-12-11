@@ -2,8 +2,10 @@
   "name": "vite-react-app",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "start": "vite --mode development",
     "build": "tsc && vite build",
+    "build:beta": "tsc && vite build --mode beta",
+    "build:release": "tsc && vite build --mode release",
     "preview": "vite preview"
   },
   "dependencies": {
