@@ -5,7 +5,7 @@ import { createApp } from 'vue'
 
 import Antd from 'ant-design-vue'
 
-import { store } from '@/core'
+import { store } from '@levi-m/core'
 
 import App from './App.vue'
 import router from './router'

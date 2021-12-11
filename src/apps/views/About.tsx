@@ -6,7 +6,7 @@
  * @Description:
  */
 import { defineComponent } from 'vue';
-import HelloWord from '@/core-ui/components/HelloWord';
+import HelloWord from '@levi-m/core-ui/components/HelloWord';
 import Logo from '@/assets/images/logo.png';
 
 export default defineComponent({

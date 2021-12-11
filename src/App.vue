@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import Logo from '@/core-ui/components/Logo.vue'
+import Logo from '@levi-m/core-ui/components/Logo.vue'
 
 import {
   // menu
