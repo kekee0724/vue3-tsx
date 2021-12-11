@@ -1,0 +1,5 @@
+export * from './About'
+export * from './About.vue'
+export * from './Home'
+export * from './Home.vue'
+export * from './Setting.vue'

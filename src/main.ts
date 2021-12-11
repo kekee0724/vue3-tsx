@@ -8,6 +8,7 @@ import Antd from 'ant-design-vue'
 import { store } from '@levi-m/core'
 
 import App from './App.vue'
+// import App from './App'
 import router from './router'
 
 createApp(App).use(store).use(router).use(Antd).mount('#app')
