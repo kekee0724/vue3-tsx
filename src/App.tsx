@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 import {RouterLink, RouterView} from 'vue-router';
-import './style/main.scss'
+import '@assets/css/main.scss'
 
 export default defineComponent({
   name: 'App',
