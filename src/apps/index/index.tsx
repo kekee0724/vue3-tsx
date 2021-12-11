@@ -2,7 +2,7 @@ import './index.css';
 
 import React, { useState } from 'react';
 
-import logo from '../../logo.svg';
+import logo from '../../assets/images/logo.svg';
 
 export default function Index() {
   const [count, setCount] = useState(0)
