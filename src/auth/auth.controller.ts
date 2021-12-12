@@ -25,11 +25,6 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
-  @Get(':id')
-  getUser(@Param('id') id: string) {
-    return this.authService.getUser(+id);
-  }
-
   @Post()
   create(@Body() createAuthDto: CreateAuthDto) {
     return this.authService.create(createAuthDto);

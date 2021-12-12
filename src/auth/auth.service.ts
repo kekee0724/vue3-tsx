@@ -5,10 +5,16 @@ import { JwtService } from '@nestjs/jwt';
 
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
 
   // 生成token
   createToken(user: Partial<User>) {
@@ -25,8 +31,11 @@ export class AuthService {
     return { token };
   }
 
-  getUser(id: number) {
-    return `This action returns a #${id} auth`;
+  async getUser(user: User) {
+    const { username, password } = user;
+    return await this.userRepository.findOne({
+      where: { username, password },
+    });
   }
 
   create(createAuthDto: CreateAuthDto) {
