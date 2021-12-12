@@ -31,9 +31,9 @@ export class UserService {
      */
     const newUser = await this.userRepository.create(createUser);
 
-    await this.userRepository.save(newUser);
-    return await this.userRepository.findOne({ where: { username } });
-    // return await this.userRepository.save(newUser);
+    // await this.userRepository.save(newUser);
+    // return await this.userRepository.findOne({ where: { username } });
+    return await this.userRepository.save(newUser);
   }
 
   create(createUserDto: CreateUserDto) {
