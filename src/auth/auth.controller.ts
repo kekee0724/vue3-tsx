@@ -1,12 +1,17 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
   Param,
   Patch,
   Post,
+  Req,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { AuthService } from './auth.service';
@@ -20,9 +25,11 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @ApiOperation({ summary: '用户登录' })
-  @Post('/login')
-  login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto);
+  @UseGuards(AuthGuard('local'))
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post('login')
+  async login(@Body() user: LoginDto, @Req() req) {
+    return req.user;
   }
 
   @Post()
