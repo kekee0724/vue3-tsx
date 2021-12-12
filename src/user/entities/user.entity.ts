@@ -1,6 +1,6 @@
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
-
+import { Exclude } from 'class-transformer';
 @Entity('user')
 export class User {
   /**
@@ -15,7 +15,12 @@ export class User {
   @Column({ length: 100 })
   nickname: string; //昵称
 
-  @Column()
+  /**
+   * select: false表示隐藏此列
+   * 使用class-transformer提供的Exclude来序列化，对返回的数据实现过滤掉password字段的效果
+   */
+  @Exclude()
+  @Column({ select: false })
   password: string; // 密码
 
   @Column()
@@ -55,6 +60,9 @@ export class User {
    */
   @BeforeInsert()
   async encryptPwd() {
-    this.password = await bcrypt.hashSync(this.password);
+    console.log(bcrypt);
+    const salt = bcrypt.genSaltSync(10);
+    const hash = await bcrypt.hashSync(this.password, salt);
+    this.password = hash;
   }
 }

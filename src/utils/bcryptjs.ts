@@ -1,4 +1,4 @@
-import bcryptjs from 'bcryptjs';
+import * as bcryptjs from 'bcryptjs';
 /**
  * 加密处理 - 同步方法
  * bcryptjs.hashSync(data, salt)
