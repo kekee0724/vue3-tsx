@@ -14,7 +14,7 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 
 @ApiTags('认证管理')
-@Controller('auth')
+@Controller('authorization/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
