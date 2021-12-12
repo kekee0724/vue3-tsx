@@ -41,7 +41,7 @@ export class PostsService {
     const totalPages =
       totalItems % pageSize == 0
         ? totalItems / pageSize
-        : totalItems / pageSize + 1;
+        : Math.floor(totalItems / pageSize + 1);
     const posts = await qb.getMany();
     return {
       items: posts,

@@ -21,14 +21,9 @@ const jwtModule = JwtModule.registerAsync({
   },
 });
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-    PassportModule,
-    jwtModule,
-    JwtStorage,
-  ],
+  imports: [TypeOrmModule.forFeature([User]), PassportModule, jwtModule],
   controllers: [AuthController],
-  providers: [AuthService, LocalStorage],
+  providers: [AuthService, LocalStorage, JwtStorage],
   exports: [jwtModule],
 })
 export class AuthModule {}
