@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreatePostDto {
   @ApiProperty({ description: '文章标题' })
@@ -14,11 +14,11 @@ export class CreatePostDto {
   @ApiPropertyOptional({ description: '内容' })
   readonly content: string;
 
-  @IsString()
+  // @IsString()
   @ApiPropertyOptional({ description: '文章封面' })
   readonly cover_url: string;
 
-  @IsNumber()
+  // @IsNumber()
   @ApiProperty({ description: '文章类型' })
   readonly type: number;
 }
