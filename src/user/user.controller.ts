@@ -11,13 +11,14 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
+  ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
-  ApiBearerAuth,
 } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -36,33 +37,29 @@ export class UserController {
   /**
    * 在对应请求的地方标记使用ClassSerializerInterceptor，
    * 此时，POST /api/user/register这个请求返回的数据中，就不会包含password这个字段
+   * create(@Body() createUserDto: CreateUserDto)
    * @param createUser
    * @returns
    */
   // @UseInterceptors(ClassSerializerInterceptor)
   @ApiOperation({ summary: '注册用户' })
   @ApiResponse({ status: 201, type: [User] })
-  @Post('register')
+  @Post()
   register(@Body() createUser: CreateUserDto) {
     return this.userService.register(createUser);
-  }
-
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.userService.findAll();
   }
 
   @ApiOperation({ summary: '获取用户信息' })
   @ApiBearerAuth() // swagger文档设置token
   @UseGuards(AuthGuard('jwt'))
-  @Get()
+  @Get('by-token')
   getUserInfo(@Req() req) {
     return req.user;
+  }
+
+  @Get()
+  findAll() {
+    return this.userService.findAll();
   }
 
   @Get(':id')

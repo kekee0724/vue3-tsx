@@ -16,9 +16,10 @@ export class HttpExceptionFilter<T> implements ExceptionFilter {
     const message = exception.message
       ? exception.message
       : `${status >= 500 ? 'Service Error' : 'Client Error'}`;
+    const exceptionResponse = exception?.getResponse();
     const errorResponse = {
       // data: {},
-      errmsg: exception.getResponse()['message']?.join() || message,
+      errmsg: (exceptionResponse && exceptionResponse['message']) || message,
       errcode: status,
     };
 

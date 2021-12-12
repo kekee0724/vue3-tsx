@@ -25,6 +25,10 @@ export class AuthService {
     return { token };
   }
 
+  getUser(id: number) {
+    return `This action returns a #${id} auth`;
+  }
+
   create(createAuthDto: CreateAuthDto) {
     return 'This action adds a new auth';
   }
@@ -33,7 +37,7 @@ export class AuthService {
     return `This action returns all auth`;
   }
 
-  getUser(id: number) {
+  findOne(id: number) {
     return `This action returns a #${id} auth`;
   }
 

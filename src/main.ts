@@ -11,7 +11,7 @@ import { TransformInterceptor } from './core/interceptor/transform.interceptor';
  */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('levi'); // 设置全局路由前缀
+  // app.setGlobalPrefix('levi'); // 设置全局路由前缀
   // 注册全局错误的过滤器
   app.useGlobalFilters(new HttpExceptionFilter());
   // 全局注册拦截器
@@ -30,6 +30,6 @@ async function bootstrap() {
 
   // 全局注册一下管道ValidationPipe
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(8080);
+  await app.listen(2021);
 }
 bootstrap();
