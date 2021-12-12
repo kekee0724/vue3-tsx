@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './core/filter/http-exception.filter';
@@ -14,6 +15,18 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   // 全局注册拦截器
   app.useGlobalInterceptors(new TransformInterceptor());
+  // 设置swagger文档
+  const config = new DocumentBuilder()
+    .setTitle('LEVI API说明文档')
+    .setDescription(
+      "<a href='http://localhost:8080/swagger/'>http://localhost:8080/swagger/</a>",
+    )
+    .setVersion('10.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('swagger', app, document);
+
   await app.listen(8080);
 }
 bootstrap();
