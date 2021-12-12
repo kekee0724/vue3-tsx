@@ -1,6 +1,7 @@
+import { User } from 'src/user/entities/user.entity';
+
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/user/entities/user.entity';
 
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
@@ -32,7 +33,7 @@ export class AuthService {
     return `This action returns all auth`;
   }
 
-  findOne(id: number) {
+  getUser(id: number) {
     return `This action returns a #${id} auth`;
   }
 

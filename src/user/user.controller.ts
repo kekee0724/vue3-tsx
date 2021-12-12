@@ -7,10 +7,17 @@ import {
   Param,
   Patch,
   Post,
+  Req,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -48,6 +55,14 @@ export class UserController {
   @Get()
   findAll() {
     return this.userService.findAll();
+  }
+
+  @ApiOperation({ summary: '获取用户信息' })
+  @ApiBearerAuth() // swagger文档设置token
+  @UseGuards(AuthGuard('jwt'))
+  @Get()
+  getUserInfo(@Req() req) {
+    return req.user;
   }
 
   @Get(':id')
