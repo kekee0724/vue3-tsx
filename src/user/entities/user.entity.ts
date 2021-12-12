@@ -34,7 +34,10 @@ export class User {
    * root有所以权限，author有写文章权限，visitor只能阅读文章，
    * 注册的用户默认是visitor,root权限的账号可以修改用户角色
    */
-  @Column('simple-enum', { enum: ['root', 'author', 'visitor'] })
+  @Column('simple-enum', {
+    enum: ['root', 'author', 'visitor'],
+    default: 'visitor',
+  })
   role: string; // 用户角色
 
   /**
