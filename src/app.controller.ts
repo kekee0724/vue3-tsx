@@ -1,7 +1,19 @@
-import { Controller, Get, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 
 import { AppService } from './app.service';
+import { LoginDto } from './auth/dto/login.dto';
 
 /**
  * 单个路由的基本控制器(Controller)
@@ -12,6 +24,13 @@ import { AppService } from './app.service';
 @Controller('app')
 export class AppController {
   constructor(private readonly appService: AppService) {}
+
+  @UseGuards(AuthGuard('local'))
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post('login')
+  async login(@Body() user: LoginDto, @Req() req) {
+    return req.user;
+  }
 
   /**
    * @Get是请求方法的装饰器

@@ -12,7 +12,7 @@ export class User {
   @Column({ length: 100 })
   username: string; // 用户名
 
-  @Column({ length: 100 })
+  @Column({ length: 100, default: '' })
   nickname: string; //昵称
 
   /**
@@ -23,10 +23,10 @@ export class User {
   @Column({ select: false })
   password: string; // 密码
 
-  @Column()
+  @Column({ default: '' })
   avatar: string; //头像
 
-  @Column()
+  @Column({ default: '' })
   email: string;
 
   /**
@@ -60,7 +60,7 @@ export class User {
    */
   @BeforeInsert()
   async encryptPwd() {
-    console.log(bcrypt);
+    // console.log(bcrypt);
     const salt = bcrypt.genSaltSync(10);
     const hash = await bcrypt.hashSync(this.password, salt);
     this.password = hash;
