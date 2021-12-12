@@ -32,9 +32,9 @@ export class AuthService {
   }
 
   async getUser(user: User) {
-    const { username, password } = user;
+    const { id, username, role } = user;
     return await this.userRepository.findOne({
-      where: { username, password },
+      where: { id, username, role },
     });
   }
 

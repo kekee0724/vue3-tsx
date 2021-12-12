@@ -24,6 +24,7 @@ export class JwtStorage extends PassportStrategy(Strategy) {
 
   async validate(user: User) {
     const existUser = await this.authService.getUser(user);
+    console.log(user);
     if (!existUser) {
       throw new UnauthorizedException('token不正确');
     }
