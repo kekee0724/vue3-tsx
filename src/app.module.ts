@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import envConfig from '../config/env';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
 
 /**
  * 应用程序的根模块(Module)
@@ -17,6 +19,10 @@ import { AuthModule } from './auth/auth.module';
     TypeOrmModule.forRoot({
       //...
       autoLoadEntities: true,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true, // 设置为全局
+      envFilePath: [envConfig.path],
     }),
     UserModule,
     AuthModule,
