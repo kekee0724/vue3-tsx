@@ -16,8 +16,13 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
+/**
+ * 想让该Controller中所有的请求都不包含password字段，
+ * 那可以直接用ClassSerializerInterceptor标记类
+ */
+@UseInterceptors(ClassSerializerInterceptor)
 @ApiTags('用户管理')
-@Controller('user')
+@Controller('authorization/account')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -27,7 +32,7 @@ export class UserController {
    * @param createUser
    * @returns
    */
-  @UseInterceptors(ClassSerializerInterceptor)
+  // @UseInterceptors(ClassSerializerInterceptor)
   @ApiOperation({ summary: '注册用户' })
   @ApiResponse({ status: 201, type: [User] })
   @Post('register')

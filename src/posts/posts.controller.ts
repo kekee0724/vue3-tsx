@@ -14,7 +14,7 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { PostsRo, PostsService } from './posts.service';
 
 @ApiTags('文章管理')
-@Controller('posts')
+@Controller('article/article')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
