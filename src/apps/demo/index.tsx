@@ -10,9 +10,9 @@ export class Demo extends Component {
     render() {
         return (
             <div>
-                这是父页面的内容！
+                这是Demo页面的内容！
                 <Switch>
-                    <Route path='/father/children' component={About} />
+                    <Route path='/demo/children' component={About} />
                 </Switch>
             </div>
         );
