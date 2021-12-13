@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 import Home from '@levi-a/views/Home.vue'
-import { About } from '@levi-a/views'
+import { About, Home as HomeTsx, Setting as SettingTsx } from '@levi-a/views'
 import Setting from '@levi-a/views/Setting.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -23,17 +23,38 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/setting',
     name: 'Setting',
-    component: Setting
+    component: Setting,
+    children: [
+      {
+        path: 'settingTsx',
+        name: 'SettingTsx',
+        component: SettingTsx
+      }
+    ]
   },
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: 'homeTsx',
+        name: 'HomeTsx',
+        component: HomeTsx
+      }
+    ]
   },
   {
     path: '/about',
     name: 'About',
-    component: About
+    component: About,
+    children: [
+      {
+        path: 'aboutVue',
+        name: 'AboutVue',
+        component: () => import('@levi-a/views/About.vue')
+      }
+    ]
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.

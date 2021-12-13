@@ -8,7 +8,7 @@ export const About = defineComponent({
   setup() {
     return () => (
       <>
-        <h1>About</h1>
+        <h1>About.tsx</h1>
         <img src={Logo} />
         <HelloWord />
       </>

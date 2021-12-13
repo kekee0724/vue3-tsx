@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>This is a setting page views</h1>
+    <h1>This is a setting.vue page views</h1>
     <p>store count is: {{ count }}</p>
     <div class="box red"></div>
     <div class="box green"></div>
