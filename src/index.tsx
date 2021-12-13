@@ -13,8 +13,8 @@ function App() {
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <IRouter />
+    <App />
+    {/* <IRouter /> */}
   </React.StrictMode>,
   document.getElementById('root')
 )

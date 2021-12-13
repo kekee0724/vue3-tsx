@@ -26,11 +26,11 @@ export default class IRouter extends React.Component {
                     <Home>
                         {/* 页面路由,一个 Route 代表一个页面 */}
                         {/* 4.0  版本开始允许加载多个路由，所以建议加上 exact 进行精准匹配*/}
-                        <Route exact={true} path="/" component={Main}/>
-                        <Route exact={true} path="/about" component={About}/>
-                        <Route exact={true} path="/topic" component={Topic}/>
+                        <Route exact={true} path="/" component={Main} />
+                        <Route exact={true} path="/about" component={About} />
+                        <Route exact={true} path="/topic" component={Topic} />
                         {/* 嵌套路由，不能在父级加 exact，因为先要匹配父级然后才能匹配子集 */}
-                        {/* 比如：/nested/a ， 会先匹配父级 /nested 饭后才能匹配 /nested/a */}
+                        {/* 比如：/nested/nestedA ， 会先匹配父级 /nested 饭后才能匹配 /nested/nestedA */}
                         <Route path="/nested" component={() => <Nested />} />
                     </Home>
                 </Router>
@@ -61,28 +61,16 @@ export function Nested(_props: any) {
                     <Link to={`${path}/nestedB`}>Nested B页面</Link>
                 </li>
             </ul>
-            <hr/>
+            <hr />
             {/* {props.children} */}
+            {/* <Nested /> 组件的内部
+            这里的 path 就是 /nested
+            `${path}/nestedA` 就是 /nested/nestedA */}
             <Switch>
-                <Route exact path={path} component={() => <h3>嵌套路由</h3>}/>
-                <Route  path={`${path}/nestedA`} component={NestedA}/>
-                <Route  path={`${path}/nestedB`} component={NestedA}/>
+                <Route exact path={path} component={() => <h3>嵌套路由</h3>} />
+                <Route path={`${path}/nestedA`} component={NestedA} />
+                <Route path={`${path}/nestedB`} component={NestedA} />
             </Switch>
         </>
     )
 }
-
-// 嵌套路由的重点在于，嵌套路由，不能在父级加 exact(精准匹配)，因为先要匹配 父级 然后才能匹配 子集
-// 比如：/nested/a ， 会先匹配父级 /nested 后才能匹配 /nested/a
-
-// <Route path="/nested" component={() => <Nested />} />
-// .......  分隔符 ...........
-
-// // <Nested /> 组件的内部
-// // 这里的 path 就是 /nested
-// // `${path}/a` 就是 /nested/a
-// <Switch>
-//      <Route exact path={path} component={() => <h3>嵌套路由</h3>}/>
-//      <Route  path={`${path}/a`} component={A}/>
-//      <Route  path={`${path}/b`} component={B}/>
-// </Switch>
