@@ -20,7 +20,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('LEVI API说明文档')
     .setDescription(
-      "<a href='http://localhost:8080/swagger/'>http://localhost:8080/swagger/</a>",
+      "<a href='http://localhost:8080/swagger/'>http://localhost:2021/swagger/</a>",
     )
     .setVersion('10.0')
     .addBearerAuth()
