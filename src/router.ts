@@ -23,12 +23,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/setting',
     name: 'Setting',
-    component: Setting,
+    component: SettingTsx,
     children: [
       {
         path: 'settingTsx',
         name: 'SettingTsx',
-        component: SettingTsx
+        component: Setting
       }
     ]
   },

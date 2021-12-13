@@ -12,8 +12,8 @@ export class Setting extends Vue {
   render() {
     return (
       <div class="home">
-        <img alt="Vue logo" src="@/assets/images/logo.png" />
-        <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+        <img alt="Vue logo" src="src/assets/images/logo.png" />
+        {/* <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> */}
         <Hello msg="Hello Vue 3.0 + Vite" />
       </div>
     )
