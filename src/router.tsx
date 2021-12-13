@@ -10,10 +10,10 @@ function RouterConfig() {
   return (
     <Router>
       <Switch>
-        <Route exact key="/" path="/" component={Index} />
-        <Route exact key="/about" path="/about" component={About} />
+        <Route key="/" path="/" component={Index} />
+        <Route key="/about" path="/about" component={About} />
         <Route key="/demo" path="/demo" component={Demo} />
-        <Route exact strict path='/hello' render={(props) => <div>你好</div>}></Route>
+        <Route path='/hello' render={(props) => <div>你好</div>}></Route>
         <Redirect to="/" />
       </Switch>
     </Router>
