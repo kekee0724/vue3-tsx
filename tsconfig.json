@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
-    "types": ["mocha", "chai"],
+    "types": ["vite/client", "mocha", "chai"],
     "paths": {
       "@/*": ["src/*"],
       "@levi-m/core": ["./src/core/index"],
