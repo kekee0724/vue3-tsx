@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
 
-import { NavBar } from "antd-mobile";
+import { NavBar } from 'antd-mobile';
+import PropTypes from 'prop-types';
 
-import { PureComponent } from "@levi-m/core";
+import { PureComponent } from '@levi-m/core';
 
 export namespace Loadings {
     export interface IProps extends PureComponent.IProps {
@@ -13,7 +13,7 @@ export namespace Loadings {
 
     export interface IState extends PureComponent.IState { }
 
-    export class Component<P extends IProps = IProps, S extends IState = IState> extends React.Component<P, S> {
+    export class Component<P extends IProps = IProps, S extends IState = IState> extends PureComponent.Base<P, S> {
         static contextTypes = {
             goBack: PropTypes.func,
         };
