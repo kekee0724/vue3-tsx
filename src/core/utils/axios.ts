@@ -5,7 +5,7 @@ import { stringify } from 'qs'
 import config from '../../config'
 
 const MODE = import.meta.env.MODE // 环境变量
-
+console.log(import.meta)
 const getRequest = (method: any) => {
   return (url: any, data?: any, options = {} as any) => {
     const base = config[MODE] // 获取环境变量相对应的属性值
