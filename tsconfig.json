@@ -13,7 +13,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "types": ["mocha", "chai"],
     "paths": {
       "@/*": ["src/*"],

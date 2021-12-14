@@ -26,9 +26,29 @@ const routes: Array<RouteRecordRaw> = [
     component: SettingTsx,
     children: [
       {
-        path: 'settingTsx',
-        name: 'SettingTsx',
+        path: 'settingVue',
+        name: 'SettingVue',
         component: Setting
+      },
+      {
+        path: 'homeTsx',
+        name: 'homeTsx',
+        component: HomeTsx
+      },
+      {
+        path: 'aboutVue',
+        name: 'aboutVue',
+        component: () => import('@levi-a/views/About.vue')
+      },
+      {
+        path: 'about',
+        name: 'about',
+        component: About
+      },
+      {
+        path: 'form',
+        name: 'form',
+        component: () => import('@levi-a/views/Form.vue')
       }
     ]
   },

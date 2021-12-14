@@ -13,3 +13,8 @@ declare module "*.vue" {
   const component: ReturnType<typeof defineComponent>;
   export default component;
 }
+
+declare interface ImportMeta {
+  env: Record<string, any>;
+  cwd: Function;
+}
