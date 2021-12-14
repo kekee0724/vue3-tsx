@@ -49,7 +49,7 @@ export function resolvePath(...args: string[]) {
     return (resolvedAbsolute ? "/" : "") + resolvedPath || ".";
 }
 
-function filter(xs: any[], f: { (p: any): boolean; (arg0: any, arg1: number, arg2: any[]): any; (value: any, index: number, array: any[]): value is any; }) {
+function filter(xs: any[], f: any) {
     if (xs.filter) return xs.filter(f);
     const res: any = [];
     for (let i = 0; i < xs.length; i++) {
