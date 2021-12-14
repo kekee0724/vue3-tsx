@@ -14,7 +14,7 @@ declare module "*.vue" {
   export default component;
 }
 
-declare interface ImportMeta {
-  env: Record<string, any>;
-  cwd: Function;
-}
+// declare interface ImportMeta {
+//   env: Record<string, any>;
+//   cwd: Function;
+// }
