@@ -1,4 +1,4 @@
-function normalizeArray(parts, allowAboveRoot) {
+function normalizeArray(parts: any[], allowAboveRoot: boolean) {
     // if the path tries to go above the root, `up` ends up > 0
     let up = 0;
     for (let i = parts.length - 1; i >= 0; i--) {
@@ -40,7 +40,7 @@ export function resolvePath(...args: string[]) {
     }
 
     resolvedPath = normalizeArray(
-        filter(resolvedPath.split("/"), function(p) {
+        filter(resolvedPath.split("/"), function(p: any) {
             return !!p;
         }),
         !resolvedAbsolute
@@ -49,7 +49,7 @@ export function resolvePath(...args: string[]) {
     return (resolvedAbsolute ? "/" : "") + resolvedPath || ".";
 }
 
-function filter(xs: any[], f) {
+function filter(xs: any[], f: { (p: any): boolean; (arg0: any, arg1: number, arg2: any[]): any; (value: any, index: number, array: any[]): value is any; }) {
     if (xs.filter) return xs.filter(f);
     const res: any = [];
     for (let i = 0; i < xs.length; i++) {
