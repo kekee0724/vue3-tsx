@@ -5,25 +5,26 @@ export default class Home extends React.Component {
     render() {
         return (
             <div>
+                <h3>嵌套路由</h3>
                 <ul>
                     <li>
                         <Link to="/">Home</Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link to="/about">About</Link>
+                    </li> */}
+                    <li>
+                        <Link to="/kek/demo">Demo</Link>
                     </li>
                     <li>
-                        <Link to="/topic">Topics</Link>
-                    </li>
-                    <li>
-                        <Link to="/nested">Nested</Link>
+                        <Link to="/kek/about">About</Link>
                     </li>
                 </ul>
 
                 <hr />
                 {/* 子页面 */}
                 {/* 所有子组件 */}
-                {this.props.children}
+                {/* {this.props.children} */}
             </div>
         )
     }

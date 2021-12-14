@@ -22,8 +22,8 @@
       "@levi-m/core-ui": ["./src/core-ui/index"],
 
       "@levi-a/about": ["./src/apps/about/index"],
-      "@levi-a/index": ["./src/apps/index/index"],
       "@levi-a/demo": ["./src/apps/demo/index"],
+      "@levi-a/home": ["src/apps/home/index"],
 
     }
   },
