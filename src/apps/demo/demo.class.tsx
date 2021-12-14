@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
 import { Button } from 'antd-mobile';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
-
-import About from '@levi-a/about';
 
 //定义一个接口，目的是为后面的state提供类型，以便通过编译器的检查
 interface test {

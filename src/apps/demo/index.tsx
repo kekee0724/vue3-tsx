@@ -1,18 +1,31 @@
+import { Loading } from 'antd-mobile';
 import React from 'react';
 
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
 import About from './about.function';
 import Demo from './demo.class';
-import Home from './Home';
-
+import Home from './demo.home';
+import { Loadings } from './loading';
 export { About, Demo };
+
+export const routes = ({ match }: any) => (
+    <Switch>
+        <Route exact path={`${match.path}`} component={Home} />
+        <Route path={`${match.path}/demo`} component={Demo} />
+        <Route path={`${match.path}/loading`} component={Loading} />
+        <Route path={`${match.path}/load`} component={Loadings.Component} />
+        <Route path={`${match.path}/about`} component={About} />
+    </Switch>
+);
+
+
 /**
  * 函数组件
  * export const routes
  * @param {*} _props 
  */
-export function routes(_props: any) {
+export function demoRoutes(_props: any) {
     // 获取route的匹配数据
     // path 路径， url 路径, params 参数
     const { path, url, params } = useRouteMatch()

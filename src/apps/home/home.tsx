@@ -3,6 +3,7 @@ import './index.less';
 import React, { useState } from 'react';
 
 import logo from '@/assets/images/logo.svg';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   const [count, setCount] = useState(0)
@@ -16,6 +17,9 @@ export default function Home() {
           <button type="button" onClick={() => setCount((count) => count + 1)}>
             count is: {count}
           </button>
+        </p>
+        <p>
+          <Link to="/kek">Home</Link>
         </p>
         <p>
           Edit <code>index.tsx</code> and save to test HMR updates.
