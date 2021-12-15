@@ -59,11 +59,13 @@ export namespace usersModel {
   };
   export const subscriptions = {
     setup({ dispatch, history }: any) {
-      return history.listen(({ pathname, query }: any) => {
-        if (pathname === "/users") {
-          dispatch({ type: "fetch", payload: query });
+      return history.listen(
+        ({ pathname, query }: { pathname: string; query: string }) => {
+          if (pathname === "/") {
+            dispatch({ type: "fetch", payload: { query: query || "" } });
+          }
         }
-      });
+      );
     },
   };
 }
