@@ -3,6 +3,8 @@ import '@/assets/css/index.less';
 
 import dva from 'dva';
 
+import { usersModel } from '@levi-a/user-models';
+
 // import ReactDOM from 'react-dom';
 import routes from './router';
 
@@ -18,6 +20,7 @@ app.model({
     minus(state) { return { sum: state.sum - 1 } },
   },
 });
+app.model(usersModel);
 
 // 3. View
 

@@ -18,6 +18,7 @@ function RouterConfig() {
                 {/* 4.0  版本开始允许加载多个路由，所以建议加上 exact 进行精准匹配*/}
                 <Route key="/apps" path="/apps" component={Apps} />
                 <Route key="/home" path="/home" component={loadLazyModule(() => import("@levi-a/home"))} />
+                <Route key="/users" path="/users" component={loadLazyModule(() => import("@levi-a/user"))} />
                 {/* <Route exact key="/about" path="/about" component={About} /> */}
                 {/* 嵌套路由，不能在父级加 exact，因为先要匹配父级然后才能匹配子集 */}
                 {/* 比如：/hello/helloA ， 会先匹配父级 /hello 后才能匹配 /hello/helloA */}

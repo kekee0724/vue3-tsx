@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import config from './src/config'
 import path from 'path'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 const pathResolve = (pathStr: string) => {
   return path.resolve(__dirname, pathStr)
@@ -22,6 +23,11 @@ export default defineConfig({
         target: 'http://47.99.134.126:28019/api/v1',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '') // 将 /api 重写为空
+      },
+      "/code": {
+        target: "http://jsonplaceholder.typicode.com/",
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/code/, '') // 将 /code 重写为空
       }
     },
   },
@@ -31,8 +37,11 @@ export default defineConfig({
       '@': pathResolve('src'), // src 路径
       '@levi-m/core': pathResolve('src/core'), // core 路径
       '@levi-m/core-ui': pathResolve('src/core-ui'), // core-ui 路径
+      "@levi-a/user": pathResolve('src/apps/user/user'),
+      "@levi-a/user-service": pathResolve('src/apps/user/service'),
+      "@levi-a/user-models": pathResolve('src/apps/user/models'),
       '@levi-a': pathResolve('src/apps') // apps 路径
     }
   },
-  plugins: [react()]
+  plugins: [react(), tsconfigPaths()]
 })

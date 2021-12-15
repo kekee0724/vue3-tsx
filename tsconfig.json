@@ -17,13 +17,16 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": [ "src/*" ],
       "@levi-m/core": ["./src/core/index"],
       "@levi-m/core-ui": ["./src/core-ui/index"],
 
       "@levi-a/about": ["./src/apps/about/index"],
       "@levi-a/demo": ["./src/apps/demo/index"],
       "@levi-a/home": ["src/apps/home/index"],
+      
+      "@levi-a/user": ["src/apps/user/user/index"],
+      "@levi-a/user-service": ["src/apps/user/service/index"],
+      "@levi-a/user-models": ["src/apps/user/models/index"],
 
     }
   },
