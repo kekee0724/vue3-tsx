@@ -7,6 +7,7 @@ import {
 
 // import { demoRoutes } from '@levi-a/demo';
 import { loadLazyModule } from '@levi-m/core-ui';
+import { Apps } from '@levi-a/demo';
 
 function RouterConfig() {
     return (
@@ -15,6 +16,7 @@ function RouterConfig() {
             <Switch>
                 {/* 页面路由,一个 Route 代表一个页面 */}
                 {/* 4.0  版本开始允许加载多个路由，所以建议加上 exact 进行精准匹配*/}
+                <Route key="/apps" path="/apps" component={Apps} />
                 <Route key="/home" path="/home" component={loadLazyModule(() => import("@levi-a/home"))} />
                 {/* <Route exact key="/about" path="/about" component={About} /> */}
                 {/* 嵌套路由，不能在父级加 exact，因为先要匹配父级然后才能匹配子集 */}

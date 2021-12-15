@@ -1,18 +1,39 @@
 import './levi.config';
 import '@/assets/css/index.less';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import dva from 'dva';
 
+// import ReactDOM from 'react-dom';
 import routes from './router';
 
-function App() {
-  return routes()
-}
+// 1. Initialize
+const app = dva();
 
-ReactDOM.render(
-  // <React.StrictMode>
-  <App />,
-  // </React.StrictMode>,
-  document.getElementById('root')
-)
+// 2. Model
+app.model({
+  namespace: 'countNamespace',
+  state: { sum: 0 },
+  reducers: {
+    add(state: { sum: number; }) { return { sum: state.sum + 1 } },
+    minus(state) { return { sum: state.sum - 1 } },
+  },
+});
+
+// 3. View
+
+// 4. Router
+app.router(routes);
+
+// 5. Start
+app.start('#root');
+
+// function App() {
+//   return routes()
+// }
+
+// ReactDOM.render(
+//   // <React.StrictMode>
+//   <App />,
+//   // </React.StrictMode>,
+//   document.getElementById('root')
+// )

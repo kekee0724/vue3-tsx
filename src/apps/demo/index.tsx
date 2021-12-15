@@ -1,13 +1,15 @@
-import { Loading } from 'antd-mobile';
 import React from 'react';
 
+import { Loading } from 'antd-mobile';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
 import About from './about.function';
+import { Apps } from './count';
 import Demo from './demo.class';
 import Home from './demo.home';
 import { Loadings } from './loading';
-export { About, Demo };
+
+export { About, Apps, Demo };
 
 export const routes = ({ match }: any) => (
     <Switch>
