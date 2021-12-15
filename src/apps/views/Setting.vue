@@ -5,6 +5,7 @@
     <div class="box red"></div>
     <div class="box green"></div>
     <div class="box red"></div>
+    <!-- emmet语法 -->
   </div>
 </template>
 

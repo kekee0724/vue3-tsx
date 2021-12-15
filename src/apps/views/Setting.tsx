@@ -1,7 +1,7 @@
 import { Options, Vue } from 'vue-class-component'
 import HelloWorld from '@levi-m/core-ui/components/HelloWorld.vue' // @ is an alias to /src
 import Hello from '@levi-m/core-ui/components/Hello.vue'
-import { get } from 'core';
+import { get } from '@levi-m/core';
 
 const VueImpl = [
   'data', 'beforeCreate', 'created', 'beforeMount',

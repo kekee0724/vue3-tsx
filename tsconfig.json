@@ -13,7 +13,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "types": ["vite/client", "mocha", "chai"],
     "paths": {
       "@/*": ["src/*"],
