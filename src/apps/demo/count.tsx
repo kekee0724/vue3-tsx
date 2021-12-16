@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState as useStates } from 'react';
 
 import { connect } from 'dva';
+import { render } from 'react-dom';
 
 function mapStateToProps(state: { counter: { sum: number; dispatch: Function }; }) {
     const { sum, dispatch } = state.counter;
@@ -23,6 +24,15 @@ export const App = connect(mapStateToProps)(({ sum, dispatch }: { sum: number; d
         </div>
     );
 })
+
+function useState<T>(initialValue: any) {
+    let state = initialValue
+    function dispatch(newState: T) {
+        state = newState
+        render(<Apps />, document.getElementById('root'))
+    }
+    return [state, dispatch]
+}
 
 export const Apps: React.FC = () => {
     const [count, setCount] = useState<number>(0)
