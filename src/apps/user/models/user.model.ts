@@ -61,6 +61,7 @@ export namespace usersModel {
     setup({ dispatch, history }: any) {
       return history.listen(
         ({ pathname, query }: { pathname: string; query: string }) => {
+          console.log(pathname, query);
           if (pathname === "/") {
             dispatch({ type: "fetch", payload: { query: query || "" } });
           }
