@@ -5,7 +5,7 @@
 //   effects: {},
 //   subscriptions: {},
 // };
-import { fetch } from "@levi-a/user-service";
+import {usersService} from "@levi-a/user-service";
 // import { app } from "src";
 
 // export namespace usersModel {
@@ -44,17 +44,39 @@ export namespace usersModel {
     total: null,
   };
   export const reducers = {
-    save(state: any, { payload: { data: list, total } }: any) {
-      return { ...state, list, total };
+    save(state: any, { payload: { data: list, total, page } }: any) {
+      return { ...state, list, total, page };
     },
   };
   export const effects = {
-    *fetch({ payload: { page } }: any, { call, put }: any) {
-      const { data, headers } = yield call(fetch, { page });
+    *fetch({ payload: { page = 1 } }: any, { call, put }: any) {
+      const { data, headers } = yield call(usersService.fetch, { page });
       yield put({
         type: "save",
-        payload: { data, total: headers["x-total-count"] },
+        payload: {
+          data,
+          total: parseInt(headers["x-total-count"], 10),
+          page: parseInt(page, 10),
+        },
       });
+    },
+    *remove({ payload: id }: any, { call, put }: any) {
+      yield call(usersService.remove, id);
+      yield put({ type: "reload" });
+    },
+    *patch({ payload: { id, values } }: any, { call, put }: any) {
+      yield call(usersService.patch, id, values);
+      yield put({ type: "reload" });
+    },
+    *create({ payload: values }: any, { call, put }: any) {
+      yield call(usersService.create, values);
+      yield put({ type: "reload" });
+    },
+    *reload(action: any, { put, select }: any): any {
+      const page = yield select(
+        (state: { users: { page: any } }) => state.users.page
+      );
+      yield put({ type: "fetch", payload: { page } });
     },
   };
   export const subscriptions = {
@@ -62,9 +84,9 @@ export namespace usersModel {
       return history.listen(
         ({ pathname, query }: { pathname: string; query: string }) => {
           console.log(pathname, query);
-          if (pathname === "/") {
-            dispatch({ type: "fetch", payload: { query: query || "" } });
-          }
+          // if (pathname === "/") {
+          //   dispatch({ type: "fetch", payload: { query: query || "" } });
+          // }
         }
       );
     },

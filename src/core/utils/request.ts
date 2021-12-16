@@ -38,3 +38,5 @@ export async function request(
 
   return ret;
 }
+
+export const PAGE_SIZE = 3;

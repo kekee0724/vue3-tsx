@@ -7,11 +7,40 @@ import React, {
 
 import { Dialog, Image, List, SwipeAction, Badge } from 'antd-mobile';
 import { Action } from 'antd-mobile/es/components/swipe-action';
-import { connect } from 'dva';
+import { connect, routerRedux } from 'dva';
 
-export const Users = connect(mapStateToProps)(({ list: dataSource, total, page: current }: any) => {
+export const Users = connect(mapStateToProps)(({ dispatch, list: dataSource, loading, total, page: current }: any) => {
   // const { counter: state } = props;
-  console.log(dataSource, total, current)
+  dispatch({ type: "users/fetch", payload: { query: current } });
+  console.log(dataSource, total, current);
+  function deleteHandler(id: any) {
+    dispatch({
+      type: 'users/remove',
+      payload: id,
+    });
+  }
+
+  function pageChangeHandler(page: any) {
+    dispatch(routerRedux.push({
+      pathname: '/users',
+      query: { page },
+    } as any));
+  }
+
+  function editHandler(id: any, values: any) {
+    dispatch({
+      type: 'users/patch',
+      payload: { id, values },
+    });
+  }
+
+  function createHandler(values: any) {
+    dispatch({
+      type: 'users/create',
+      payload: values,
+    });
+  }
+
   const leftActions: (item: any) => Action[] = (item: any) => {
     return [
       {
@@ -97,12 +126,10 @@ export const Users = connect(mapStateToProps)(({ list: dataSource, total, page: 
   );
 })
 
-function mapStateToProps(state: { users: { list: any; total: any; page: any; }; }) {
-  const { list, total, page } = state.users;
+function mapStateToProps(state: { users: { dispatch: any, list: any, loading: any, total: any, page: any; }; }) {
+  const { dispatch, list, loading, total, page } = state.users;
   return {
-    list,
-    total,
-    page,
+    dispatch, list, loading, total, page
   };
 }
 
