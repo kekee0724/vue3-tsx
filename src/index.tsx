@@ -13,7 +13,7 @@ const app = dva();
 
 // 2. Model
 app.model({
-  namespace: 'countNamespace',
+  namespace: 'counter',
   state: { sum: 0 },
   reducers: {
     add(state: { sum: number; }) { return { sum: state.sum + 1 } },

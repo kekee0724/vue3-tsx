@@ -10,7 +10,7 @@ import { Action } from 'antd-mobile/es/components/swipe-action';
 import { connect } from 'dva';
 
 export const Users = connect(mapStateToProps)(({ list: dataSource, total, page: current }: any) => {
-  // const { countNamespace: state } = props;
+  // const { counter: state } = props;
   console.log(dataSource, total, current)
   const leftActions: (item: any) => Action[] = (item: any) => {
     return [
