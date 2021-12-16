@@ -25,13 +25,14 @@ export const App = connect(mapStateToProps)(({ sum, dispatch }: { sum: number; d
     );
 })
 
+let _state: any
 function useState<T>(initialValue: any) {
-    let state = initialValue
+    _state = _state || initialValue
     function dispatch(newState: T) {
-        state = newState
+        _state = newState
         render(<Apps />, document.getElementById('root'))
     }
-    return [state, dispatch]
+    return [_state, dispatch]
 }
 
 export const Apps: React.FC = () => {
