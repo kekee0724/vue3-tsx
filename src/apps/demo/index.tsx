@@ -8,6 +8,8 @@ import { Apps } from './count';
 import Demo from './demo.class';
 import Home from './demo.home';
 import { Loadings } from './loading';
+import ProfilePageClass from './profile.page.class';
+import ProfilePageFunc from './profile.page.func';
 
 export { About, Apps, Demo };
 
@@ -18,6 +20,13 @@ export const routes = ({ match }: any) => (
         <Route path={`${match.path}/loading`} component={Loading} />
         <Route path={`${match.path}/load`} component={Loadings.Component} />
         <Route path={`${match.path}/about`} component={About} />
+        <Route
+            path={`${match.path}/class`}
+            render={() => (
+                <ProfilePageClass user='可 class' />
+            )}
+        />
+        <Route path={`${match.path}/func`} component={() => ProfilePageFunc({ user: '可 func ' })} />
     </Switch>
 );
 

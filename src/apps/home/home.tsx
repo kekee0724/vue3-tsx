@@ -22,6 +22,9 @@ export default function Home() {
           <Link to="/kek">Home</Link>
         </p>
         <p>
+          <Link to="/users">Users</Link>
+        </p>
+        <p>
           Edit <code>index.tsx</code> and save to test HMR updates.
         </p>
         <p>

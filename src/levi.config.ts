@@ -3,7 +3,7 @@ declare var window: Window & {
   server: Levi.Config.Server;
 };
 export const client: Levi.Config.Client = (window["client"] = {
-  title: "园企互动",
+  title: "可可Levi",
   Assets: {
     Js: [],
     Css: [],

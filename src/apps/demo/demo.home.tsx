@@ -25,6 +25,12 @@ export default class Home extends React.Component {
                     <li>
                         <Link to="/kek/about">About</Link>
                     </li>
+                    <li>
+                        <Link to="/kek/func">Func</Link>
+                    </li>
+                    <li>
+                        <Link to="/kek/class">Class</Link>
+                    </li>
                 </ul>
 
                 <hr />
