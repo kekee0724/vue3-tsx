@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 
 import { connect } from 'dva';
 
@@ -24,7 +24,57 @@ export const App = connect(mapStateToProps)(({ sum, dispatch }: { sum: number; d
     );
 })
 
-export const Apps: React.FC = () => {
+const myReducer = (state: any, action: any) => {
+    switch (action.type) {
+        case ('countUp'):
+            return {
+                ...state,
+                count: state.count + 1
+            }
+        default:
+            return state
+    }
+}
+
+export function Apps() {
+    // componentDidMount触发
+    useEffect(() => {
+        console.log("生命周期 componentDidMount触发")
+    }, []);
+    //componentDidUnmount触发
+    useEffect(() => {
+        return () => {
+            console.log("生命周期 componentDidUnmount触发")
+        }
+    }, []);
+    // componentUpdate触发
+    const mounted = useRef<Boolean>();
+    useEffect(() => {
+        if (!mounted.current) {
+            // componentDidMount
+            console.log("生命周期 componentDidMount触发")
+            mounted.current = true
+        } else {
+            //componnentDidUpdate
+            console.log("生命周期 componnentDidUpdate触发")
+        }
+    });
+    const [state, dispatch] = useReducer(myReducer, { count: 0 })
+    const [count, setCount] = useState(99);
+    const [name, setName] = useState("祝阳");
+    return (
+        <div className="App">
+            <p>姓名:{name}   年纪:{count}</p>
+            <button onClick={() => setCount(count + 1)}>click 年纪+1</button>
+            <button onClick={() => dispatch({ type: 'countUp' })}>
+                click Count+1
+            </button>
+            <p>Count: {state.count}</p>
+        </div>
+    );
+}
+
+export const AppsC: React.FC = () => {
     const [count, setCount] = useState<number>(0)
     const [name, setName] = useState<string>('airing')
     const [age, setAge] = useState<number>(18)
