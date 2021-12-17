@@ -8,8 +8,11 @@ import { usersModel } from '@levi-a/user-models';
 // import ReactDOM from 'react-dom';
 import routes from './router';
 
+// import { createBrowserHistory as createHistory } from 'history'
+
 // 1. Initialize
 const app = dva();
+// const app = dva({ history: createHistory() });
 
 // 2. Model
 app.model({

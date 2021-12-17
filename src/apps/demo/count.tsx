@@ -25,21 +25,25 @@ export const App = connect(mapStateToProps)(({ sum, dispatch }: { sum: number; d
     );
 })
 
-let _state: any
-function useState<T>(initialValue: any) {
-    _state = _state || initialValue
-    function dispatch(newState: T) {
-        _state = newState
+let memoizedState: T[] = [] // hooks 的值存放在这个数组里
+let cursor = 0 // 当前 memoizedState 的索引
+
+function useState<T>(initialValue: (() => T) | T) {
+    memoizedState[cursor] = memoizedState[cursor] || initialValue
+    const currentCursor = cursor
+    function setState(newState: T) {
+        memoizedState[currentCursor] = newState
+        cursor = 0
         render(<Apps />, document.getElementById('root'))
     }
-    return [_state, dispatch]
+    return [memoizedState[cursor++], setState] // 返回当前 state，并把 cursor 加 1
 }
 
 export const Apps: React.FC = () => {
     const [count, setCount] = useState<number>(0)
     const [name, setName] = useState<string>('airing')
     const [age, setAge] = useState<number>(18)
-
+    console.log(memoizedState)
     return (
         <>
             <p>{name} clicked {count} times</p>
