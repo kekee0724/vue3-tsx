@@ -5,7 +5,7 @@
 //   effects: {},
 //   subscriptions: {},
 // };
-import {usersService} from "@levi-a/user-service";
+import { usersService } from "@levi-a/user-service";
 // import { app } from "src";
 
 // export namespace usersModel {
@@ -36,19 +36,26 @@ import {usersService} from "@levi-a/user-service";
 //   effects: {},
 //   subscriptions: {},
 // };
+import { CoreEffects, CoreReducers, CoreState } from "@levi-m/core";
 
 export namespace usersModel {
   export const namespace = "users";
   export const state = {
+    ...CoreState,
     list: [],
     total: null,
   };
   export const reducers = {
+    ...CoreReducers,
+    init() {
+      return state;
+    },
     save(state: any, { payload: { data: list, total, page } }: any) {
       return { ...state, list, total, page };
     },
   };
   export const effects = {
+    ...CoreEffects,
     *fetch({ payload: { page = 1 } }: any, { call, put }: any) {
       const { data, headers } = yield call(usersService.fetch, { page });
       yield put({

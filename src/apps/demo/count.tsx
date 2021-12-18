@@ -57,7 +57,7 @@ export const myReducer = (state: any, action: any) => {
 }
 
 
-export function AppsA() {
+export function Apps() {
     // componentDidMount触发
     useEffect(() => {
         console.log("生命周期 componentDidMount触发")
@@ -95,7 +95,7 @@ export function AppsA() {
     );
 }
 
-export const AppsC: React.FC = () => {
+export const AppsA: React.FC = () => {
     const [count, setCount] = useState<number>(0)
     const [name, setName] = useState<string>('airing')
     const [age, setAge] = useState<number>(18)
