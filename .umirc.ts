@@ -4,7 +4,6 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  vite: {},
   dva: {
     immer: true,
     hmr: false,
@@ -12,5 +11,14 @@ export default defineConfig({
   // routes: [
   //   { path: '/', component: '@/pages/index' },
   // ],
+  dynamicImport: {
+    // loading: '@/components/Loading',
+    loading: '@ant-design/pro-layout/es/PageLoading',
+  },
+  mfsu: {},
+  antd: {
+    dark: true, // 开启暗色主题
+    compact: true, // 开启紧凑主题
+  },
   fastRefresh: {},
 });
