@@ -8,7 +8,7 @@ interface UsersProps {
 }
 
 const Users: FunctionComponent<UsersProps> = ({ state }) => {
-  const { data: users } = state;
+  const { list: users } = state;
   console.log(state);
   const columns = [
     {

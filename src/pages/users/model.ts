@@ -1,7 +1,7 @@
 import { Effect, ImmerReducer, Reducer, Subscription } from 'umi';
 
 export interface UserModelState {
-  data: Array<any>;
+  list: Array<any>;
 }
 
 export interface UserModelType {
@@ -9,11 +9,12 @@ export interface UserModelType {
   state: UserModelState;
   // 异步
   effects: {
-    query: Effect;
+    getRemote: Effect;
   };
   // 同步
   reducers: {
     getList: Reducer<UserModelState>;
+    input: Reducer;
     // 启用 immer 之后
     // getList: ImmerReducer<UserModelState>;
   };
@@ -25,14 +26,11 @@ const UserModel: UserModelType = {
   namespace: 'users',
 
   state: {
-    data: [],
+    list: [],
   },
 
   effects: {
-    *query({ payload }, { call, put }) {},
-  },
-  reducers: {
-    getList(state, action) {
+    *getRemote({ payload }, { call, put }) {
       const data = [
         {
           key: '1',
@@ -56,15 +54,26 @@ const UserModel: UserModelType = {
           tags: ['cool', 'teacher'],
         },
       ];
+      yield put({ type: 'input', data: { list: data } });
+    },
+  },
+  reducers: {
+    input(state, { data }) {
+      return {
+        ...state,
+        ...data,
+      };
+    },
+    getList(state, action) {
       // return data;
       return {
         ...state,
-        data,
+        ...action.data,
       };
     },
     // 启用 immer 之后
-    // save(state, action) {
-    //   state.name = action.payload;
+    // save(state, { data }) {
+    //   state = { ...state, ...data };
     // },
   },
   subscriptions: {
@@ -72,7 +81,7 @@ const UserModel: UserModelType = {
       return history.listen(({ pathname }) => {
         if (pathname === '/users') {
           dispatch({
-            type: 'getList',
+            type: 'getRemote',
           });
         }
       });
