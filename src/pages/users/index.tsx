@@ -2,12 +2,14 @@ import { FunctionComponent } from 'react';
 
 import { Space, Table, Tag } from 'antd';
 
+import { connect } from 'umi';
 interface UsersProps {
-
+  state: any;
 }
 
-const Users: FunctionComponent<UsersProps> = () => {
-
+const Users: FunctionComponent<UsersProps> = ({ state }) => {
+  const { data: users } = state;
+  console.log(state);
   const columns = [
     {
       title: 'Name',
@@ -48,7 +50,7 @@ const Users: FunctionComponent<UsersProps> = () => {
     {
       title: 'Action',
       key: 'action',
-      render: (text: any, record: { name: string; }) => (
+      render: (text: any, record: { name: string }) => (
         <Space size="middle">
           <a>Invite {record.name}</a>
           <a>Delete</a>
@@ -57,35 +59,20 @@ const Users: FunctionComponent<UsersProps> = () => {
     },
   ];
 
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
-
   return (
-    <div className='list-table'>
-      <Table columns={columns} dataSource={data} />
+    <div className="list-table">
+      <Table columns={columns} dataSource={users} />
     </div>
   );
-}
+};
 
-export default Users;
+// const mapStateToProps = ({ users: state }: any) => {
+//   return {
+//     state
+//   }
+// }
+
+// 简写
+const mapStateToProps = ({ users: state }: any) => ({ state });
+
+export default connect(mapStateToProps)(Users);

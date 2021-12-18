@@ -1,38 +1,65 @@
-// import { Effect, ImmerReducer, Reducer, Subscription } from 'umi';
+import { Effect, ImmerReducer, Reducer, Subscription } from 'umi';
 
-// export interface IndexModelState {
-//   name: string;
-// }
-
-export interface IndexModelType {
-  // namespace: 'index';
-  // state: IndexModelState;
-  // effects: {
-  //   query: Effect;
-  // };
-  // reducers: {
-  //   save: Reducer<IndexModelState>;
-  //   // 启用 immer 之后
-  //   // save: ImmerReducer<IndexModelState>;
-  // };
-  // subscriptions: { setup: Subscription };
+export interface UserModelState {
+  data: Array<any>;
 }
 
-const IndexModel: IndexModelType = {
-  namespace: 'index',
+export interface UserModelType {
+  namespace: 'users';
+  state: UserModelState;
+  // 异步
+  effects: {
+    query: Effect;
+  };
+  // 同步
+  reducers: {
+    getList: Reducer<UserModelState>;
+    // 启用 immer 之后
+    // getList: ImmerReducer<UserModelState>;
+  };
+  // 订阅
+  subscriptions: { setup: Subscription };
+}
+
+const UserModel: UserModelType = {
+  namespace: 'users',
 
   state: {
-    name: '',
+    data: [],
   },
 
   effects: {
     *query({ payload }, { call, put }) {},
   },
   reducers: {
-    save(state, action) {
+    getList(state, action) {
+      const data = [
+        {
+          key: '1',
+          name: 'John Brown',
+          age: 32,
+          address: 'New York No. 1 Lake Park',
+          tags: ['nice', 'developer'],
+        },
+        {
+          key: '2',
+          name: 'Jim Green',
+          age: 42,
+          address: 'London No. 1 Lake Park',
+          tags: ['loser'],
+        },
+        {
+          key: '3',
+          name: 'Joe Black',
+          age: 32,
+          address: 'Sidney No. 1 Lake Park',
+          tags: ['cool', 'teacher'],
+        },
+      ];
+      // return data;
       return {
         ...state,
-        ...action.payload,
+        data,
       };
     },
     // 启用 immer 之后
@@ -43,9 +70,9 @@ const IndexModel: IndexModelType = {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname }) => {
-        if (pathname === '/') {
+        if (pathname === '/users') {
           dispatch({
-            type: 'query',
+            type: 'getList',
           });
         }
       });
@@ -53,4 +80,4 @@ const IndexModel: IndexModelType = {
   },
 };
 
-export default IndexModel;
+export default UserModel;
