@@ -1,9 +1,22 @@
 import { Effect, Reducer, Subscription } from 'umi';
 
-import { getRemoteList } from './service';
+import { addRecord, deleteRecord, editRecord, getRecord } from './service';
 
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  create_time: string;
+}
 export interface UserModelState {
-  list: Array<any>;
+  result: {
+    data: Array<User>;
+    meta: {
+      page: number;
+      per_page: number;
+      total: number;
+    };
+  };
 }
 
 export interface UserModelType {
@@ -11,7 +24,10 @@ export interface UserModelType {
   state: UserModelState;
   // 异步
   effects: {
-    getRemote: Effect;
+    getRecord: Effect;
+    editRecord: Effect;
+    deleteRecord: Effect;
+    addRecord: Effect;
   };
   // 同步
   reducers: {
@@ -28,17 +44,25 @@ const UserModel: UserModelType = {
   namespace: 'users',
 
   state: {
-    list: [],
+    result: {},
   },
 
   effects: {
-    *getRemote({ payload }, { call, put }) {
-      const res = yield call(getRemoteList);
-      const list = (res?.data || []).map((item: { key: any }, i: any) => {
-        item.key = i;
-        return item;
-      });
-      yield put({ type: 'input', data: { list } });
+    *getRecord({ data }, { call, put }) {
+      const result = yield call(getRecord, data);
+      if (result) yield put({ type: 'input', data: { result } });
+    },
+    *editRecord({ data }, { call, put }) {
+      const res = yield call(editRecord, data);
+      // yield put({ type: 'input', data: { list } });
+    },
+    *deleteRecord({ data }, { call, put }) {
+      const res = yield call(deleteRecord, data);
+      // yield put({ type: 'input', data: { list } });
+    },
+    *addRecord({ data }, { call, put }) {
+      const res = yield call(addRecord, data);
+      // yield put({ type: 'input', data: { list } });
     },
   },
   reducers: {
@@ -65,7 +89,8 @@ const UserModel: UserModelType = {
       return history.listen(({ pathname }) => {
         if (pathname === '/users') {
           dispatch({
-            type: 'getRemote',
+            type: 'getRecord',
+            data: { page: 1, per_page: 5 },
           });
         }
       });

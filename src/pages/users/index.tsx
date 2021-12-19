@@ -1,28 +1,80 @@
-import { FunctionComponent, SetStateAction, useState } from 'react';
+import { FunctionComponent, SetStateAction, useEffect, useState } from 'react';
 
 import { Space, Table, Tag } from 'antd';
 
-import { connect } from 'umi';
+import { connect, Dispatch, Loading, User, UserModelState } from 'umi';
 import { UserModal } from './components/user.modal';
 interface UsersProps {
-  state: any;
+  state: UserModelState;
+  dispatch: Dispatch;
+  loading: boolean;
 }
 
-const Users: FunctionComponent<UsersProps> = ({ state }) => {
-  const { list: users } = state;
+const Users: FunctionComponent<UsersProps> = ({ state, dispatch, loading }) => {
+  // useEffect(() => {
+  //   getRecord(1, 5)
+  // }, [])
+
+  const {
+    result: {
+      data: users,
+      meta: { page: pageIndex, per_page: pageSize, total },
+    },
+  } = state;
   console.log(state);
   const [modalVisible, setModalVisible] = useState(false);
-  const [record, setRecord] = useState(undefined);
+  const [record, setRecord] = useState<Partial<User>>({});
 
   const showModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
-  const edit = (record: any) => {
-    setModalVisible(true);
+
+  const getRecord = (pageIndex: number, pageSize: number) =>
+    dispatch({
+      type: 'users/getRecord',
+      data: { page: pageIndex, per_page: pageSize },
+    });
+
+  const edit = (record: User) => {
+    showModal();
     setRecord(record);
+  };
+
+  const onFinish = (values: User) => {
+    const { id } = record;
+    if (id) {
+      dispatch({
+        type: 'users/editRecord',
+        data: {
+          id,
+          values,
+        },
+      });
+    } else {
+      dispatch({
+        type: 'users/addRecord',
+        data: {
+          values,
+        },
+      });
+    }
+    getRecord(pageIndex, pageSize);
+    closeModal();
+  };
+  const confirm = (values: any) => {
+    const { id } = record;
+    dispatch({
+      type: 'users/getRecord',
+      params: values,
+    });
   };
   const columns = [
     {
-      title: '名字',
+      title: 'Id',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: '用户名',
       dataIndex: 'name',
       key: 'name',
       render: (text: string) => <a>{text}</a>,
@@ -33,9 +85,9 @@ const Users: FunctionComponent<UsersProps> = ({ state }) => {
       key: 'email',
     },
     {
-      title: '更新时间',
-      dataIndex: 'update_time',
-      key: 'update_time',
+      title: '创建时间',
+      dataIndex: 'create_time',
+      key: 'create_time',
     },
     {
       title: '操作',
@@ -51,12 +103,26 @@ const Users: FunctionComponent<UsersProps> = ({ state }) => {
 
   return (
     <div className="list-table">
-      <Table columns={columns} dataSource={users} />
+      <Table
+        columns={columns}
+        dataSource={users}
+        loading={loading}
+        rowKey="id"
+        pagination={{
+          current: pageIndex,
+          total,
+          pageSize,
+          onChange: (pageIndex, pageSize) => {
+            getRecord(pageIndex, pageSize);
+          },
+        }}
+      />
       <UserModal
         visible={modalVisible}
-        onOk={closeModal}
+        // onOk={closeModal}
         onCancel={closeModal}
         record={record}
+        onFinish={onFinish}
       ></UserModal>
     </div>
   );
@@ -69,6 +135,12 @@ const Users: FunctionComponent<UsersProps> = ({ state }) => {
 // }
 
 // 简写
-const mapStateToProps = ({ users: state }: any) => ({ state });
+const mapStateToProps = ({
+  users: state,
+  loading,
+}: {
+  users: UserModelState;
+  loading: Loading;
+}) => ({ state, loading: loading.models.users });
 
 export default connect(mapStateToProps)(Users);
