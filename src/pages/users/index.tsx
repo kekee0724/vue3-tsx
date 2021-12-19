@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, SetStateAction, useState } from 'react';
 
 import { Space, Table, Tag } from 'antd';
 
@@ -12,10 +12,14 @@ const Users: FunctionComponent<UsersProps> = ({ state }) => {
   const { list: users } = state;
   console.log(state);
   const [modalVisible, setModalVisible] = useState(false);
+  const [record, setRecord] = useState(undefined);
 
   const showModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
-
+  const edit = (record: any) => {
+    setModalVisible(true);
+    setRecord(record);
+  };
   const columns = [
     {
       title: '名字',
@@ -38,7 +42,7 @@ const Users: FunctionComponent<UsersProps> = ({ state }) => {
       key: 'action',
       render: (text: any, record: { name: string }) => (
         <Space size="middle">
-          <a onClick={showModal}>编辑 {record.name}</a>
+          <a onClick={() => edit(record)}>编辑 {record.name}</a>
           <a onClick={showModal}>删除</a>
         </Space>
       ),
@@ -52,6 +56,7 @@ const Users: FunctionComponent<UsersProps> = ({ state }) => {
         visible={modalVisible}
         onOk={closeModal}
         onCancel={closeModal}
+        record={record}
       ></UserModal>
     </div>
   );

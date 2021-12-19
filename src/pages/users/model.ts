@@ -1,4 +1,5 @@
-import { Effect, ImmerReducer, Reducer, Subscription } from 'umi';
+import { Effect, Reducer, Subscription } from 'umi';
+
 import { getRemoteList } from './service';
 
 export interface UserModelState {
@@ -33,7 +34,11 @@ const UserModel: UserModelType = {
   effects: {
     *getRemote({ payload }, { call, put }) {
       const res = yield call(getRemoteList);
-      yield put({ type: 'input', data: { list: res?.data } });
+      const list = (res?.data || []).map((item: { key: any }, i: any) => {
+        item.key = i;
+        return item;
+      });
+      yield put({ type: 'input', data: { list } });
     },
   },
   reducers: {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'antd';
+import { Form, Input, Modal, Button } from 'antd';
 
-export const UserModal = ({ visible, onOk, onCancel }: any) => {
+export const UserModal = ({ visible, record, onOk, onCancel }: any) => {
   return (
     <div>
       <Modal
@@ -10,6 +10,7 @@ export const UserModal = ({ visible, onOk, onCancel }: any) => {
         onOk={onOk}
         onCancel={onCancel}
       >
+        {JSON.stringify(record)}
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>
