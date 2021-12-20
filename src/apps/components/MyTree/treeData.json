@@ -1,0 +1,120 @@
+[
+  {
+    "parentId": null,
+    "title": "系统",
+    "key": 1,
+    "children": [
+      {
+        "parentId": 1,
+        "title": "任务调度",
+        "key": 57,
+        "children": [
+          {
+            "parentId": 57,
+            "title": "任务日志",
+            "key": 66,
+            "children": [{ "parentId": 66, "title": "查询", "key": 67, "children": [] }]
+          },
+          {
+            "parentId": 57,
+            "title": "定时任务",
+            "key": 58,
+            "children": [
+              { "parentId": 58, "title": "暂停", "key": 64, "children": [] },
+              { "parentId": 58, "title": "删除", "key": 65, "children": [] },
+              { "parentId": 58, "title": "新增", "key": 60, "children": [] },
+              { "parentId": 58, "title": "查询", "key": 59, "children": [] },
+              { "parentId": 58, "title": "执行一次", "key": 62, "children": [] },
+              { "parentId": 58, "title": "更新", "key": 61, "children": [] },
+              { "parentId": 58, "title": "运行", "key": 63, "children": [] }
+            ]
+          }
+        ]
+      },
+      {
+        "parentId": 1,
+        "title": "系统监控",
+        "key": 37,
+        "children": [
+          {
+            "parentId": 37,
+            "title": "在线用户",
+            "key": 51,
+            "children": [
+              { "parentId": 51, "title": "下线", "key": 53, "children": [] },
+              { "parentId": 51, "title": "查询", "key": 52, "children": [] }
+            ]
+          },
+          {
+            "parentId": 37,
+            "title": "登录日志",
+            "key": 55,
+            "children": [{ "parentId": 55, "title": "查询", "key": 56, "children": [] }]
+          },
+          {
+            "parentId": 37,
+            "title": "请求追踪",
+            "key": 38,
+            "children": [{ "parentId": 38, "title": "查询", "key": 54, "children": [] }]
+          }
+        ]
+      },
+      {
+        "parentId": 1,
+        "title": "权限管理",
+        "key": 3,
+        "children": [
+          {
+            "parentId": 3,
+            "title": "角色列表",
+            "key": 23,
+            "children": [
+              { "parentId": 23, "title": "新增", "key": 28, "children": [] },
+              { "parentId": 23, "title": "查询", "key": 32, "children": [] },
+              { "parentId": 23, "title": "修改", "key": 29, "children": [] },
+              { "parentId": 23, "title": "删除", "key": 25, "children": [] }
+            ]
+          },
+          {
+            "parentId": 3,
+            "title": "菜单列表",
+            "key": 7,
+            "children": [
+              { "parentId": 7, "title": "修改", "key": 19, "children": [] },
+              { "parentId": 7, "title": "查询", "key": 10, "children": [] },
+              { "parentId": 7, "title": "删除", "key": 9, "children": [] },
+              { "parentId": 7, "title": "新增", "key": 8, "children": [] }
+            ]
+          },
+          {
+            "parentId": 3,
+            "title": "用户列表",
+            "key": 4,
+            "children": [
+              { "parentId": 4, "title": "更改密码", "key": 68, "children": [] },
+              { "parentId": 4, "title": "部门移动排序", "key": 20, "children": [] },
+              { "parentId": 4, "title": "部门转移", "key": 36, "children": [] },
+              { "parentId": 4, "title": "更新", "key": 35, "children": [] },
+              { "parentId": 4, "title": "查询", "key": 34, "children": [] },
+              { "parentId": 4, "title": "部门查询", "key": 33, "children": [] },
+              { "parentId": 4, "title": "删除", "key": 6, "children": [] },
+              { "parentId": 4, "title": "新增", "key": 5, "children": [] },
+              { "parentId": 4, "title": "部门新增", "key": 39, "children": [] },
+              { "parentId": 4, "title": "部门更新", "key": 41, "children": [] },
+              { "parentId": 4, "title": "部门删除", "key": 40, "children": [] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "parentId": null,
+    "title": "文档",
+    "key": 44,
+    "children": [
+      { "parentId": 44, "title": "TypeORM中文文档", "key": 27, "children": [] },
+      { "parentId": 44, "title": "Ant Design文档", "key": 26, "children": [] }
+    ]
+  }
+]

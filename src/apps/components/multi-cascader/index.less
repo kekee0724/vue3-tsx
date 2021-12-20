@@ -1,0 +1,13 @@
+.__multipleCascader {
+  height: 260px;
+  > div {
+    display: flex;
+    > .ant-menu ~ div {
+      position: static !important;
+      .ant-menu {
+        height: 260px;
+        overflow: auto;
+      }
+    }
+  }
+}
