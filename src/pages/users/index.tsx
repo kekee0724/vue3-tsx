@@ -162,8 +162,7 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
           density: true,
           fullScreen: true,
           reload: () => {
-            console.log('reload');
-            // getRecord(pageIndex, pageSize);
+            getRecord(pageIndex, pageSize);
           },
           setting: true,
         }}
@@ -172,7 +171,7 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
           <Button type="primary" onClick={add}>
             新增
           </Button>,
-          // <Button onClick={getRecord()}>Reload</Button>,
+          <Button onClick={() => getRecord()}>刷新</Button>,
         ]}
       />
       <UserModal
