@@ -77,13 +77,13 @@ const UserModel: UserModelType = {
   },
 
   effects: {
-    *getRecord({ data }, { call, put, select }) {
-      const {
-        result: {
-          meta: { page: pageIndex, per_page: pageSize, total },
-        },
-      } = yield select((state: any) => state.users);
-      console.log(pageIndex, pageSize, total);
+    *getRecord({ data }, { call, put }) {
+      // const {
+      //   result: {
+      //     meta: { page: pageIndex, per_page: pageSize, total },
+      //   },
+      // } = yield select((state: any) => state.users);
+      // console.log(pageIndex, pageSize, total);
       const result = yield call(getRecord, data);
       if (result) yield put({ type: 'input', data: { result } });
     },
@@ -107,10 +107,10 @@ const UserModel: UserModelType = {
     setup({ dispatch, history }) {
       return history.listen(({ pathname }: { pathname: string }) => {
         if (pathname === '/users') {
-          dispatch({
-            type: 'getRecord',
-            data: { page: 1, per_page: 5 },
-          });
+          // dispatch({
+          //   type: 'getRecord',
+          //   data: { page: 1, per_page: 5 },
+          // });
         }
       });
     },

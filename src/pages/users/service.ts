@@ -12,9 +12,8 @@ const errorHandler = function (error: any) {
   if (error.response) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
-    console.log(error.response.status);
     if (error.response.status >= 400) {
-      message.error(error?.data?.message || error?.data);
+      message.error(error?.data?.msg || error?.data);
     }
     // console.log(error.response.headers);
     // console.log(error.request);
@@ -68,7 +67,11 @@ export const editRecord = async ({
     });
 };
 
-export const addRecord = async (data: Partial<User>) => {
+export const addRecord = async ({
+  values: data,
+}: {
+  values: Partial<User>;
+}) => {
   return extendRequest(`api/users`, {
     method: 'post',
     data,

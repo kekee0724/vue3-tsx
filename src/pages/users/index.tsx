@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState, useRef } from 'react';
 
-import { message, Popconfirm } from 'antd';
+import { Button, message, Popconfirm } from 'antd';
 import { connect, Dispatch, Loading, User, UserModelState } from 'umi';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 
@@ -13,9 +13,9 @@ export interface UserPageProps {
 }
 
 const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
-  // useEffect(() => {
-  //   getRecord(1, 5)
-  // }, [])
+  useEffect(() => {
+    getRecord(1, 5);
+  }, []);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -27,7 +27,6 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
       meta: { page: pageIndex, per_page: pageSize, total },
     },
   } = state;
-  console.log(state);
 
   const columns: ProColumns<User>[] = [
     {
@@ -74,11 +73,14 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
     },
   ];
 
-  const getRecord = (pageIndex: number, pageSize: number) =>
+  const getRecord = (index?: number, size?: number) => {
+    alert(1);
     dispatch({
       type: 'users/getRecord',
-      data: { page: pageIndex, per_page: pageSize },
+      data: { page: pageIndex || index, per_page: size || pageSize },
     });
+    return undefined;
+  };
 
   const edit = (record: User) => {
     setModalVisible(true);
@@ -87,11 +89,12 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
 
   const remove = (id: number) => {
     dispatch({
-      type: 'users/delete',
+      type: 'users/deleteRecord',
       data: {
         id,
       },
       callback: (res) => {
+        console.log('删除', res);
         if (res) {
           message.success('删除成功.');
           getRecord(pageIndex, pageSize);
@@ -102,7 +105,7 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
     });
   };
 
-  const add = (id: number) => {
+  const add = () => {
     setModalVisible(true);
     setRecord({});
   };
@@ -123,24 +126,16 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
       data: { id, values },
       callback: (res) => {
         if (res) {
+          setConfirmLoading(false);
           setModalVisible(false);
           message.success(`${id === 0 ? '新增' : '编辑'}成功.`);
           getRecord(pageIndex, pageSize);
-          setConfirmLoading(false);
         } else {
           setConfirmLoading(false);
           message.error(`${id === 0 ? '新增' : '编辑'}失败.`);
         }
       },
     });
-  };
-
-  const onPaginationChange = (pageIndex: number, size?: number) => {
-    getRecord(pageIndex, size || pageSize);
-  };
-
-  const onShowSizeChange = (pageIndex: number, pageSize: number) => {
-    getRecord(pageIndex, pageSize);
   };
 
   return (
@@ -157,12 +152,28 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
           current: pageIndex,
           total,
           pageSize,
-          onChange: onPaginationChange,
-          onShowSizeChange,
-          showSizeChanger: true,
+          onChange: (pageIndex, pageSize) => getRecord(pageIndex, pageSize),
+          // onShowSizeChange: : (pageIndex, pageSize) => getRecord(pageIndex, pageSize),
+          // showSizeChanger: true,
           showQuickJumper: true,
           showTotal: (total) => `共 ${total} 条记录`,
         }}
+        options={{
+          density: true,
+          fullScreen: true,
+          reload: () => {
+            console.log('reload');
+            // getRecord(pageIndex, pageSize);
+          },
+          setting: true,
+        }}
+        headerTitle="用户列表"
+        toolBarRender={() => [
+          <Button type="primary" onClick={add}>
+            新增
+          </Button>,
+          // <Button onClick={getRecord()}>Reload</Button>,
+        ]}
       />
       <UserModal
         visible={modalVisible}
