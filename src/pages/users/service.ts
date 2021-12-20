@@ -1,8 +1,9 @@
 import { message } from 'antd';
+import { User } from 'umi';
 
 import request, { extend } from 'umi-request';
 
-const errorHandler = function (error) {
+const errorHandler = function (error: any) {
   // const codeMap = {
   //   '021': 'An error has occurred',
   //   '022': 'It’s a big mistake,',
@@ -33,7 +34,7 @@ const errorHandler = function (error) {
 // 1. Unified processing
 const extendRequest = extend({ errorHandler });
 
-export const getRecord = async (params) => {
+export const getRecord = async (params: { page: number; per_page: number }) => {
   return extendRequest('api/users', {
     method: 'get',
     params,
@@ -43,46 +44,53 @@ export const getRecord = async (params) => {
     })
     .catch(function (error) {
       console.log(error);
+      return false;
     });
 };
 
-export const editRecord = async ({ id, values }) => {
+export const editRecord = async ({
+  id,
+  values,
+}: {
+  id: number;
+  values: Partial<User>;
+}) => {
   return extendRequest(`api/users/${id}`, {
     method: 'put',
     data: values,
   })
     .then(function (response) {
-      message.success('编辑成功');
+      return true;
     })
     .catch(function (error) {
-      message.success('编辑失败');
       console.log(error);
+      return false;
     });
 };
 
-export const deleteRecord = async ({ id }) => {
-  return extendRequest(`api/users/${id}`, {
-    method: 'delete',
-  })
-    .then(function (response) {
-      message.success('删除成功');
-    })
-    .catch(function (error) {
-      message.success('删除失败');
-      console.log(error);
-    });
-};
-
-export const addRecord = async (data) => {
+export const addRecord = async (data: Partial<User>) => {
   return extendRequest(`api/users`, {
     method: 'post',
     data,
   })
     .then(function (response) {
-      message.success('添加成功');
+      return true;
     })
     .catch(function (error) {
-      message.success('添加失败');
       console.log(error);
+      return false;
+    });
+};
+
+export const deleteRecord = async ({ id }: { id: number }) => {
+  return extendRequest(`api/users/${id}`, {
+    method: 'delete',
+  })
+    .then(function (response) {
+      return true;
+    })
+    .catch(function (error) {
+      console.log(error);
+      return false;
     });
 };
