@@ -1,6 +1,6 @@
 import { FC, useEffect, useState, useRef } from 'react';
 
-import { Button, message, Popconfirm } from 'antd';
+import { Button, message, Popconfirm, Pagination } from 'antd';
 import { connect, Dispatch, Loading, User, UserModelState } from 'umi';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 
@@ -74,10 +74,9 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
   ];
 
   const getRecord = (index?: number, size?: number) => {
-    alert(1);
     dispatch({
       type: 'users/getRecord',
-      data: { page: pageIndex || index, per_page: size || pageSize },
+      data: { page: index || pageIndex, per_page: size || pageSize },
     });
     return undefined;
   };
@@ -152,8 +151,10 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
           current: pageIndex,
           total,
           pageSize,
-          onChange: (pageIndex, pageSize) => getRecord(pageIndex, pageSize),
-          // onShowSizeChange: : (pageIndex, pageSize) => getRecord(pageIndex, pageSize),
+          onChange: (pageIndex, pageSize) => {
+            getRecord(pageIndex, pageSize);
+          },
+          // onShowSizeChange: (pageIndex, pageSize) => getRecord(pageIndex, pageSize),
           // showSizeChanger: true,
           showQuickJumper: true,
           showTotal: (total) => `共 ${total} 条记录`,
@@ -174,6 +175,17 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
           <Button onClick={() => getRecord()}>刷新</Button>,
         ]}
       />
+      {/* <Pagination
+        className="list-page"
+        total={total}
+        onChange={(pageIndex, pageSize) => getRecord(pageIndex, pageSize)}
+        onShowSizeChange={(pageIndex, pageSize) => getRecord(pageIndex, pageSize)}
+        current={pageIndex}
+        pageSize={pageSize}
+        showSizeChanger
+        showQuickJumper
+        showTotal={total => `共 ${total} 条记录`}
+      /> */}
       <UserModal
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
@@ -184,12 +196,6 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
     </div>
   );
 };
-
-// const mapStateToProps = ({ users: state }: any) => {
-//   return {
-//     state
-//   }
-// }
 
 // 简写
 const mapStateToProps = ({

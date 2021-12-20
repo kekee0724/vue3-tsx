@@ -1,4 +1,4 @@
-import { Effect, Reducer, Subscription } from 'umi';
+import { Effect, ImmerReducer, Reducer, Subscription } from 'umi';
 
 import { addRecord, deleteRecord, editRecord, getRecord } from './service';
 
@@ -26,10 +26,9 @@ export interface UserModelType {
   state: UserModelState;
   // 同步
   reducers: {
-    getList: Reducer<UserModelState>;
-    input: Reducer;
+    // input: Reducer;
     // 启用 immer 之后
-    // getList: ImmerReducer<UserModelState>;
+    input: ImmerReducer<UserModelState>;
   };
   // 异步
   effects: {
@@ -57,23 +56,16 @@ const UserModel: UserModelType = {
   },
 
   reducers: {
-    input(state, { data }) {
-      return {
-        ...state,
-        ...data,
-      };
-    },
-    getList(state, action) {
-      // return data;
-      return {
-        ...state,
-        ...action.data,
-      };
-    },
-    // 启用 immer 之后
-    // save(state, { data }) {
-    //   state = { ...state, ...data };
+    // input(state, { data }) {
+    //   return {
+    //     ...state,
+    //     ...data,
+    //   };
     // },
+    // 启用 immer 之后
+    input(state, { data }) {
+      state.result = data.result;
+    },
   },
 
   effects: {
@@ -83,24 +75,20 @@ const UserModel: UserModelType = {
       //     meta: { page: pageIndex, per_page: pageSize, total },
       //   },
       // } = yield select((state: any) => state.users);
-      // console.log(pageIndex, pageSize, total);
       const result = yield call(getRecord, data);
       if (result) yield put({ type: 'input', data: { result } });
     },
     *editRecord({ data, callback }, { call, put }) {
       const res = yield call(editRecord, data);
       callback && callback(res);
-      // yield put({ type: 'input', data: { list } });
     },
     *deleteRecord({ data, callback }, { call, put }) {
       const res = yield call(deleteRecord, data);
       callback && callback(res);
-      // yield put({ type: 'input', data: { list } });
     },
     *addRecord({ data, callback }, { call, put }) {
       const res = yield call(addRecord, data);
       callback && callback(res);
-      // yield put({ type: 'input', data: { list } });
     },
   },
   subscriptions: {

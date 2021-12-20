@@ -1,23 +1,14 @@
 import { message } from 'antd';
 import { User } from 'umi';
-
-import request, { extend } from 'umi-request';
+import { extend } from 'umi-request';
 
 const errorHandler = function (error: any) {
-  // const codeMap = {
-  //   '021': 'An error has occurred',
-  //   '022': 'It’s a big mistake,',
-  //   // ....
-  // };
   if (error.response) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
     if (error.response.status >= 400) {
-      message.error(error?.data?.msg || error?.data);
+      message.error(error?.data?.msg || error?.data?.message || error?.data);
     }
-    // console.log(error.response.headers);
-    // console.log(error.request);
-    // console.log(codeMap[error.data.status]);
   } else {
     // The request was made but no response was received or error occurs when setting up the request.
     message.error('网络连接不稳定');
@@ -25,9 +16,6 @@ const errorHandler = function (error: any) {
   }
 
   throw error; // If throw. The error will continue to be thrown.
-
-  // return {some: 'data'}; If return, return the value as a return. If you don't write it is equivalent to return undefined, you can judge whether the response has a value when processing the result.
-  // return {some: 'data'};
 };
 
 // 1. Unified processing
