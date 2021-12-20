@@ -145,20 +145,21 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
         loading={loading}
         rowKey="id"
         search={false}
-        // pagination={false}
-        pagination={{
-          className: 'list-page',
-          current: pageIndex,
-          total,
-          pageSize,
-          onChange: (pageIndex, pageSize) => {
-            getRecord(pageIndex, pageSize);
-          },
-          // onShowSizeChange: (pageIndex, pageSize) => getRecord(pageIndex, pageSize),
-          // showSizeChanger: true,
-          showQuickJumper: true,
-          showTotal: (total) => `共 ${total} 条记录`,
-        }}
+        pagination={false}
+        // pagination={{
+        //   className: 'list-page',
+        //   current: pageIndex,
+        //   total,
+        //   pageSize,
+        //   onChange: (pageIndex, pageSize) => {
+        //     console.log(pageIndex, pageSize)
+        //     getRecord(pageIndex, pageSize);
+        //   },
+        //   // onShowSizeChange: (pageIndex, pageSize) => getRecord(pageIndex, pageSize),
+        //   // showSizeChanger: true,
+        //   showQuickJumper: true,
+        //   showTotal: (total) => `共 ${total} 条记录`,
+        // }}
         options={{
           density: true,
           fullScreen: true,
@@ -175,17 +176,19 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
           <Button onClick={() => getRecord()}>刷新</Button>,
         ]}
       />
-      {/* <Pagination
+      <Pagination
         className="list-page"
         total={total}
         onChange={(pageIndex, pageSize) => getRecord(pageIndex, pageSize)}
-        onShowSizeChange={(pageIndex, pageSize) => getRecord(pageIndex, pageSize)}
+        onShowSizeChange={(pageIndex, pageSize) =>
+          getRecord(pageIndex, pageSize)
+        }
         current={pageIndex}
         pageSize={pageSize}
         showSizeChanger
         showQuickJumper
-        showTotal={total => `共 ${total} 条记录`}
-      /> */}
+        showTotal={(total) => `共 ${total} 条记录`}
+      />
       <UserModal
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
