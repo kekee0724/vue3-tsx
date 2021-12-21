@@ -1,9 +1,12 @@
-// import { router } from "dva";
-// import { loadLazyModule } from "@reco-m/core-ui";
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
-import Index from './apps/index'
-import About from './apps/about'
+import About from '@reco-m/about';
+import Index from '@reco-m/home';
 
 function RouterConfig() {
     return (

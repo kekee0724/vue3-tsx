@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import cloud from '/src/assets/images/cloud.png';
-import code from '/src/assets/images/codewm.jpg';
-import contentimg1 from '/src/assets/images/contentimg1.png';
-import goto from '/src/assets/images/goto.png';
+import cloud from '@/assets/images/cloud.png';
+import code from '@/assets/images/codewm.jpg';
+import contentimg1 from '@/assets/images/contentimg1.png';
+import goto from '@/assets/images/goto.png';
 
 const u = navigator.userAgent,
   isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
@@ -74,7 +74,7 @@ function Index() {
       <div className="footer">
         <img src={cloud} />
         <a className={"ios " + (isiOS ? "on" : "")} onClick={() => AppDown('Ios扫码下载')} href={server.iosHref}><i className="icon icon-ios"></i>IOS版下载</a>
-        <a className={"android " + (isAndroid ? "on" : "")} onClick={() => AppDown('安卓扫码下载')} href={server.andriodHref} download={"ipark.apk"}><i className="icon icon-anzhuo"></i>Android版下载</a>
+        <a className={"android " + (isAndroid ? "on" : "")} onClick={() => AppDown('安卓扫码下载')} href={server.androidHref} download={"ipark.apk"}><i className="icon icon-anzhuo"></i>Android版下载</a>
         <a className={"pc " + ((!isAndroid && !isiOS) ? " on" : "")} onClick={() => setIsQrCode(true)} href="#"><i className="icon icon-erweima"></i>扫码下载</a>
         <div style={{ textAlign: "center" }} id="techSupport">{client.techSupport}</div>
       </div>

@@ -37,7 +37,10 @@ export const server: Reco.Config.Server = (window['server'] = {
   // 旧的iOS跳转配置
   iosHref:
     'itms-services://?action=download-manifest&url=https://assets.bitech.cn/mobile/ios/ipark+/alphajava/index.html',
-  andriodHref: '/src/assets/ipark.apk',
+  // 开发时apk文件放在如下目录
+  // androidHref: '/src/assets/ipark.apk',
+  // 打包后apk文件放在根目录
+  androidHref: './ipark.apk',
   // 跳转提示兑换已购
   todayUrl: 'https://apps.apple.com/cn/today',
   //跳转兑换

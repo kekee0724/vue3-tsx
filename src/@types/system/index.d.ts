@@ -52,7 +52,7 @@ declare namespace Reco {
       AppDownUrl: string;
       assetsUrl?: any;
       iosHref: string;
-      andriodHref: string;
+      androidHref: string;
       todayUrl: string;
       redeemUrl?: any;
     }
