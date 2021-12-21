@@ -1,6 +1,7 @@
 {
   "name": "vite-react-app",
   "version": "0.0.0",
+  "homepage": "./",
   "scripts": {
     "start": "vite --mode development",
     "build": "react-scripts build",
@@ -30,6 +31,12 @@
     "vite": "^2.7.0",
     "react-scripts": "4.3.0"
   },
+  "copy": [
+    {
+      "from": "src/assets/ipark.apk",
+      "to": "assets"
+    }
+  ],
   "browserslist": {
     "production": [
       ">0.2%",

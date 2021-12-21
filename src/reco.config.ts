@@ -39,8 +39,8 @@ export const server: Reco.Config.Server = (window['server'] = {
     'itms-services://?action=download-manifest&url=https://assets.bitech.cn/mobile/ios/ipark+/alphajava/index.html',
   // 开发时apk文件放在如下目录
   // androidHref: '/src/assets/ipark.apk',
-  // 打包后apk文件放在根目录
-  androidHref: './ipark.apk',
+  // 打包后apk文件放在如下目录
+  androidHref: './assets/ipark.apk',
   // 跳转提示兑换已购
   todayUrl: 'https://apps.apple.com/cn/today',
   //跳转兑换
