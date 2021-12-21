@@ -1,3 +1,5 @@
+import './reco.config';
+
 import './assets/css/index.less';
 
 import React from 'react';

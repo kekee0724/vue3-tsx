@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import cloud from '../../assets/images/cloud.png';
-import code from '../../assets/images/codewm.jpg';
-import contentimg1 from '../../assets/images/contentimg1.png';
-import goto from '../../assets/images/goto.png';
+import cloud from '/src/assets/images/cloud.png';
+import code from '/src/assets/images/codewm.jpg';
+import contentimg1 from '/src/assets/images/contentimg1.png';
+import goto from '/src/assets/images/goto.png';
 
-const u = navigator.userAgent;
-const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
-const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+const u = navigator.userAgent,
+  isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
+  isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
   isdown = false;
 
 //判断是否是微信浏览器的函数
@@ -22,7 +22,6 @@ const isWeiXin = () => {
     return false;
   }
 }
-const downloadUrl = '/src/assets/ipark.apk'
 
 function AppDown(terminalName: string) {
   console.log(terminalName)
@@ -44,14 +43,19 @@ function AppDown(terminalName: string) {
 
 function Index() {
   const [isQrCode, setIsQrCode] = useState(false)
-
+  useEffect(() => {
+    document.title = client.title
+    // return () => {
+    //   cleanup
+    // }
+  }, [])
   return (
     <div className="phone_warp">
       <div className="bd">
         <div>
           <div className="title">
-            <span id="appName">iPark<sup>+</sup></span>
-            <em id="appTitle">园企互动平台</em>
+            <span id="appName">{client.appName}<sup>+</sup></span>
+            <em id="appTitle">{client.appTitle}</em>
           </div>
           <div className="content clearfix">
             <div className="contentimg" style={{ backgroundImage: `url(${contentimg1})` }}></div>
@@ -69,10 +73,10 @@ function Index() {
       </div>
       <div className="footer">
         <img src={cloud} />
-        <a className={"ios " + (isiOS ? "on" : "")} onClick={() => AppDown('Ios扫码下载')} href="#"><i className="icon icon-ios"></i>IOS版下载</a>
-        <a className={"android " + (isAndroid ? "on" : "")} onClick={() => AppDown('安卓扫码下载')} href={downloadUrl} download={"ipark.apk"}><i className="icon icon-anzhuo"></i>Android版下载</a>
+        <a className={"ios " + (isiOS ? "on" : "")} onClick={() => AppDown('Ios扫码下载')} href={server.iosHref}><i className="icon icon-ios"></i>IOS版下载</a>
+        <a className={"android " + (isAndroid ? "on" : "")} onClick={() => AppDown('安卓扫码下载')} href={server.andriodHref} download={"ipark.apk"}><i className="icon icon-anzhuo"></i>Android版下载</a>
         <a className={"pc " + ((!isAndroid && !isiOS) ? " on" : "")} onClick={() => setIsQrCode(true)} href="#"><i className="icon icon-erweima"></i>扫码下载</a>
-        <div style={{ textAlign: "center" }} id="techSupport">上海拜特信息技术有限公司 版权所有</div>
+        <div style={{ textAlign: "center" }} id="techSupport">{client.techSupport}</div>
       </div>
       <div className="showed" style={{ display: isWeiXin() ? "inline" : "none" }}></div>
       <div className="poper" style={{ display: isQrCode ? "inline" : "none" }}>
