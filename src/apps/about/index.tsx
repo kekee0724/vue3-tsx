@@ -5,15 +5,14 @@ import { Button } from 'antd-mobile';
 import { get } from '../../core/utils';
 
 function About() {
-  console.log('import.meta.env', import.meta.env)
   useEffect(() => {
-    get('/index-infos').then(() => {
-
-    })
-  }, [])
-  return <div>
+    get('/index-infos').then((res) => {
+      console.log(res)
+    });
+  }, []);
+  return (<div>
     <Button color='primary'>About</Button>
-  </div>
+  </div>)
 }
 
 export default About
