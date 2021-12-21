@@ -1,0 +1,262 @@
+@import (reference) "ui.less";
+@charset "utf-8";
+.phone_warp{
+
+  .bd{
+    position: relative;
+    top:20px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.footer{
+  background-size: 100% auto;
+  z-index: 2;
+  img{
+    width: 100%;
+  }
+  a{
+    position: absolute;
+    bottom: 25px;
+    display: none;
+    height: 50px;
+    width: 70%;
+    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #FFFFFF;
+    background-color: #fbb42a;
+    margin-left: 15%;
+    font-family:-apple-system-font, "Helvetica Neue", sans-serif;
+    .icon{
+      font-size: 30px;
+      margin-right: 10px;
+
+    }
+    &.on{
+      display: flex;
+    }
+  }
+}
+.title{
+  text-align: center;
+  color: #FFFFFF;
+  font-family:-apple-system-font, "Helvetica Neue", sans-serif;
+  span{
+    display: block;
+    font-size: 40px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  }
+  em{
+    display: block;
+    font-size: 22px;
+    letter-spacing: 5px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  }
+}
+.content{
+  position: relative;
+  display: block;
+  width: 185px;
+  height: 331px;
+  background: url("../images/contentbg.png") no-repeat;
+  background-size: cover;
+  margin: 35px auto 0 auto;
+}
+.contentimg{
+  display: inline-block;
+  width: 135px;
+  height: 203px;
+  margin: 36px 0 0 26px;
+  background-size: cover;
+  background-position: center top;
+}
+.icon1{
+  position: absolute;
+  left: -27px;
+  top: -13px;
+  display: block;
+  width: 52px;
+  height: 52px;
+  background: url("../images/icon1.png") no-repeat;
+  background-size: cover;
+}
+.icon2{
+  position: absolute;
+  left: -42px;
+  top: 83px;
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: url("../images/icon2.png") no-repeat;
+  background-size: cover;
+}
+.icon3{
+  position: absolute;
+  right: -34px;
+  top: 142px;
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: url("../images/icon3.png") no-repeat;
+  background-size: cover;
+}
+.icon4{
+  position: absolute;
+  right: -39px;
+  top: -36px;
+  display: block;
+  width: 40px;
+  height: 56px;
+  background: url("../images/icon4.png") no-repeat;
+  background-size: cover;
+  animation: qiqiu 2s ease-in-out infinite;
+  animation-direction: alternate;
+}
+.start1{
+  position: absolute;
+  right: -25px;
+  top: 47px;
+  display: block;
+  width: 11.5px;
+  height: 16px;
+  background: url("../images/start1.png") no-repeat;
+  background-size: cover;
+  animation: around 3s ease-in-out infinite;
+
+}
+.start2{
+  position: absolute;
+  right: -14px;
+  top: 63px;
+  display: block;
+  width: 6px;
+  height: 9px;
+  background: url("../images/start2.png") no-repeat;
+  background-size: cover;
+  animation: around 2s ease-in-out infinite;
+}
+.dian1{
+  position: absolute;
+  left: 0;
+  top: 120px;
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  opacity: 0.471;
+  animation: around 4s ease-in-out infinite;
+}
+
+.dian2{
+  position: absolute;
+  right: -9px;
+  top: 171px;
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  opacity: 0.471;
+  animation: around 3s ease-in-out infinite;
+}
+.ren{
+  position: absolute;
+  right: 5px;
+  top: 202px;
+  display: block;
+  width: 62px;
+  height: 87px;
+  background: url("../images/ren.png") no-repeat;
+  background-size: cover;
+}
+
+@keyframes around{
+  0%{
+    opacity: 0.8;
+    transform: scale(0.8)
+  }
+  50%{
+    opacity: 1;
+    transform: scale(1.1)
+  }
+  100%{
+    opacity: 0.8;
+    transform: scale(0.8)
+  }
+}
+
+@keyframes qiqiu {
+  from {
+    transform: translate3d(0, 3px, 0);
+  }
+
+  to {
+    transform: translate3d(0, -3px, 0);
+  }
+}
+@media (max-width: 325px) {
+  .title{
+    span{
+      font-size: 30px;
+    }
+    em{
+      font-size: 18px;
+    }
+  }
+}
+.showed{
+  display: none;
+  position: absolute;
+  left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 4;
+}
+.poper{
+  display: none;
+  position: absolute;
+  left:50%;
+  top: 50%;
+  width: 200px;
+  height: 200px;
+  z-index: 4;
+  margin: -100px 0 0 -100px;
+  img{
+    width: 200px;
+    height: 200px;
+  }
+  .icon{
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    color: #FFFFFF;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 50%;
+    box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);
+    background-color: #FFFFFF;
+    cursor: pointer;
+    &:before{
+      font-size: 14px;
+      color: #000000;
+    }
+  }
+}
+.goto{
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: none;
+  width: 220px;
+  height: 161px;
+  z-index: 4;
+}
