@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
-import { login, logout } from '@/api/login';
+// import { login, logout } from '@/api/login';
 import { Locale, UserState } from '@/interface/user/user';
 import { getGlobalState } from '@/utils/getGloabal';
-import { Role } from '@/interface/user/login';
-import { getInfo, permmenu } from '@/api/account';
+// import { Role } from '@/interface/user/login';
+// import { getInfo, permmenu } from '@/api/account';
 import { filterAsyncRoute } from '@/routes/generator-router';
 import type { MenuChild } from '@/interface/layout/menu.interface';
 import { flatArrayObject } from '@/utils';
