@@ -126,10 +126,23 @@ $('.oBtn').click(function () {
     data: {
       client_id: server.apiKey.apiKey,
       client_secret: server.apiKey.secret,
-      grant_type: 'client_credentials',
+      // grant_type: 'client_credentials',
+      grant_type: 'authorization_mobile',
+      username: telText,
+      code: txtCode,
     },
     error: function (data, status, e) {
-      alert(data.responseJSON.errmsg);
+      // alert(data.responseJSON.errmsg);
+      $('.codeMsg').text(data.responseJSON.errmsg);
+      $('.codeMsg').css({
+        content: data.responseJSON.errmsg,
+        color: '#fe684d',
+        'font-size': '.18rem',
+        'text-align': 'left',
+        display: 'block',
+        width: '5.6rem',
+        margin: '0 auto',
+      });
     },
     success: function (res) {
       let result = res;
