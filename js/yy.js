@@ -1,9 +1,15 @@
 // require("./reco.config");
 let username;
+let exchangeUrl;
 // 兑换
 $('.dowm_')
   .find('.noload')
   .on('click', function () {
+    const exchangeUrl = localStorage.getExpire('exchangeUrlExpire');
+    if (exchangeUrl) {
+      window.location = './swiper.html';
+      return;
+    }
     $('.orderList').show();
     $('html,body').scrollTop({ toT: 0 });
   });
@@ -77,7 +83,6 @@ function authorize(telText) {
       },
       success: function (res) {
         username = telText;
-        console.log(res);
       },
     });
   }
@@ -93,8 +98,13 @@ function exchangeCode(mobile, token) {
       Authorization: token,
     },
     success: function (exchangeCode) {
-      let exchangeUrl = server.redeemUrl + `/?code=${exchangeCode}&ctx=apps`;
+      exchangeUrl = server.redeemUrl + `/?code=${exchangeCode}&ctx=apps`;
       console.log('exchangeUrl', exchangeUrl);
+      localStorage.setExpire(
+        'exchangeUrlExpire',
+        exchangeUrl,
+        client.expire * 24 * 3600 * 1000
+      ); //存入 参数： 1.调用的值 2.所要存入的数据
       var redeem = document.getElementById('redeem');
       redeem.href = exchangeUrl;
     },
@@ -102,9 +112,6 @@ function exchangeCode(mobile, token) {
 }
 
 $('.redeem').click(function () {
-  var href = $(this).attr('href');
-  console.log(href);
-  window.open(href);
   window.location = './swiper.html';
 });
 
@@ -146,8 +153,6 @@ $('.oBtn').click(function () {
     },
     success: function (res) {
       let result = res;
-      console.log(result);
-
       exchangeCode(telText, result.token_str);
       if (result.token_type == 'Bearer') {
         //兑换成功
