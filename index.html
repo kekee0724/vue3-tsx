@@ -8,9 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <link rel="stylesheet" type="text/css" href="css/ui.css" />
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <link rel="stylesheet" href="http://at.alicdn.com/t/font_565716_mrlso3mwg54b1emi.css" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="reco.config.js"></script>
+  <script type="text/javascript" src="js/storage.js"></script>
   <title>iPark+下载页面</title>
 </head>
 
@@ -38,8 +40,8 @@
     </div>
     <div class="footer">
       <img src="images/cloud.png" />
-      <a class="ios" onclick="AppDown('Ios扫码下载')" href="#"><i class="icon icon-ios"></i>IOS版下载</a>
-      <a class="android" onclick="AppDown('安卓扫码下载')" href="ipark.apk"><i class="icon icon-anzhuo"></i>Android版下载</a>
+      <a class="ios">IOS版下载</a>
+      <a class="android" href="ipark.apk"><i class="icon icon-anzhuo"></i>Android版下载</a>
       <a class="pc on" href="#"><i class="icon icon-erweima"></i>扫码下载</a>
       <div style="text-align: center;" id="techSupport">上海拜特信息技术有限公司 版权所有</div>
     </div>
@@ -49,8 +51,45 @@
       <img class="code" src="images/codewm.jpg" />
     </div>
     <img class="goto" src="images/goto.png" />
+    <!--弹层-->
+    <div class="Login hide">
+      <div class="loginBox">
+        <div class="oClose"><i class="yy"></i></div>
+        <div class="oOrder">
+          <div class="oTitle">
+            <i class="yy"></i>
+            <p>手机号登录</p>
+          </div>
+          <form action="" method="post">
+            <input type="text" name="tel" placeholder="输入手机号" class="tel">
+            <span class="msg"></span>
+            <input type="text" name="txtCode" placeholder="输入验证码" class="tel">
+            <img id="imgCode" class="codeimg">
+            <span class="codeMsg"></span>
+            <p>登录后，将获得<em>兑换码</em>地址</p>
+            <span>填写的手机号仅用于获取应用兑换码</span>
+            <span>
+              <a href="./exchange.html">
+                查看兑换说明
+              </a>
+            </span>
+            <input type="button" name="btn" value="立即兑换" class="oBtn" id="oBtn">
+          </form>
+        </div>
+        <div class="oWin hide">
+          <p>验证成功！</p><i class="yy"></i>
+          <span class="oKnow">
+            <a class="redeem" id="redeem">
+              立即兑换
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!--弹层-->
   </div>
 </body>
+<script type="text/javascript" src="js/down.js"></script>
 <script type="text/javascript">
   var bgImg = document.getElementsByClassName("contentimg");
   bgImg[0].style = client.bgImg;
@@ -68,10 +107,6 @@
 
   var appTitle = document.getElementById("appTitle");
   appTitle.innerHTML = client.appTitle;
-
-  var ios = document.getElementsByClassName("ios");//获取检索内容块
-
-  ios[0].href = server.iosHref;
 
   var u = navigator.userAgent;
   var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
@@ -98,23 +133,6 @@
     }
   }
   isWeiXin();
-
-  function AppDown(terminalName) {
-    if (isdown) return;
-
-    $.ajax({
-      type: 'post',
-      url: server.AppDownUrl,
-      data: '{"TerminalName":"' + terminalName + '"}',
-      contentType: 'application/json; charset=utf-8',
-      dataType: 'json',
-      async: false,
-      cache: false,
-      success: function (result) {
-        isdown = true;
-      }
-    });
-  }
 </script>
 
 </html>

@@ -234,15 +234,6 @@ a {
   min-width: 3.2rem;
   margin: 0 auto;
 }
-.icon {
-  background-image: url('../images/icon.png');
-  background-size: 5rem 6rem;
-}
-.ico_img {
-  background: url('../images/ico_img.png') no-repeat center;
-  background-size: 3.09rem auto;
-}
-
 /*顶部*/
 header {
   height: 0.95rem;
@@ -1067,7 +1058,7 @@ footer .cont p {
   display: block;
 }
 /* 预约 */
-.orderList {
+.Login {
   position: absolute;
   top: 0;
   left: 0;
@@ -1079,7 +1070,7 @@ footer .cont p {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
 }
-.orderBox {
+.loginBox {
   position: absolute;
   z-index: 5;
   top: 2.84rem;
@@ -1091,13 +1082,13 @@ footer .cont p {
   border-radius: 0.12rem;
   text-align: center;
 }
-.orderBox .oClose {
+.loginBox .oClose {
   position: absolute;
   top: -0.96rem;
   right: 0.38rem;
   z-index: 10;
 }
-.orderBox .oTitle {
+.loginBox .oTitle {
   width: 100%;
   height: 2rem;
   background-image: url(../images/order_bg.png);
@@ -1106,14 +1097,14 @@ footer .cont p {
   font-size: 0.34rem;
   color: #fff;
 }
-.orderBox .oTitle p {
+.loginBox .oTitle p {
   margin-top: 0.56rem;
   font-size: 0.34rem;
   color: #fff;
   white-space: nowrap;
   overflow: hidden;
 }
-.orderBox form .tel {
+.loginBox form .tel {
   width: 5.28rem;
   border: 1px solid #dadada;
   background-color: #fff;
@@ -1126,7 +1117,7 @@ footer .cont p {
   overflow: hidden;
   white-space: nowrap;
 }
-.orderBox form p {
+.loginBox form p {
   color: #666;
   font-size: 0.28rem;
   line-height: 0.46rem;
@@ -1134,10 +1125,10 @@ footer .cont p {
   overflow: hidden;
   white-space: nowrap;
 }
-.orderBox form p em {
+.loginBox form p em {
   color: #cc0000;
 }
-.orderBox form span {
+.loginBox form span {
   display: block;
   color: #ccc;
   font-size: 0.24rem;
@@ -1145,7 +1136,7 @@ footer .cont p {
   overflow: hidden;
   white-space: nowrap;
 }
-.orderBox form .oBtn {
+.loginBox form .oBtn {
   width: 5.3rem;
   border: 0;
   background-color: #ffa622;
@@ -1157,7 +1148,7 @@ footer .cont p {
   overflow: hidden;
   white-space: nowrap;
 }
-.orderBox .msg {
+.loginBox .msg {
   color: #fe684d;
   font-size: 0.18rem;
   text-align: left;
@@ -1165,7 +1156,7 @@ footer .cont p {
   width: 5.6rem;
   margin: 0 auto;
 }
-.orderBox .oKnow {
+.loginBox .oKnow {
   display: block;
   width: 3.82rem;
   border: 0;
@@ -1179,7 +1170,7 @@ footer .cont p {
   white-space: nowrap;
 }
 
-.orderBox .oWin {
+.loginBox .oWin {
   width: 100%;
   height: 4.6rem;
   padding: 0.52rem 0;
@@ -1187,7 +1178,7 @@ footer .cont p {
   border-radius: 0.12rem;
   text-align: center;
 }
-.orderBox .oWin p {
+.loginBox .oWin p {
   font-size: 0.32rem;
   color: #141414;
   font-weight: 500;
@@ -1195,7 +1186,7 @@ footer .cont p {
   margin-bottom: 0.2rem;
 }
 
-.orderBox .oLose {
+.loginBox .oLose {
   width: 100%;
   height: 4.6rem;
   padding: 0.52rem 0;
@@ -1203,7 +1194,7 @@ footer .cont p {
   border-radius: 0.12rem;
   text-align: center;
 }
-.orderBox .oLose p {
+.loginBox .oLose p {
   font-size: 0.32rem;
   color: #141414;
   font-weight: 500;
@@ -1211,7 +1202,7 @@ footer .cont p {
   margin-bottom: 0.2rem;
 }
 
-.orderBox .oAgin {
+.loginBox .oAgin {
   width: 100%;
   height: 4.6rem;
   padding: 0.52rem 0;
@@ -1219,7 +1210,7 @@ footer .cont p {
   border-radius: 0.12rem;
   text-align: center;
 }
-.orderBox .oAgin p {
+.loginBox .oAgin p {
   font-size: 0.32rem;
   color: #141414;
   font-weight: 500;
@@ -1241,18 +1232,14 @@ footer .cont p {
   background: linear-gradient(to right, #0ed2d0, #01d5b1);
 }
 
-.yy {
-  background-image: url(../images/yy.png);
-  background-size: 5.4rem 6.2rem;
-}
-.orderBox .oClose i {
+.loginBox .oClose i {
   display: inline-block;
   width: 0.48rem;
   height: 0.96rem;
   background-position: 0 0;
   position: relative;
 }
-.orderBox .oTitle i {
+.loginBox .oTitle i {
   display: block;
   width: 0.59rem;
   height: 0.58rem;
@@ -1261,21 +1248,21 @@ footer .cont p {
   top: 0.42rem;
   margin: 0 auto;
 }
-.orderBox .oWin i {
+.loginBox .oWin i {
   display: inline-block;
   width: 3.34rem;
   height: 2.01rem;
   background-position: -1.64rem 0rem;
   position: relative;
 }
-.orderBox .oLose i {
+.loginBox .oLose i {
   display: inline-block;
   width: 3.34rem;
   height: 2.01rem;
   background-position: -1.64rem -4.2rem;
   position: relative;
 }
-.orderBox .oAgin i {
+.loginBox .oAgin i {
   display: inline-block;
   width: 3.34rem;
   height: 2.01rem;
@@ -1426,14 +1413,6 @@ footer .cont p {
   font-size: 0.28rem;
   color: #999;
   margin-top: 0.15rem;
-}
-.frm_use_360 {
-  display: inline-block;
-  vertical-align: middle;
-  width: 14px;
-  height: 14px;
-  margin: -2px 5px 0 0;
-  background: url(../images/bg1.png) no-repeat -70px -30px/100px 100px;
 }
 .safety_down .frm_use_360 {
   background-position: -55px -30px;
@@ -2220,9 +2199,6 @@ footer .cont p {
   text-align: center;
   background-position-x: center;
 }
-.bdshare-button-style1-32 a {
-  background-image: url('../images/icons_1_32.png') !important;
-}
 .share_wrap_bg {
   width: 100%;
   height: 100%;
@@ -2283,7 +2259,7 @@ footer .cont p {
   border-top-left-radius: 0.25rem;
 }
 
-.dowm_ .noload {
+.ios {
   float: left;
   text-align: center;
   width: 70%;
