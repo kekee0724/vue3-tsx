@@ -2275,3 +2275,8 @@ footer .cont p {
   background-image: unset;
   background-size: unset;
 }
+
+.yy {
+  background-image: url(../images/down.png);
+  background-size: 5.4rem 6.2rem;
+}
