@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <div class="kekee body">
     <div class="header w">
       <div class="logo">
         <img src="@/assets/images/logo.png" alt="logo" />
