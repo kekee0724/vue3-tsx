@@ -6,13 +6,15 @@ declare namespace Reco {
      * @interface Client
      */
     interface Client {
+      productName: any;
+      versionType: any;
       title: string;
       techSupport: string;
       appName: string;
       appTitle: string;
       bgImg: string;
       bgColor: string;
-      iosIndex: number;
+      // iosIndex: number;
     }
 
     namespace Client {}
@@ -28,7 +30,7 @@ declare namespace Reco {
        *
        * @memberof Server
        */
-      apiKey?: Server.ApiKey;
+      apiKey: Server.ApiKey;
 
       /**
        * 认证配置信息
@@ -36,7 +38,7 @@ declare namespace Reco {
        * @type {Server.Auth}
        * @memberof Server
        */
-      auth?: Server.Auth;
+      auth: Server.Auth;
       /**
        * 联系方式
        *
@@ -49,11 +51,11 @@ declare namespace Reco {
        * @memberof Server
        */
       url?: string;
-      AppDownUrl: string;
+      // AppDownUrl: string;
       assetsUrl?: any;
-      iosHref: string;
+      // iosHref: string;
       androidHref: string;
-      todayUrl: string;
+      // todayUrl: string;
       redeemUrl?: any;
     }
 

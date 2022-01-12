@@ -1,19 +1,21 @@
 import './reco.config';
-
 import './assets/css/index.less';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import dva from 'dva';
 
 import routes from './router';
 
-function App() {
-  return routes()
-}
+// 1. Initialize
+const app = dva();
+// const app = dva({ history: createHistory() });
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+// 2. Model
+// 3. View
+
+// 4. Router
+app.router(routes as any);
+
+// 5. Start
+app.start('#root');
+
+

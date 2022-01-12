@@ -1,26 +1,18 @@
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { router } from 'dva';
 
 import About from '@reco-m/about';
 import Index from '@reco-m/home';
 
-function RouterConfig() {
+function RouterConfig({ history }: router.RouterProps) {
     return (
-        <Router>
-            <Switch>
-                <Route exact key="/" path="/">
-                    <Index />
-                </Route>
-                <Route exact key="/about" path="/about">
-                    <About />
-                </Route>
-                <Redirect to="/" />
-            </Switch>
-        </Router>
+        <router.Router history={history}>
+            {/* 只能有一个根节点 */}
+            <router.Switch>
+                <router.Route key="/home" path="/home" component={Index} />
+                <router.Route key="/about" path="/about" component={About} />
+                <router.Redirect to="/home" />
+            </router.Switch>
+        </router.Router>
     )
 }
 
