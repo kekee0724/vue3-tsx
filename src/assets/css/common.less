@@ -1,0 +1,131 @@
+:root {
+  --adm-color-primary: #1677ff;
+  --adm-color-success: #00b578;
+  --adm-color-warning: #ff8f1f;
+  --adm-color-danger: #ff3141;
+  --adm-color-white: #ffffff;
+  --adm-color-weak: #999999;
+  --adm-color-light: #cccccc;
+  --adm-border-color: #eeeeee;
+  --adm-font-size-main: 13px;
+  --adm-color-text: #333333;
+  --adm-font-family: -apple-system, blinkmacsystemfont, 'Helvetica Neue',
+    helvetica, segoe ui, arial, roboto, 'PingFang SC', 'miui',
+    'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+  --color-input-bg: #f4f5f5;
+  --color-input-error-bg: #ffece8;
+  --color-input-placeholder: #86909c;
+  --color-input-text: #4e5969;
+  --color-input-icon: #f53f3f;
+  --border-radius: var(--adm-button-border-radius, 4px);
+  --border-width: var(--adm-button-border-width, 1px);
+  --border-style: var(--adm-button-border-style, solid);
+  --color: var(--adm-color-primary);
+  --text-color: var(--adm-color-white);
+  --background-color: var(--color);
+  --border-color: var(--color);
+}
+
+#root {
+  height: 100%;
+}
+.adm-button a {
+  color: #ccc;
+}
+.ios {
+  float: left;
+  text-align: center;
+  width: 70%;
+  height: 50px;
+  background: #fbb42a;
+  color: #ffffff;
+  line-height: 0.1.5;
+  border-radius: 6px;
+  font-size: 18px;
+}
+.icon {
+  background-image: unset;
+  background-size: unset;
+}
+.hide {
+  display: none;
+}
+.block {
+  display: block;
+}
+
+.overlayContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  margin-top: -75px;
+  margin-left: -75px;
+  background: white;
+  border-radius: 16px;
+}
+
+.login-content-box {
+  .ant-form-item {
+    margin-bottom: 14px;
+  }
+
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  border-radius: 4px;
+
+  .ant-typography {
+    margin-bottom: 0.8em;
+    text-align: left;
+  }
+}
+
+.login-back {
+  background-color: rgba(108, 98, 255, 0.2);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 2;
+}
+// }
+
+.login-form {
+  .images-auto {
+    margin: 0 auto;
+  }
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+.contentFull {
+  height: 100vh;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  user-select: none;
+}
+
+.login-title {
+  margin-bottom: 16px;
+}

@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
 import cloud from '@/assets/images/cloud.png';
 import code from '@/assets/images/codewm.jpg';
 import contentimg1 from '@/assets/images/contentimg1.png';
 import goto from '@/assets/images/goto.png';
+
+import { WithContent } from './with.content';
 
 const u = navigator.userAgent,
   isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
@@ -43,6 +48,7 @@ function AppDown(terminalName: string) {
 
 function Index() {
   const [isQrCode, setIsQrCode] = useState(false)
+  const [visible, setVisible] = useState(false)
   useEffect(() => {
     document.title = client.title
     // return () => {
@@ -73,7 +79,12 @@ function Index() {
       </div>
       <div className="footer">
         <img src={cloud} />
-        <a className={"ios " + (isiOS ? "on" : "")} onClick={() => AppDown('Ios扫码下载')} href={server.iosHref}><i className="icon icon-ios"></i>IOS版下载</a>
+        <a
+          className={"ios " + (isiOS ? "on" : "")}
+          // onClick={() => AppDown('Ios扫码下载')}
+          // href={server.iosHref}
+          onClick={() => setVisible(true)}
+        ><i className="icon icon-ios"></i>IOS版下载</a>
         <a className={"android " + (isAndroid ? "on" : "")} onClick={() => AppDown('安卓扫码下载')} href={server.androidHref} download={"ipark.apk"}><i className="icon icon-anzhuo"></i>Android版下载</a>
         <a className={"pc " + ((!isAndroid && !isiOS) ? " on" : "")} onClick={() => setIsQrCode(true)} href="#"><i className="icon icon-erweima"></i>扫码下载</a>
         <div style={{ textAlign: "center" }} id="techSupport">{client.techSupport}</div>
@@ -84,6 +95,7 @@ function Index() {
         <img className="code" src={code} />
       </div>
       <img className="goto" src={goto} style={{ display: isWeiXin() ? "inline" : "none" }} />
+      <WithContent visible={visible} setVisible={setVisible} />
     </div>
   )
 }
