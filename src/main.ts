@@ -8,7 +8,7 @@ import Antd from 'ant-design-vue'
 
 import { store } from '@levi-m/core'
 
-import App from './App.vue'
+import App from './App'
 // import App from './App'
 import router from './router'
 

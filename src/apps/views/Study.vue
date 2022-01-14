@@ -186,13 +186,11 @@
         </div>
       </div>
     </div>
-    <!-- <h1>This is a setting.vue page views</h1> -->
-    <p>store count is: {{ count }}</p>
   </div>
 </template>
 
 <style lang="less">
-@import './setting.less';
+@import './study.less';
 </style>
 <script lang="ts">
 import { defineComponent } from 'vue'

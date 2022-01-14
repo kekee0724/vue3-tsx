@@ -15,7 +15,7 @@ const VueImpl = [
 //     Hello
 //   }
 // })
-export class Setting extends Vue {
+export class Demo extends Vue {
   beforeCreate() {
     console.log("beforeCreate")
   }
@@ -33,26 +33,7 @@ export class Setting extends Vue {
     return (
       <div class="standard">
         {/* <headerBack title="嵌套路由"></headerBack> */}
-        <div>
-          <div class="tab">
-            <router-link to="/setting/settingVue">
-              <div class="children">我是settingVue组件</div>
-            </router-link>
-            <router-link to="/setting/homeTsx">
-              <div class="children">我是homeTsx组件</div>
-            </router-link>
-            <router-link to="/setting/aboutVue">
-              <div class="children">我是aboutVue组件</div>
-            </router-link>
-            <router-link to="/setting/about">
-              <div class="children">我是about组件</div>
-            </router-link>
-            <router-link to="/setting/form">
-              <div class="children">我是From组件</div>
-            </router-link>
-          </div>
-          <router-view />
-        </div>
+        <router-view />
       </div>
     )
   }
