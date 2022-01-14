@@ -6,11 +6,17 @@ export const store = createStore({
   mutations: {
     increment (state) {
       state.count++
+    },
+    decrement (state) {
+      state.count--
     }
   },
   actions: {
     increment (context) {
       context.commit('increment')
+    },
+    decrement (context) {
+      context.commit('decrement')
     }
   },
   modules: {

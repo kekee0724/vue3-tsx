@@ -84,7 +84,7 @@
   </a-layout>
 </template>
 
-<script>
+<script lang="ts">
 import Logo from '@levi-m/core-ui/components/Logo.vue'
 
 import {

@@ -20,7 +20,7 @@
 </template>
 
 <style>
-.ant-form {
+/* .ant-form {
   width: 75%;
   margin: 0 auto;
 }
@@ -29,7 +29,7 @@
 }
 .ant-col {
   background-color: antiquewhite;
-}
+} */
 </style>
 <script lang="ts">
 import { computed, defineComponent, reactive } from 'vue'
