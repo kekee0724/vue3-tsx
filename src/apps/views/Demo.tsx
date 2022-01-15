@@ -1,7 +1,7 @@
-import { Options, Vue } from 'vue-class-component'
-import HelloWorld from '@levi-m/core-ui/components/HelloWorld.vue' // @ is an alias to /src
-import Hello from '@levi-m/core-ui/components/Hello.vue'
-import { get } from '@levi-m/core';
+import { Vue } from "vue-class-component";
+
+import { get } from "@levi-m/core";
+import Hello from "@levi-m/core-ui/components/Hello.vue";
 
 const VueImpl = [
   'data', 'beforeCreate', 'created', 'beforeMount',
@@ -9,12 +9,6 @@ const VueImpl = [
   'beforeUpdate', 'updated', 'activated', 'deactivated',
   'render', 'errorCaptured', 'serverPrefetch'
 ];
-// @Options({
-//   components: {
-//     HelloWorld,
-//     Hello
-//   }
-// })
 export class Demo extends Vue {
   beforeCreate() {
     console.log("beforeCreate")

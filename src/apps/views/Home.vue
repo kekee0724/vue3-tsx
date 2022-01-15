@@ -4,6 +4,7 @@
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
     <Hello msg="Hello Vue 3.0 + Vite" />
     <div>三生三世十里桃花</div>
+    <router-view />
   </div>
 </template>
 

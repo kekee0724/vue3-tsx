@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 import Home from '@levi-a/views/Home.vue'
 import { About, Demo, Test } from '@levi-a/views'
+import { Suning } from '@levi-a/mobile'
 import Study from '@levi-a/views/Study.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -9,6 +10,18 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/suning',
+    name: 'Suning',
+    component: () => import(/* webpackChunkName: "suning" */ '@levi-a/mobile/suning.vue'),
+    children: [
+      {
+        path: 'app',
+        name: 'app',
+        component: Suning
+      }
+    ]
   },
   {
     path: '/about',

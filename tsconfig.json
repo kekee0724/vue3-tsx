@@ -20,7 +20,8 @@
       "@levi-m/core": ["./src/core/index"],
       "@levi-m/core-ui": ["./src/core-ui/index"],
 
-      "@levi-a/views": ["./src/apps/views/index"]
+      "@levi-a/views": ["./src/apps/views/index"],
+      "@levi-a/mobile": ["./src/apps/mobile/index"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
