@@ -24,6 +24,11 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
+    path: '/bilibili',
+    name: 'Bilibili',
+    component: () => import(/* webpackChunkName: "bilibili" */ '@levi-a/mobile/bilibili.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     component: About

@@ -48,13 +48,13 @@
     <div class="trigger-wrapper">
       <ul class="trigger">
         <li><i></i></li>
-        <li class="cur"><i>2</i></li>
-        <li><i>3</i></li>
-        <li><i>4</i></li>
-        <li><i>5</i></li>
-        <li><i>3</i></li>
-        <li><i>4</i></li>
-        <li><i>5</i></li>
+        <li class="cur"><i></i></li>
+        <li><i></i></li>
+        <li><i></i></li>
+        <li><i></i></li>
+        <li><i></i></li>
+        <li><i></i></li>
+        <li><i></i></li>
       </ul>
     </div>
   </div>
@@ -169,6 +169,9 @@
 <style lang="less">
 html {
   box-sizing: border-box;
+}
+body {
+  background-color: #eee;
 }
 .w {
   margin: 0 auto;
