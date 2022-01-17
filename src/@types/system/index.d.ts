@@ -6,11 +6,10 @@ declare namespace Reco {
      * @interface Client
      */
     interface Client {
-      productName: any;
-      versionType: any;
       title: string;
       techSupport: string;
       appName: string;
+      appNameSup: string;
       appTitle: string;
       bgImg: string;
       bgColor: string;
@@ -51,6 +50,8 @@ declare namespace Reco {
        * @memberof Server
        */
       url?: string;
+      productName: string;
+      versionType: string;
       // AppDownUrl: string;
       assetsUrl?: any;
       // iosHref: string;

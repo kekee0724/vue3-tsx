@@ -22,7 +22,6 @@
       "@reco-m/core": ["./src/core/index"],
       "@reco-m/core-ui": ["./src/core-ui/index"],
 
-      "@reco-m/about": ["./src/apps/about/index"],
       "@reco-m/home": ["./src/apps/home/index"]
     }
   },

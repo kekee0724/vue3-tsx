@@ -34,7 +34,6 @@ export default defineConfig({
       '@': pathResolve('src'), // src 路径
       '@reco-m/core': pathResolve('src/core'), // core 路径
       '@reco-m/core-ui': pathResolve('src/core-ui'), // core-ui 路径
-      "@reco-m/about": pathResolve('src/apps/about'),
       "@reco-m/home": pathResolve('src/apps/home'),
     }
   },

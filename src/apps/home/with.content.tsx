@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Mask } from 'antd-mobile';
 
-import { MobileLogin } from './MobileLogin';
+import { MobileLogin } from './mobile.login';
 
 // 自定义内容
 export const WithContent = (props: { visible: any; setVisible: any; }) => {

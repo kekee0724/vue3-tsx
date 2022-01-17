@@ -8,7 +8,7 @@ import code from '@/assets/images/codewm.jpg';
 import contentimg1 from '@/assets/images/contentimg1.png';
 import goto from '@/assets/images/goto.png';
 
-import { WithContent } from './WithContent';
+import { WithContent } from './with.content';
 const u = navigator.userAgent,
   isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1,
   isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
@@ -46,7 +46,7 @@ const Index = (props: any) => {
       <div className="bd">
         <div>
           <div className="title">
-            <span id="appName">{client.appName}<sup>+</sup></span>
+            <span id="appName">{client.appName}<sup>{client.appNameSup}</sup></span>
             <em id="appTitle">{client.appTitle}</em>
           </div>
           <div className="content clearfix">
@@ -72,7 +72,7 @@ const Index = (props: any) => {
           onClick={() => setVisible(true)}
         ><i className="icon icon-ios"></i>IOS版下载</a>
         <a className={"android " + (isAndroid ? "on" : "")} onClick={() => AppDown('安卓扫码下载')} href={server.androidHref} download={"ipark.apk"}><i className="icon icon-anzhuo"></i>Android版下载</a>
-        <a className={"pc " + ((!isAndroid && !isiOS) ? " on" : "")} onClick={() => setIsQrCode(true)} href="#"><i className="icon icon-erweima"></i>扫码下载</a>
+        <a className={"pc " + ((!isAndroid && !isiOS) ? " on" : "")} onClick={() => setIsQrCode(true)}><i className="icon icon-erweima"></i>扫码下载</a>
         <div style={{ textAlign: "center" }} id="techSupport">{client.techSupport}</div>
       </div>
       <div className="showed" style={{ display: isWeiXin() ? "inline" : "none" }}></div>

@@ -8,7 +8,8 @@ import $ from 'jquery';
 import moment, { Moment } from 'moment';
 
 import { getLocalStorage, setLocalStorage } from './utils';
-import { WithPopup } from './WithPopup';
+import { WithPopup } from './with.popup';
+// import { get } from '../../core/utils';
 
 export interface MobileLoginState {
   /**
@@ -43,6 +44,12 @@ export const MobileLogin = (props: any) => {
       clearInterval(time)
     }
   }, []);
+
+  // useEffect(() => {
+  //   get('/index-infos').then((res) => {
+  //     console.log(res)
+  //   });
+  // }, []);
 
   useEffect(() => {
     setDisabled(!isPoneAvailable())
@@ -178,7 +185,7 @@ export const MobileLogin = (props: any) => {
     $.ajax({
       url:
         server.url +
-        `app/abm-distribute/exchange-code/${mobile}/${client.productName}/${client.versionType}`,
+        `app/abm-distribute/exchange-code/${mobile}/${server.productName}/${server.versionType}`,
       type: 'GET',
       headers: {
         Authorization: token,
