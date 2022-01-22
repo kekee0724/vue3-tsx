@@ -1,5 +1,9 @@
-node_modules
-.DS_Store
-dist
+dist/
 dist-ssr
+deploy_versions/
+node_modules/
+
+.temp/
+.rn_temp/
+.DS_Store
 *.local
