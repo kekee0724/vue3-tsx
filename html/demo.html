@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 1200px;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+
+        .btn {
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+    </div>
+    <button class="btn">🔝</button>
+    <script>
+        // 防抖函数
+        const debounce = (fn, delay) => {
+            let timer = null;
+            return () => {
+                if (timer !== null) {
+                    clearTimeout(timer)
+                }
+                timer = setTimeout(() => {
+                    fn()
+                    timer = null;
+                }, delay)
+            }
+        }
+        // 节流函数
+        const throttle = (fn, delay) => {
+            let mark = true;
+            return () => {
+                if (mark) {
+                    setTimeout(() => {
+                        fn();
+                        mark = true;
+                    }, delay)
+                }
+                mark = false
+            }
+        }
+        let btn = document.querySelector(".btn");
+        btn.onclick = () => {
+            window.scrollTo(0, 0)
+        }
+        window.onscroll = throttle(() => {
+            console.log("onscroll");
+            if (document.documentElement.scrollTop > 0) {
+                btn.style.display = "block"
+            } else {
+                btn.style.display = "none"
+            }
+        }, 500);
+        // document.visibilityState
+        console.log(document.visibilityState);
+        document.addEventListener("visibilitychange", () => {
+            console.log(document.visibilityState);
+        })
+        // Promise.resolve().then(() => {
+        //     console.log('promise1');
+        //     const timer2 = setTimeout(() => {
+        //         console.log('timer2');
+        //     }, 0);
+        // });
+        // const timer1 = setTimeout(() => {
+        //     console.log('timer1');
+        //     Promise.resolve().then(() => {
+        //         console.log('promise2');
+        //     })
+        // }, 0);
+        // console.log('start');
+    </script>
+</body>
+
+</html>
