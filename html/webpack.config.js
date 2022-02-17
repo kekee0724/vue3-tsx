@@ -1,6 +1,9 @@
 const { resolve } = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 /**
  * webpack配置文件
+ * loader：1. 下载 2. 使用（配置loader）
+ * plugins： 1. 下载 2.引入 3.使用
  */
 module.exports = {
   entry: './src/index.js',
@@ -22,8 +25,8 @@ module.exports = {
           // 创建style标签，将js中的样式资源插入进行，添加到header中生效
           'style-loader',
           // 将css文件变成commonjs模块加载到js中，内容是样式字符串
-          'css-loader'
-        ]
+          'css-loader',
+        ],
       },
       {
         // 匹配哪些文件
@@ -37,13 +40,29 @@ module.exports = {
           // 将less文件编译成css
           // 需要下载less-loader和less
           'less-loader',
-        ]
-      }
-    ]
+        ],
+      },
+      {
+        // 匹配哪些文件
+        test: /\.(jpg|png|gif|svg)$/,
+        // 使用一个loader进行处理
+        // 下载url-loader file-loader
+        loader: 'url-loader',
+        options: {
+          limit: 1 * 1024,
+        },
+      },
+    ],
   },
   // plugins的配置
   plugins: [
-      // 详细plugins配置
+    // 详细plugins配置
+    // html-webpack-plugin
+    // 默认会创建一个空的html文件，自动引入打包输入的所有的资源（js/css）
+    new HtmlWebpackPlugin({
+      // 模版文件
+      template: './src/index.html',
+    }),
   ],
   mode: 'development',
   // mode: 'production',
