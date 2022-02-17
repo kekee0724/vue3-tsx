@@ -1,5 +1,6 @@
 import data from './data.json';
 import './index.css';
+import './index.less';
 
 console.log(data);
 /**
