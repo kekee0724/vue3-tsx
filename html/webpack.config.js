@@ -50,6 +50,22 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 1 * 1024,
+          // 关闭url-loader的es6模块化，使用commonjs解析
+          esModule: false,
+          // [hash:10]取图片的hash前10位
+          // [ext]取文件的原来扩展名
+          name:'[hash:10].[ext]'
+        },
+      },
+      {
+        // 匹配哪些文件
+        test: /\.html$/,
+        // 使用一个loader进行处理
+        // html-loader处理html的img图片（负责引入img，从而被url-loader进行处理）
+        // 下载url-loader file-loader
+        loader: 'html-loader',
+        options: {
+          limit: 1 * 1024,
         },
       },
     ],
