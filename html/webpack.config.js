@@ -114,6 +114,23 @@ module.exports = {
           outputPath: 'assets/media',
         },
       },
+      /**
+       * 语法检查：eslint-loader eslint
+       * 注意不用检查第三方库
+       * 设置检查规则：
+       * package.json中eslintConfig中设置
+       * airbnb --> eslint-config-airbnb-base eslint eslint-plugin-import
+       */
+      {
+        // 匹配哪些文件
+        test: /\.js$/,
+        // 排除css/js/html资源
+        exclude: /node_modules/,
+        // 使用一个loader进行处理
+        loader: 'eslint-loader',
+        options: {
+        },
+      },
     ],
   },
   // plugins的配置
