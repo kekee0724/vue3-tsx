@@ -1,0 +1,65 @@
+{
+  "id": "2694130",
+  "name": "小程序",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "10529061",
+      "name": "圆圈",
+      "font_class": "yuanquan",
+      "unicode": "e757",
+      "unicode_decimal": 59223
+    },
+    {
+      "icon_id": "11876614",
+      "name": "圆圈",
+      "font_class": "yuanquan1-copy",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "12782852",
+      "name": "场地",
+      "font_class": "changdi",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "4276983",
+      "name": "工位",
+      "font_class": "gongwei1",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "10313936",
+      "name": "教室",
+      "font_class": "jiaoshi",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "11742004",
+      "name": "会议室预定",
+      "font_class": "tubiaozhizuomoban",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "14668137",
+      "name": "重点广告位",
+      "font_class": "zhongdianguanggaowei",
+      "unicode": "e771",
+      "unicode_decimal": 59249
+    },
+    {
+      "icon_id": "20416107",
+      "name": "课程",
+      "font_class": "kecheng4",
+      "unicode": "ecf6",
+      "unicode_decimal": 60662
+    }
+  ]
+}

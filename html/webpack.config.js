@@ -54,7 +54,7 @@ module.exports = {
           esModule: false,
           // [hash:10]取图片的hash前10位
           // [ext]取文件的原来扩展名
-          name:'[hash:10].[ext]'
+          name: '[hash:10].[ext]',
         },
       },
       {
@@ -66,6 +66,15 @@ module.exports = {
         loader: 'html-loader',
         options: {
           limit: 1 * 1024,
+        },
+      },
+      {
+        // 排除css/js/html资源
+        exclude: /\.(css|js|html|less|jpg|png|gif|svg|json)$/,
+        // 使用一个loader进行处理
+        loader: 'file-loader',
+        options: {
+          name: '[hash:10].[ext]',
         },
       },
     ],
