@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+const PostcssPresetEnv = require('postcss-preset-env');
 
 process.env.NODE_ENV = 'production';
 /**
@@ -41,12 +42,13 @@ module.exports = {
           // 修改loader配置
           {
             loader: 'postcss-loader',
+            //   ident: 'postcss',
             options: {
-              ident: 'postcss',
-              plugins: () => [
-                // postcss的插件
-                require('postcss-preset-env')(),
-              ],
+              postcssOptions: {
+                // 或者将插件引入写在单独的配置js中
+                // config: './config/postcss.config.js',
+                plugins: [PostcssPresetEnv()],
+              },
             },
           },
         ],
@@ -67,11 +69,9 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              ident: 'postcss',
-              plugins: () => [
-                // postcss的插件
-                require('postcss-preset-env')(),
-              ],
+              postcssOptions: {
+                plugins: [PostcssPresetEnv()],
+              },
             },
           },
           'less-loader',
@@ -129,6 +129,8 @@ module.exports = {
         // 使用一个loader进行处理
         loader: 'eslint-loader',
         options: {
+          // 自动修复eslint错误
+          fix: true,
         },
       },
     ],
