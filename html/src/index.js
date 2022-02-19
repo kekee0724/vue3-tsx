@@ -1,7 +1,7 @@
-import data from './data.json';
-import './index.css';
-import './index.less';
-import './iconfont/iconfont.css'
+import data from './assets/mock/data.json';
+import './assets/css/index.css';
+import './assets/css/index.less';
+import './assets/iconfont/iconfont.css'
 
 console.log(data);
 /**

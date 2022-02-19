@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 /**
  * webpack配置文件
  * loader：1. 下载 2. 使用（配置loader）
@@ -8,7 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'built.js',
+    filename: 'js/index.js',
     // __dirname当前目录绝对路径
     path: resolve(__dirname, 'build'),
   },
@@ -23,7 +24,9 @@ module.exports = {
         // 使用哪些loader进行处理
         use: [
           // 创建style标签，将js中的样式资源插入进行，添加到header中生效
-          'style-loader',
+          // 'style-loader',
+          // 这个loader取代style-loader。作用：提取css成单独文件
+          MiniCssExtractPlugin.loader,
           // 将css文件变成commonjs模块加载到js中，内容是样式字符串
           'css-loader',
         ],
@@ -34,7 +37,9 @@ module.exports = {
         // 使用哪些loader进行处理
         use: [
           // 创建style标签，将js中的样式资源插入进行，添加到header中生效
-          'style-loader',
+          // 'style-loader',
+          // 这个loader取代style-loader。作用：提取css成单独文件
+          MiniCssExtractPlugin.loader,
           // 将css文件变成commonjs模块加载到js中，内容是样式字符串
           'css-loader',
           // 将less文件编译成css
@@ -55,6 +60,7 @@ module.exports = {
           // [hash:10]取图片的hash前10位
           // [ext]取文件的原来扩展名
           name: '[hash:10].[ext]',
+          outputPath: 'assets/images',
         },
       },
       {
@@ -75,6 +81,7 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: '[hash:10].[ext]',
+          outputPath: 'assets/media',
         },
       },
     ],
@@ -88,7 +95,21 @@ module.exports = {
       // 模版文件
       template: './src/index.html',
     }),
+    new MiniCssExtractPlugin(),
   ],
   mode: 'development',
   // mode: 'production',
+  // 开发服务器devServer：用来自动化（自动编译，自动打开浏览器，自动刷新浏览器
+  // 特点：只会在内存中编译打包，不会有输出
+  // 启动devServer指令为：npx webpack-dev-server
+  devServer: {
+    // 项目构建后路径
+    contentBase: resolve(__dirname, 'build'),
+    // 启动gzip压缩
+    compress: true,
+    // 端口号
+    port: 2233,
+    // 自动打开浏览器
+    open: true,
+  },
 };
