@@ -1,6 +1,9 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+
+process.env.NODE_ENV = 'production';
 /**
  * webpack配置文件
  * loader：1. 下载 2. 使用（配置loader）
@@ -29,6 +32,23 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           // 将css文件变成commonjs模块加载到js中，内容是样式字符串
           'css-loader',
+          /**
+           *
+           * css兼容性处理：postcss --> postcss-loader@3.0.0 postcss-preset-env@6.7.0
+           * 帮postcss找到package.json中browerserslist里面的配置，通过配置加载指定的css兼容性样式
+           */
+          // 'postcss-loader',
+          // 修改loader配置
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                // postcss的插件
+                require('postcss-preset-env')(),
+              ],
+            },
+          },
         ],
       },
       {
@@ -44,6 +64,16 @@ module.exports = {
           'css-loader',
           // 将less文件编译成css
           // 需要下载less-loader和less
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                // postcss的插件
+                require('postcss-preset-env')(),
+              ],
+            },
+          },
           'less-loader',
         ],
       },
@@ -95,7 +125,11 @@ module.exports = {
       // 模版文件
       template: './src/index.html',
     }),
-    new MiniCssExtractPlugin(),
+    // 默认输出到main.css
+    new MiniCssExtractPlugin({
+      filename: 'assets/css/index.css',
+    }),
+    new OptimizeCssAssetsWebpackPlugin(),
   ],
   mode: 'development',
   // mode: 'production',
