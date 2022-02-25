@@ -16,10 +16,10 @@ export default defineConfig({
     loading: '@ant-design/pro-layout/es/PageLoading',
   },
   mfsu: {},
-  antd: {
-    dark: true, // 开启暗色主题
-    compact: true, // 开启紧凑主题
-  },
+  // antd: {
+  //   dark: true, // 开启暗色主题
+  //   compact: true, // 开启紧凑主题
+  // },
   proxy: {
     '/api': {
       target: 'http://public-api-v1.aspirantzhang.com/',

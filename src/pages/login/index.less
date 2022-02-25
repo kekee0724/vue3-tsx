@@ -1,0 +1,86 @@
+// @import '~themes/vars';
+
+.form {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  margin: -160px 0 0 -160px;
+  width: 320px;
+  height: 420px;
+  padding: 36px;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
+
+  button {
+    width: 100%;
+  }
+
+  p {
+    color: rgb(204, 204, 204);
+    text-align: center;
+    margin-top: 16px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.logo {
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 40px;
+    margin-right: 8px;
+  }
+
+  span {
+    vertical-align: text-bottom;
+    font-size: 16px;
+    text-transform: uppercase;
+    display: inline-block;
+    font-weight: 700;
+    color: #271e1e;
+    // .text-gradient();
+  }
+}
+
+.ant-spin-container,
+.ant-spin-nested-loading {
+  height: 100%;
+}
+
+.footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.link {
+  margin: 10px auto;
+  text-decoration: underline;
+}
+
+.ant-btn-primary {
+  background-color: #271e1e !important;
+  margin: 10px auto;
+  width: 50% !important;
+  &:hover {
+    background: #271e1e;
+    color: #ccc;
+  }
+}
+
+.ant-btn-primary[disabled],
+.ant-btn-primary[disabled]:hover,
+.ant-btn-primary[disabled]:focus,
+.ant-btn-primary[disabled]:active {
+  color: rgba(255, 255, 255, 0.95);
+  border-color: #939393;
+  background: #939393;
+  text-shadow: none;
+  box-shadow: none;
+}
