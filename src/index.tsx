@@ -1,3 +1,4 @@
+// import './reco.config';
 import './assets/css/index.less';
 
 import dva from 'dva';

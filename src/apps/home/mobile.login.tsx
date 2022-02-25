@@ -165,7 +165,6 @@ export const MobileLogin = (props: any) => {
       Toast.show("请填写正确的手机号");
       return;
     }
-    console.log("sendVerifyCode")
     $.ajax({
       url: server.url + server.auth.oauth2Url + '/authorize',
       type: 'GET',
@@ -227,7 +226,6 @@ export const MobileLogin = (props: any) => {
       },
     });
   }
-
   return (exchangeUrl ?
     <>
       <h2 className='login-title'>{"您已登录"}</h2>
@@ -257,21 +255,23 @@ export const MobileLogin = (props: any) => {
           <Input
             value={phone}
             onChange={(e) => setPhone(e)}
+            maxLength={11}
             placeholder="请输入您的手机号"
             autoComplete="new-password" // 阻止浏览器在password类型的input中自动赋值
           />
         </Form.Item>
         <Form.Item>
-          <Grid columns={12} gap={8}>
-            <Grid.Item span={7}>
+          <Grid columns={24} gap={8}>
+            <Grid.Item span={delay > 0 ? 17 : 14}>
               <Input
                 value={authCode}
+                maxLength={4}
                 onChange={(e) => setAuthCode(e)}
                 placeholder="请输入验证码"
                 autoComplete="new-password" // 阻止浏览器在password类型的input中自动赋值
               />
             </Grid.Item>
-            <Grid.Item span={5}>
+            <Grid.Item span={delay > 0 ? 7 : 10}>
               <Button disabled={disabled || !isCaculate} size="small" color="primary" onClick={() => onClickStart()}>
                 {delay > 0 ? <span className="size-14 grayColor3">{delay} 秒</span> : <a>发送验证码</a>}
               </Button>
@@ -280,7 +280,7 @@ export const MobileLogin = (props: any) => {
         </Form.Item>
         <Form.Item>
           <div className="blank22" />
-          <Button loading={isLogin} color="primary" className="login-form-button" onClick={() => mobileLogin()}>
+          <Button disabled={disabled || !isCaculate || authCode.length !== 4} loading={isLogin} color="primary" className="login-form-button" onClick={() => mobileLogin()}>
             立即登录
           </Button>
         </Form.Item>

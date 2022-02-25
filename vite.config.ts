@@ -3,14 +3,14 @@ import { defineConfig } from 'vite';
 
 import react from '@vitejs/plugin-react';
 
-import config from './src/config';
+// import config from './src/config';
 
 const pathResolve = (pathStr: string) => {
   return path.resolve(__dirname, pathStr)
 }
-const env = process.argv[process.argv.length - 1]
-const base = config[env]
-console.log('process:::env', base)
+// const env = process.argv[process.argv.length - 1]
+// const base = config[env]
+// console.log('process:::env', base)
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,8 +20,8 @@ export default defineConfig({
     // 请求代理
     proxy: {
       '/api': {
-        // 当遇到 /api 路径时，将其转换成 target 的值，这里我们为了测试，写了新蜂商城的请求地址
-        target: 'http://47.99.134.126:28019/api/v1',
+        // 当遇到 /api 路径时，将其转换成 target 的值
+        target: 'http://192.168.1.220/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '') // 将 /api 重写为空
       }

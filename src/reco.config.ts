@@ -1,14 +1,18 @@
-const client = {
+declare var window: Window & {
+  client: Reco.Config.Client;
+  server: Reco.Config.Server;
+};
+export const client: Reco.Config.Client = (window['client'] = {
   title: 'iPark+下载页面',
   techSupport: '上海拜特信息技术有限公司 版权所有',
   appName: 'iPark',
-  appNameSup: '+',
+  appNameSup: '++',
   appTitle: '园企互动平台',
   bgImg: "background-image: url('images/contentimg1.png')",
   bgColor: 'background-color: #02b8cd;',
-};
+});
 
-const server = {
+export const server: Reco.Config.Server = (window['server'] = {
   apiKey: {
     apiKey: 'Bitech\\H5',
     secret: 'vgkEeveppBwCzPHr',
@@ -30,4 +34,4 @@ const server = {
   androidHref: './assets/ipark.apk',
   //跳转兑换
   redeemUrl: 'https://apps.apple.com/redeem',
-};
+});
