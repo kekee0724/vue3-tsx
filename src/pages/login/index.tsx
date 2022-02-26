@@ -3,22 +3,37 @@ import './index.less';
 import React, { FC, Fragment, useState } from 'react';
 
 import { Button, Form, Input, Row } from 'antd';
-import { connect, Dispatch, Loading, UserModelState } from 'umi';
+import { connect, Dispatch, Loading, LoginModelState } from 'umi';
 import logo from './girl-icon.svg';
 const FormItem = Form.Item;
 
-export interface UserPageProps {
-  state: UserModelState;
+export interface LoginPageProps {
+  state: LoginModelState;
   dispatch: Dispatch;
   loading: boolean;
 }
 
-const Login: FC<UserPageProps> = ({ state, dispatch, loading }) => {
+const Login: FC<LoginPageProps> = ({ state, dispatch, loading }) => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const handleOk = (values: any) => {
     console.log(values);
-    dispatch({ type: 'login/login', payload: values });
+    if (isLogin) {
+      setIsLoading(true);
+      dispatch({
+        type: 'login/login',
+        data: values,
+        callback: () => setIsLoading(false),
+      });
+      return;
+    }
+    setIsLoading(true);
+    dispatch({
+      type: 'login/register',
+      data: values,
+      callback: () => setIsLoading(false),
+    });
   };
-  const [isLogin, setIsLogin] = useState(true);
   return (
     <Fragment>
       <div className="form">
@@ -30,8 +45,8 @@ const Login: FC<UserPageProps> = ({ state, dispatch, loading }) => {
             <Fragment>
               <label>名字</label>
               <FormItem
-                name="username"
-                rules={[{ required: true }]}
+                name="name"
+                rules={[{ required: true, type: 'string' }]}
                 hasFeedback
               >
                 <Input placeholder={`名字`} />
@@ -39,7 +54,11 @@ const Login: FC<UserPageProps> = ({ state, dispatch, loading }) => {
             </Fragment>
           )}
           <label>邮件地址</label>
-          <FormItem name="email" rules={[{ required: true }]} hasFeedback>
+          <FormItem
+            name="email"
+            rules={[{ required: true, type: 'email' }]}
+            hasFeedback
+          >
             <Input placeholder={`邮件地址`} />
           </FormItem>
           <label>密码</label>
@@ -48,14 +67,24 @@ const Login: FC<UserPageProps> = ({ state, dispatch, loading }) => {
           </FormItem>
           {isLogin && (
             <Row>
-              <Button type="primary" htmlType="submit" loading={loading}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={isLoading}
+                disabled={isLoading}
+              >
                 登录
               </Button>
             </Row>
           )}
           {!isLogin && (
             <Row>
-              <Button type="primary" htmlType="submit" loading={loading}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={isLoading}
+                disabled={isLoading}
+              >
                 注册
               </Button>
             </Row>
@@ -64,11 +93,11 @@ const Login: FC<UserPageProps> = ({ state, dispatch, loading }) => {
             <a
               to="#"
               className={'link'}
-              // disabled={loading.effects.login}
               onClick={() => {
-                // console.log('已有账号？去登录')
+                if (isLoading) return;
                 setIsLogin(!isLogin);
               }}
+              disabled={isLoading}
             >
               {isLogin ? '没有账号？注册' : '已有账号？去登录'}
             </a>
@@ -84,7 +113,7 @@ const mapStateToProps = ({
   users: state,
   loading,
 }: {
-  users: UserModelState;
+  users: LoginModelState;
   loading: Loading;
 }) => ({ state, loading: loading.models.users });
 

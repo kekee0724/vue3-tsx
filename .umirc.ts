@@ -22,7 +22,7 @@ export default defineConfig({
   // },
   proxy: {
     '/api': {
-      target: 'http://public-api-v1.aspirantzhang.com/',
+      target: 'https://huangbin-c5ff86.postdemo.tcn.asia/api/v2/',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },

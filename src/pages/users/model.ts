@@ -1,7 +1,7 @@
 import produce, { Draft } from 'immer';
 import { get, isArray, isObjectLike, isString, mergeWith, set } from 'lodash';
 import { AnyAction } from 'redux';
-import { Effect, ImmerReducer, Subscription } from 'umi';
+import { Effect, ImmerReducer, mergeState, Subscription } from 'umi';
 
 import { addRecord, deleteRecord, editRecord, getRecord } from './service';
 
@@ -42,26 +42,6 @@ export interface UserModelType {
   };
   // 订阅
   subscriptions: { setup: Subscription };
-}
-
-export function mergeState(state: any, { key, data }: any) {
-  return produce(state, (draft: Draft<any>) => {
-    if (isArray(key) || isString(key)) {
-      const value = get(draft, key);
-
-      isObjectLike(value)
-        ? mergeWith(value, data, customizer)
-        : set(draft, key, data);
-    } else {
-      return mergeWith(draft, data, customizer);
-    }
-  });
-}
-
-function customizer(objValue: any, srcValue: any) {
-  if (isArray(objValue)) {
-    return srcValue;
-  }
 }
 
 const UserModel: UserModelType = {

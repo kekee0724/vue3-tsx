@@ -1,0 +1,11 @@
+{
+  "name": "umi-demo",
+  "dependencies": {
+    "@ant-design/pro-layout": { "version": "6.31.7" },
+    "@ant-design/pro-table": { "version": "2.61.1" },
+    "lodash": { "version": "4.17.21" },
+    "react-dom": { "version": "17.0.2" },
+    "react": { "version": "17.0.2" },
+    "umi": { "version": "3.5.20" }
+  }
+}
