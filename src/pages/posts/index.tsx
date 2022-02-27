@@ -5,28 +5,31 @@ import React, { useState } from 'react';
 import { Card, Col, Row } from 'antd';
 import { connect, Link, Loading, PostModelState } from 'umi';
 
-import { mockRequest } from '@/utils/mock-request';
+import { InfiniteScroll } from '@/components/infinite-scroll';
 
-import { InfiniteScroll } from './components/infinite-scroll';
 import Page from './components/Page';
 import PostsCard from './components/postsCard';
 import styles from './components/postsCard.less';
+import { getPosts } from './service';
 
 const Posts = (props: any) => {
-  const { state } = props;
-  const { posts, user } = state;
-  const postCards = posts?.map((item: any, key: number) => (
+  const {
+    state: { user },
+  } = props;
+  const [data, setData] = useState<string[]>([]);
+  const [pageIndex, setPageIndex] = useState<number>(1);
+  const [hasMore, setHasMore] = useState(true);
+  async function loadMore() {
+    const append = await getPosts({ page: pageIndex, count: 18 });
+    setPageIndex(pageIndex + 1);
+    setData((val) => [...val, ...append]);
+    setHasMore(append.length == 18);
+  }
+  const postCards = data?.map((item: any, key: number) => (
     <Col key={key} lg={8} md={12} style={{ width: '100%' }}>
       <PostsCard {...item} />
     </Col>
   ));
-  const [data, setData] = useState<string[]>([]);
-  const [hasMore, setHasMore] = useState(true);
-  async function loadMore() {
-    const append = await mockRequest();
-    setData((val) => [...val, ...append]);
-    setHasMore(append.length > 0);
-  }
   console.log(data);
   return (
     <Page title={user?.name} subTitle={'我的日记'}>

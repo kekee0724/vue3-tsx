@@ -104,10 +104,10 @@ const PostModel: PostModelType = {
           dispatch({
             type: 'getUsers',
           });
-          dispatch({
-            type: 'getPosts',
-            data: { page: 1, count: 5 },
-          });
+          // dispatch({
+          //   type: 'getPosts',
+          //   data: { page: 1, count: 20 },
+          // });
         }
       });
     },

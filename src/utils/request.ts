@@ -3,8 +3,9 @@
  * request 网络请求工具
  * 更详细的 api 文档: https://github.com/umijs/umi-request
  */
-import { extend } from 'umi-request';
 import { notification } from 'antd';
+import { extend } from 'umi-request';
+
 import { getLocalStorage, setLocalStorage } from './storage';
 
 const codeMessage = {
@@ -23,12 +24,12 @@ const codeMessage = {
   502: '网关错误。',
   503: '服务不可用，服务器暂时过载或维护。',
   504: '网关超时。',
-};
+} as any;
 
 /**
  * 异常处理程序
  */
-const errorHandler = (error) => {
+const errorHandler = (error: { response: any }) => {
   const { response } = error;
 
   if (response && response.status) {

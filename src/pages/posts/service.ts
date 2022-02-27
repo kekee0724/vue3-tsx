@@ -16,7 +16,7 @@ export const getUsers = async (params: { page: number; per_page: number }) => {
     });
 };
 
-export const getPosts = async (params: { page: number; per_page: number }) => {
+export const getPosts = async (params: { page: number; count: number }) => {
   return request('/api/users/me/posts', {
     method: 'get',
     params,
