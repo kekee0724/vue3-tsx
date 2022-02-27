@@ -51,12 +51,12 @@ const request = extend({
 
 // request拦截器, 改变url 或 options.
 request.interceptors.request.use((url, options) => {
-  let c_token = getLocalStorage('authsessiontoken');
-  if (c_token) {
+  let token = getLocalStorage('authsessiontoken');
+  if (token) {
     const headers = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      authsessiontoken: c_token,
+      authsessiontoken: token,
     };
     return {
       url: url,

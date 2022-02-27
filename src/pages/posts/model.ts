@@ -1,6 +1,8 @@
 import { AnyAction } from 'redux';
 import { Effect, history, ImmerReducer, mergeState, Subscription } from 'umi';
 
+import { isAuth } from '@/utils/storage';
+
 import { addPosts, getPosts, getPostsDetail, getUsers } from './service';
 
 export interface User {
@@ -100,7 +102,7 @@ const PostModel: PostModelType = {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname }: { pathname: string }) => {
-        if (pathname === '/posts') {
+        if (pathname === '/posts' && isAuth()) {
           dispatch({
             type: 'getUsers',
           });

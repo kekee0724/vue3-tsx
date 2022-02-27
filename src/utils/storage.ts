@@ -23,3 +23,11 @@ export function getLocalStorage(key: string): string {
 export function setLocalStorage(key: string, value: string): string {
   return setValue(localStorage, key, value), value;
 }
+
+export function getLocalToken() {
+  return getLocalStorage('authsessiontoken');
+}
+
+export function isAuth() {
+  return !!getLocalToken();
+}

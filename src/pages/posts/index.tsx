@@ -1,11 +1,12 @@
 import './index.less';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Card, Col, Row } from 'antd';
-import { connect, Link, Loading, PostModelState } from 'umi';
+import { connect, history, Link, Loading, PostModelState } from 'umi';
 
 import { InfiniteScroll } from '@/components/infinite-scroll';
+import { isAuth } from '@/utils/storage';
 
 import Page from './components/Page';
 import PostsCard from './components/postsCard';
@@ -13,9 +14,15 @@ import styles from './components/postsCard.less';
 import { getPosts } from './service';
 
 const Posts = (props: any) => {
+  useEffect(() => {
+    if (!isAuth()) {
+      history.push('/login');
+    }
+  }, []);
   const {
     state: { user },
   } = props;
+
   const [data, setData] = useState<string[]>([]);
   const [pageIndex, setPageIndex] = useState<number>(1);
   const [hasMore, setHasMore] = useState(true);
@@ -53,7 +60,7 @@ const Posts = (props: any) => {
         </Col>
         {postCards}
       </Row>
-      <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
+      {isAuth() && <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />}
     </Page>
   );
 };
