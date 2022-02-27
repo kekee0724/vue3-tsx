@@ -1,10 +1,13 @@
 import './index.less';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Card, Col, Row } from 'antd';
-import { connect, history, Link, Loading, PostModelState } from 'umi';
+import { connect, Link, Loading, PostModelState } from 'umi';
 
+import { mockRequest } from '@/utils/mock-request';
+
+import { InfiniteScroll } from './components/infinite-scroll';
 import Page from './components/Page';
 import PostsCard from './components/postsCard';
 import styles from './components/postsCard.less';
@@ -17,7 +20,14 @@ const Posts = (props: any) => {
       <PostsCard {...item} />
     </Col>
   ));
-
+  const [data, setData] = useState<string[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+  async function loadMore() {
+    const append = await mockRequest();
+    setData((val) => [...val, ...append]);
+    setHasMore(append.length > 0);
+  }
+  console.log(data);
   return (
     <Page title={user?.name} subTitle={'我的日记'}>
       <Row gutter={24}>
@@ -40,6 +50,7 @@ const Posts = (props: any) => {
         </Col>
         {postCards}
       </Row>
+      <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
     </Page>
   );
 };
