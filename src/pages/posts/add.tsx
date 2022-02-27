@@ -7,19 +7,11 @@ import { connect, Loading, PostModelState, Posts } from 'umi';
 
 import Page from './components/Page';
 
-// type RequiredMark = boolean | 'optional';
 const { TextArea } = Input;
 
 const PostsAdd = (props: any) => {
-  const { state, match, dispatch } = props;
+  const { dispatch } = props;
   const [isLoading, setIsLoading] = useState(false);
-  // useEffect(() => {
-  //   console.log(match.params.id);
-  //   dispatch({
-  //     type: 'posts/getPostsDetail',
-  //     id: match.params.id,
-  //   });
-  // }, []);
 
   const addPosts = (data: Posts) => {
     setIsLoading(true);
@@ -30,41 +22,15 @@ const PostsAdd = (props: any) => {
     });
   };
 
-  // const { posts, user } = state;
   const [form] = Form.useForm();
-  // const [requiredMark, setRequiredMarkType] =
-  //   useState<RequiredMark>('optional');
-
-  // const onRequiredTypeChange = ({
-  //   requiredMarkValue,
-  // }: {
-  //   requiredMarkValue: RequiredMark;
-  // }) => {
-  //   console.log(requiredMarkValue);
-  //   setRequiredMarkType(requiredMarkValue);
-  // };
-
   const handleOk = (values: any) => {
-    console.log(values);
     addPosts(values);
-    // if (isLogin) {
-    //   setIsLoading(true);
-    //   dispatch({
-    //     type: 'login/login',
-    //     data: values,
-    //     callback: () => setIsLoading(false),
-    //   });
-    //   return;
-    // }
   };
   return (
     <Page title={''} subTitle={'新日记条目'}>
       <Form
-        className="form"
         form={form}
-        layout="vertical"
-        // initialValues={{ requiredMarkValue: requiredMark }}
-        // onValuesChange={onRequiredTypeChange}
+        // layout="vertical"
         onFinish={handleOk}
       >
         <Form.Item
