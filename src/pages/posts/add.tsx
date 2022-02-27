@@ -34,6 +34,7 @@ const PostsAdd = (props: any) => {
         onFinish={handleOk}
       >
         <Form.Item
+          rules={[{ required: true }]}
           label="标题"
           name="title"
           required
@@ -41,7 +42,12 @@ const PostsAdd = (props: any) => {
         >
           <Input placeholder="日记条目标题..." />
         </Form.Item>
-        <Form.Item label="内容" name="content" required>
+        <Form.Item
+          rules={[{ required: true }]}
+          label="内容"
+          name="content"
+          required
+        >
           <TextArea
             showCount
             placeholder="日记条目内容..."
