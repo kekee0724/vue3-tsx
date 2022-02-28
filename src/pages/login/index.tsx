@@ -34,13 +34,17 @@ const Login: FC<LoginPageProps> = ({ state, dispatch, loading }) => {
       callback: () => setIsLoading(false),
     });
   };
+  const validateMessages = {
+    required: "'${name}' 是必选字段",
+    // ...
+  };
   return (
     <Fragment>
       <div className="form">
         <div className="logo">
           <img alt="logo" src={logo} />
         </div>
-        <Form onFinish={handleOk}>
+        <Form onFinish={handleOk} validateMessages={validateMessages}>
           {!isLogin && (
             <Fragment>
               <label>名字</label>

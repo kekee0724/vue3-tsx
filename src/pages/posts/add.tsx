@@ -26,12 +26,18 @@ const PostsAdd = (props: any) => {
   const handleOk = (values: any) => {
     addPosts(values);
   };
+  const validateMessages = {
+    required: "'${label}' 是必选字段",
+    // ...
+  };
+
   return (
     <Page title={''} subTitle={'新日记条目'}>
       <Form
         form={form}
         // layout="vertical"
         onFinish={handleOk}
+        validateMessages={validateMessages}
       >
         <Form.Item
           rules={[{ required: true }]}
