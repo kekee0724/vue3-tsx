@@ -1,6 +1,6 @@
-import { FC, useEffect, useState, useRef } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-import { Button, message, Popconfirm, Pagination } from 'antd';
+import { Button, message, Pagination, Popconfirm } from 'antd';
 import { connect, Dispatch, Loading, User, UserModelState } from 'umi';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 
@@ -24,7 +24,7 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
   const {
     result: {
       data: users,
-      meta: { page: pageIndex, per_page: pageSize, total },
+      meta: { page: pageIndex, pageSize: pageSize, total },
     },
   } = state;
 
@@ -36,31 +36,34 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
       key: 'id',
     },
     {
-      title: '用户名',
+      title: '课程名',
       dataIndex: 'name',
       key: 'name',
       valueType: 'text',
       render: (text: React.ReactNode) => <a>{text}</a>,
     },
     {
-      title: '邮箱',
-      dataIndex: 'email',
-      key: 'email',
+      title: '学时',
+      dataIndex: 'period',
+      key: 'period',
     },
     {
-      title: '创建时间',
-      dataIndex: 'create_time',
-      valueType: 'dateTime',
-      key: 'create_time',
+      title: '更新时间',
+      dataIndex: 'updateTime',
+      valueType: 'date',
+      key: 'updateTime',
     },
     {
       title: '操作',
       key: 'action',
       valueType: 'option',
       render: (_, record: User) => [
-        <a onClick={() => edit(record)}>编辑 {record.name}</a>,
+        <a key="0" onClick={() => edit(record)}>
+          编辑 {record.name}
+        </a>,
         <Popconfirm
-          title="确认删除这个用户吗?"
+          key="1"
+          title="确认删除这个课程吗?"
           onConfirm={() => {
             remove(record.id);
           }}
@@ -76,7 +79,7 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
   const getRecord = (index?: number, size?: number) => {
     dispatch({
       type: 'users/getRecord',
-      data: { page: index || pageIndex, per_page: size || pageSize },
+      data: { page: index || pageIndex, pageSize: size || pageSize },
     });
     return undefined;
   };
@@ -122,7 +125,7 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
 
     dispatch({
       type,
-      data: { id, values },
+      data: { id, ...values },
       callback: (res) => {
         if (res) {
           setConfirmLoading(false);
@@ -146,20 +149,6 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
         rowKey="id"
         search={false}
         pagination={false}
-        // pagination={{
-        //   className: 'list-page',
-        //   current: pageIndex,
-        //   total,
-        //   pageSize,
-        //   onChange: (pageIndex, pageSize) => {
-        //     console.log(pageIndex, pageSize)
-        //     getRecord(pageIndex, pageSize);
-        //   },
-        //   // onShowSizeChange: (pageIndex, pageSize) => getRecord(pageIndex, pageSize),
-        //   // showSizeChanger: true,
-        //   showQuickJumper: true,
-        //   showTotal: (total) => `共 ${total} 条记录`,
-        // }}
         options={{
           density: true,
           fullScreen: true,
@@ -168,7 +157,7 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
           },
           setting: true,
         }}
-        headerTitle="用户列表"
+        headerTitle="我的课程列表"
         toolBarRender={() => [
           <Button type="primary" onClick={add}>
             新增

@@ -22,15 +22,15 @@ export const UserModal: FC<UserModalProps> = (props) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (record)
+    if (record?.id)
       form.setFieldsValue({
         ...record,
-        create_time: moment(record.create_time),
-        status: Boolean(record.status),
+        updateTime: moment(new Date()),
+        isValid: Boolean(record.isValid),
       });
     else form.resetFields();
   }, [visible]);
-
+  console.log(record);
   const onOk = () => form.submit();
 
   const onFinishFailed = (e: any) => message.error(e.errorFields[0].errors[0]);
@@ -38,7 +38,7 @@ export const UserModal: FC<UserModalProps> = (props) => {
   return (
     <div>
       <Modal
-        title={record ? '编辑 id: ' + record.id : '新增'}
+        title={record?.id ? '编辑 id: ' + record?.id : '新增'}
         visible={visible}
         onOk={onOk}
         onCancel={onCancel}
@@ -56,23 +56,23 @@ export const UserModal: FC<UserModalProps> = (props) => {
           onFinishFailed={onFinishFailed}
           // autoComplete="off"
           initialValues={{
-            status: true,
+            isValid: true,
           }}
         >
           <Form.Item
-            label="用户名"
+            label="课程名"
             name="name"
-            rules={[{ required: true, message: '请输入用户名!' }]}
+            rules={[{ required: true, message: '请输入课程名!' }]}
           >
             <Input />
           </Form.Item>
-          <Form.Item label="邮箱" name="email">
+          <Form.Item label="学时" name="period">
             <Input />
           </Form.Item>
-          <Form.Item label="创建时间" name="create_time">
-            <DatePicker showTime />
+          <Form.Item label="更新时间" name="updateTime">
+            <DatePicker disabled />
           </Form.Item>
-          <Form.Item label="启用" name="status" valuePropName="checked">
+          <Form.Item label="启用" name="isValid" valuePropName="checked">
             <Switch />
           </Form.Item>
         </Form>

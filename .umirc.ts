@@ -22,7 +22,8 @@ export default defineConfig({
   // },
   proxy: {
     '/api': {
-      target: 'https://huangbin-c5ff86.postdemo.tcn.asia/api/v2/',
+      // target: 'https://huangbin-c5ff86.postdemo.tcn.asia/api/v2/',
+      target: 'http://127.0.0.1:8008/api/',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },

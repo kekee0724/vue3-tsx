@@ -2,7 +2,7 @@ import { Posts } from 'umi';
 
 import request from '@/utils/request';
 
-export const getUsers = async (params: { page: number; per_page: number }) => {
+export const getUsers = async (params: { page: number; pageSize: number }) => {
   return request('/api/users/me', {
     method: 'get',
     params,

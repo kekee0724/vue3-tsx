@@ -21,10 +21,13 @@ const errorHandler = function (error: any) {
 // 1. Unified processing
 const extendRequest = extend({ errorHandler });
 
-export const getRecord = async (params: { page: number; per_page: number }) => {
-  return extendRequest('api/users', {
-    method: 'get',
-    params,
+export const getRecord = async (params: { page: number; pageSize: number }) => {
+  return extendRequest('/api/teacher/listTeacherCourses', {
+    method: 'post',
+    // params,
+    data: {
+      teacherId: 1,
+    },
   })
     .then(function (response) {
       return response;
@@ -35,34 +38,10 @@ export const getRecord = async (params: { page: number; per_page: number }) => {
     });
 };
 
-export const editRecord = async ({
-  id,
-  values,
-}: {
-  id: number;
-  values: Partial<User>;
-}) => {
-  return extendRequest(`api/users/${id}`, {
-    method: 'put',
-    data: values,
-  })
-    .then(function (response) {
-      return true;
-    })
-    .catch(function (error) {
-      console.log(error);
-      return false;
-    });
-};
-
-export const addRecord = async ({
-  values: data,
-}: {
-  values: Partial<User>;
-}) => {
-  return extendRequest(`api/users`, {
+export const editRecord = async (course: User) => {
+  return extendRequest(`api/teacher/editCourse`, {
     method: 'post',
-    data,
+    data: { course },
   })
     .then(function (response) {
       return true;
@@ -73,9 +52,24 @@ export const addRecord = async ({
     });
 };
 
-export const deleteRecord = async ({ id }: { id: number }) => {
-  return extendRequest(`api/users/${id}`, {
-    method: 'delete',
+export const addRecord = async (course: User) => {
+  return extendRequest(`api/teacher/addCourse`, {
+    method: 'post',
+    data: { teacherId: 1, course },
+  })
+    .then(function (response) {
+      return true;
+    })
+    .catch(function (error) {
+      console.log(error);
+      return false;
+    });
+};
+
+export const deleteRecord = async ({ id: courseId }: { id: number }) => {
+  return extendRequest(`api/teacher/delCourse`, {
+    method: 'post',
+    data: { courseId },
   })
     .then(function (response) {
       return true;

@@ -9,16 +9,16 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  create_time: string;
-  update_time: string;
-  status: number;
+  updateTime: string;
+  updateTime: string;
+  isValid: number;
 }
 export interface UserModelState {
   result: {
     data: Array<User>;
     meta: {
       page: number;
-      per_page: number;
+      pageSize: number;
       total: number;
     };
   };
@@ -52,7 +52,7 @@ const UserModel: UserModelType = {
       data: [],
       meta: {
         total: 0,
-        per_page: 5,
+        pageSize: 5,
         page: 1,
       },
     },
@@ -78,7 +78,7 @@ const UserModel: UserModelType = {
     *getRecord({ data }, { call, put }) {
       // const {
       //   result: {
-      //     meta: { page: pageIndex, per_page: pageSize, total },
+      //     meta: { page: pageIndex, pageSize: pageSize, total },
       //   },
       // } = yield select((state: any) => state.users);
       const result = yield call(getRecord, data);
@@ -103,7 +103,7 @@ const UserModel: UserModelType = {
         if (pathname === '/users') {
           // dispatch({
           //   type: 'getRecord',
-          //   data: { page: 1, per_page: 5 },
+          //   data: { page: 1, pageSize: 5 },
           // });
         }
       });

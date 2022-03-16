@@ -11,9 +11,9 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  create_time: string;
-  update_time: string;
-  status: number;
+  updateTime: string;
+  updateTime: string;
+  isValid: number;
 }
 export interface LoginModelState {}
 
@@ -100,7 +100,7 @@ const LoginModel: LoginModelType = {
         if (pathname === '/login') {
           // dispatch({
           //   type: 'getRecord',
-          //   data: { page: 1, per_page: 5 },
+          //   data: { page: 1, pageSize: 5 },
           // });
         }
       });
