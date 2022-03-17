@@ -4,7 +4,7 @@ import { DatePicker, Form, Input, message, Modal, Switch } from 'antd';
 import moment from 'moment';
 import { TeacherSchedule } from 'umi';
 
-export interface CoursesAddModalProps {
+export interface CourseAddModalProps {
   visible: boolean;
   record: Partial<TeacherSchedule>;
   onCancel: () => void;
@@ -17,7 +17,7 @@ const layout = {
   wrapperCol: { span: 20 },
 };
 
-export const CoursesAddModal: FC<CoursesAddModalProps> = (props) => {
+export const CourseAddModal: FC<CourseAddModalProps> = (props) => {
   const { visible, record, onCancel, onFinish, confirmLoading } = props;
   const [form] = Form.useForm();
 
@@ -48,13 +48,9 @@ export const CoursesAddModal: FC<CoursesAddModalProps> = (props) => {
         <Form
           {...layout}
           name="basic"
-          // labelCol={{ span: 4 }}
-          // wrapperCol={{ span: 20 }}
           form={form}
-          // initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
-          // autoComplete="off"
           initialValues={{
             isValid: true,
           }}

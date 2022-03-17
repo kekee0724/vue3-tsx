@@ -121,7 +121,7 @@ export const StudScoreInfoModal: FC<StudScoreInfoModalProps> = (props) => {
           onSave: async (rowKey, data, row) => {
             console.log(rowKey, data, row);
             editAchieve(data);
-            await waitTime(2000);
+            await waitTime(200);
           },
           onChange: setEditableRowKeys,
         }}

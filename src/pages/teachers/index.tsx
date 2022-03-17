@@ -14,7 +14,7 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 
 import { getLocalStorage, setLocalStorage } from '@/utils/storage';
 
-import { CoursesAddModal } from './components/course.add.modal';
+import { CourseAddModal } from './components/course.add.modal';
 import { StudScoreInfoModal } from './components/stud.score.info.modal';
 
 export interface TeacherPageProps {
@@ -32,7 +32,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
     getTeacherSchedule(1, 5);
   }, []);
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [courseAddVisible, setCourseAddVisible] = useState(false);
   const [scoreInfoVisible, setScoreInfoVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [teacherSchedule, setTeacherSchedule] = useState<
@@ -115,7 +115,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
   };
 
   const edit = (teacherSchedule: TeacherSchedule) => {
-    setModalVisible(true);
+    setCourseAddVisible(true);
     setTeacherSchedule(teacherSchedule);
   };
 
@@ -143,7 +143,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
   };
 
   const add = () => {
-    setModalVisible(true);
+    setCourseAddVisible(true);
     setTeacherSchedule({});
   };
 
@@ -164,7 +164,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
       callback: (res) => {
         if (res) {
           setConfirmLoading(false);
-          setModalVisible(false);
+          setCourseAddVisible(false);
           message.success(`${id === 0 ? '新增' : '编辑'}成功.`);
           getTeacherSchedule(pageIndex, pageSize);
         } else {
@@ -225,20 +225,21 @@ const TeacherListPage: FC<TeacherPageProps> = ({
         showQuickJumper
         showTotal={(total) => `共 ${total} 条记录`}
       />
-      <CoursesAddModal
-        visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
+      <CourseAddModal
+        visible={courseAddVisible}
+        onCancel={() => setCourseAddVisible(false)}
         record={teacherSchedule}
         onFinish={onFinish}
         confirmLoading={confirmLoading}
       />
       <StudScoreInfoModal
         visible={scoreInfoVisible}
-        onCancel={() => setScoreInfoVisible(false)}
+        onCancel={() => {
+          setScoreInfoVisible(false);
+          getTeacherSchedule(pageIndex, pageSize);
+        }}
         record={achieve}
         dispatch={dispatch}
-        // onFinish={onFinish}
-        // confirmLoading={confirmLoading}
       />
     </div>
   );
