@@ -86,10 +86,10 @@ const StudentListPage: FC<StudentPageProps> = ({
     setModalVisible(true);
   };
 
-  const addCourse = (courseId: number) => {
+  const addSchedule = (courseId: number) => {
     setConfirmLoading(true);
     dispatch({
-      type: 'students/addCourse',
+      type: 'students/addSchedule',
       data: courseId,
       callback: (res) => {
         if (res) {
@@ -148,7 +148,7 @@ const StudentListPage: FC<StudentPageProps> = ({
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         confirmLoading={confirmLoading}
-        addCourse={addCourse}
+        addSchedule={addSchedule}
         records={studentSchedules.map((stud) => stud.name)}
       />
     </div>

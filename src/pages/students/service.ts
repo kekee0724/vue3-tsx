@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { getLocalStorage } from '@/utils/storage';
 
 export const getSchedules = async () => {
-  return request('/api/student/listStudentAchieves', {
+  return request('/api/student/getSchedules', {
     method: 'post',
     data: {
       studentId: JSON.parse(getLocalStorage('authsessiontoken')).id,
@@ -31,8 +31,8 @@ export const getAllCourses = async () => {
     });
 };
 
-export const addCourse = async (courseId: number) => {
-  return request(`api/student/addCourse`, {
+export const addSchedule = async (courseId: number) => {
+  return request(`api/student/addSchedule`, {
     method: 'post',
     data: {
       studentId: JSON.parse(getLocalStorage('authsessiontoken')).id,

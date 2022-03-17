@@ -11,15 +11,15 @@ export interface CourseSelectionProps {
   visible: boolean;
   onCancel: () => void;
   confirmLoading: boolean;
-  addCourse: (courseId: number) => void;
+  addSchedule: (courseId: number) => void;
   records: Array<string>;
 }
 
 export const CourseSelection: FC<CourseSelectionProps> = (props) => {
-  const { visible, onCancel, confirmLoading, records, addCourse } = props;
+  const { visible, onCancel, confirmLoading, records, addSchedule } = props;
   const [record, setRecord] = useState<TeacherSchedule[]>([]);
   useEffect(() => {
-    getAllCourses();
+    getAllCourse();
   }, [visible]);
   console.log(record, records);
 
@@ -28,7 +28,7 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
     return testStr.indexOf(',' + val + ',') != -1;
   }
 
-  const getAllCourses = async () => {
+  const getAllCourse = async () => {
     const record = await getAllCourses();
     const newRecord: Array<TeacherSchedule> = record.data.filter(
       (reco: StudentSchedule) => !IsInArray(records, reco.name),
@@ -42,7 +42,7 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
       title={`确认${text}吗?`}
       okText="是"
       cancelText="否"
-      onConfirm={() => addCourse(record.id)}
+      onConfirm={() => addSchedule(record.id)}
     >
       <a>{text}</a>
     </Popconfirm>

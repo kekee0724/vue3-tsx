@@ -29,7 +29,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
   loading,
 }) => {
   useEffect(() => {
-    getTeacherSchedule(1, 5);
+    getSchedules(1, 5);
   }, []);
 
   const [courseAddVisible, setCourseAddVisible] = useState(false);
@@ -106,9 +106,9 @@ const TeacherListPage: FC<TeacherPageProps> = ({
     },
   ];
 
-  const getTeacherSchedule = (index?: number, size?: number) => {
+  const getSchedules = (index?: number, size?: number) => {
     dispatch({
-      type: 'teachers/getTeacherSchedule',
+      type: 'teachers/getSchedules',
       data: { page: index || pageIndex, pageSize: size || pageSize },
     });
     return undefined;
@@ -134,7 +134,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
         console.log('删除', res);
         if (res) {
           message.success('删除成功.');
-          getTeacherSchedule(pageIndex, pageSize);
+          getSchedules(pageIndex, pageSize);
         } else {
           message.error('删除失败.');
         }
@@ -166,7 +166,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
           setConfirmLoading(false);
           setCourseAddVisible(false);
           message.success(`${id === 0 ? '新增' : '编辑'}成功.`);
-          getTeacherSchedule(pageIndex, pageSize);
+          getSchedules(pageIndex, pageSize);
         } else {
           setConfirmLoading(false);
           message.error(`${id === 0 ? '新增' : '编辑'}失败.`);
@@ -193,7 +193,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
           density: true,
           fullScreen: true,
           reload: () => {
-            getTeacherSchedule(pageIndex, pageSize);
+            getSchedules(pageIndex, pageSize);
           },
           setting: true,
         }}
@@ -204,7 +204,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
           <Button type="primary" onClick={add}>
             新增
           </Button>,
-          <Button onClick={() => getTeacherSchedule()}>刷新</Button>,
+          <Button onClick={() => getSchedules()}>刷新</Button>,
           <Button type="dashed" danger onClick={logout}>
             退出
           </Button>,
@@ -213,11 +213,9 @@ const TeacherListPage: FC<TeacherPageProps> = ({
       <Pagination
         className="list-page"
         total={total}
-        onChange={(pageIndex, pageSize) =>
-          getTeacherSchedule(pageIndex, pageSize)
-        }
+        onChange={(pageIndex, pageSize) => getSchedules(pageIndex, pageSize)}
         onShowSizeChange={(pageIndex, pageSize) =>
-          getTeacherSchedule(pageIndex, pageSize)
+          getSchedules(pageIndex, pageSize)
         }
         current={pageIndex}
         pageSize={pageSize}
@@ -236,7 +234,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
         visible={scoreInfoVisible}
         onCancel={() => {
           setScoreInfoVisible(false);
-          getTeacherSchedule(pageIndex, pageSize);
+          getSchedules(pageIndex, pageSize);
         }}
         record={achieve}
         dispatch={dispatch}

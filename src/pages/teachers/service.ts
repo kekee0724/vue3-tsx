@@ -3,8 +3,8 @@ import { Achieve, TeacherSchedule } from 'umi';
 import request from '@/utils/request';
 import { getLocalStorage } from '@/utils/storage';
 
-export const getTeacherSchedule = async () => {
-  return request('/api/teacher/listTeacherCourses', {
+export const getSchedules = async () => {
+  return request('/api/teacher/getSchedules', {
     method: 'post',
     data: {
       teacherId: JSON.parse(getLocalStorage('authsessiontoken')).id,

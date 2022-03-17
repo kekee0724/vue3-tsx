@@ -6,7 +6,7 @@ import {
   delCourse,
   editAchieve,
   editCourse,
-  getTeacherSchedule,
+  getSchedules,
 } from './service';
 
 export interface Achieve extends Entity {
@@ -44,7 +44,7 @@ export interface TeacherModelType {
   };
   // 异步
   effects: {
-    getTeacherSchedule: Effect;
+    getSchedules: Effect;
     editCourse: Effect;
     editAchieve: Effect;
     delCourse: Effect;
@@ -75,8 +75,8 @@ const TeacherModel: TeacherModelType = {
   },
 
   effects: {
-    *getTeacherSchedule({ data }, { call, put }) {
-      const result = yield call(getTeacherSchedule, data);
+    *getSchedules({ data }, { call, put }) {
+      const result = yield call(getSchedules, data);
       if (result) yield put({ type: 'input', data: { result } });
     },
     *editCourse({ data, callback }, { call, put }) {
@@ -101,7 +101,7 @@ const TeacherModel: TeacherModelType = {
       return history.listen(({ pathname }: { pathname: string }) => {
         if (pathname === '/teachers') {
           // dispatch({
-          //   type: 'getTeacherSchedule',
+          //   type: 'getSchedules',
           //   data: { page: 1, pageSize: 5 },
           // });
         }

@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import { Effect, Entity, ImmerReducer, mergeState, Subscription } from 'umi';
 
-import { addCourse, getSchedules } from './service';
+import { addSchedule, getSchedules } from './service';
 
 export interface StudentSchedule extends Entity {
   score: number;
@@ -31,7 +31,7 @@ export interface StudentModelType {
   // 异步
   effects: {
     getSchedules: Effect;
-    addCourse: Effect;
+    addSchedule: Effect;
   };
   // 订阅
   subscriptions: { setup: Subscription };
@@ -62,8 +62,8 @@ const StudentModel: StudentModelType = {
       const result = yield call(getSchedules, data);
       if (result) yield put({ type: 'input', data: { result } });
     },
-    *addCourse({ data, callback }, { call, put }) {
-      const res = yield call(addCourse, data);
+    *addSchedule({ data, callback }, { call, put }) {
+      const res = yield call(addSchedule, data);
       callback && callback(res);
     },
   },
