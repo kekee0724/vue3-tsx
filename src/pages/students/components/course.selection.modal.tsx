@@ -76,11 +76,17 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
       key: 'updateTime',
     },
     {
+      title: '启用',
+      dataIndex: 'isValid',
+      valueType: 'switch',
+      key: 'isValid',
+    },
+    {
       title: '操作',
       dataIndex: 'x',
       valueType: 'option',
       render: (_, record) => {
-        let node = renderPopconfirm('选课', record);
+        let node = record.isValid ? renderPopconfirm('选课', record) : '选课';
         return [node];
       },
     },

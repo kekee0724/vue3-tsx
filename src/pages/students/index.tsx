@@ -61,17 +61,17 @@ const StudentListPage: FC<StudentPageProps> = ({
       valueType: 'text',
     },
     {
+      title: '更新时间',
+      dataIndex: 'updateTime',
+      valueType: 'date',
+      key: 'updateTime',
+    },
+    {
       title: '得分',
       dataIndex: 'score',
       key: 'score',
       valueType: 'digit',
     },
-    // {
-    //   title: '更新时间',
-    //   dataIndex: 'updateTime',
-    //   valueType: 'date',
-    //   key: 'updateTime',
-    // },
   ];
 
   const getSchedules = (index?: number, size?: number) => {

@@ -71,9 +71,9 @@ const TeacherListPage: FC<TeacherPageProps> = ({
       dataIndex: 'achieve',
       key: 'achieve',
       valueType: 'text',
-      render: (text: Array<Achieve>) => (
+      render: (text: any) => (
         <a onClick={() => showScoreInfo(text)}>
-          {text.map((item: any) => item.student).join(',')}
+          {text.map((item: Achieve) => item.student).join(',')}
         </a>
       ),
     },
@@ -82,6 +82,12 @@ const TeacherListPage: FC<TeacherPageProps> = ({
       dataIndex: 'updateTime',
       valueType: 'date',
       key: 'updateTime',
+    },
+    {
+      title: '启用',
+      dataIndex: 'isValid',
+      valueType: 'switch',
+      key: 'isValid',
     },
     {
       title: '操作',
