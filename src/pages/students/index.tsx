@@ -27,7 +27,7 @@ const StudentListPage: FC<StudentPageProps> = ({
   loading,
 }) => {
   useEffect(() => {
-    getRecord(1, 5);
+    getSchedules(1, 5);
   }, []);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -74,9 +74,9 @@ const StudentListPage: FC<StudentPageProps> = ({
     // },
   ];
 
-  const getRecord = (index?: number, size?: number) => {
+  const getSchedules = (index?: number, size?: number) => {
     dispatch({
-      type: 'students/getRecord',
+      type: 'students/getSchedules',
       data: { page: index || pageIndex, pageSize: size || pageSize },
     });
     return undefined;
@@ -86,17 +86,17 @@ const StudentListPage: FC<StudentPageProps> = ({
     setModalVisible(true);
   };
 
-  const addRecord = (courseId: number) => {
+  const addCourse = (courseId: number) => {
     setConfirmLoading(true);
     dispatch({
-      type: 'students/addRecord',
+      type: 'students/addCourse',
       data: courseId,
       callback: (res) => {
         if (res) {
           setConfirmLoading(false);
           setModalVisible(false);
           message.success(`选课成功.`);
-          getRecord(pageIndex, pageSize);
+          getSchedules(pageIndex, pageSize);
         } else {
           setConfirmLoading(false);
           message.error(`选课失败.`);
@@ -127,7 +127,7 @@ const StudentListPage: FC<StudentPageProps> = ({
           density: true,
           fullScreen: true,
           reload: () => {
-            getRecord(pageIndex, pageSize);
+            getSchedules(pageIndex, pageSize);
           },
           setting: true,
         }}
@@ -138,7 +138,7 @@ const StudentListPage: FC<StudentPageProps> = ({
           <Button type="primary" onClick={add}>
             选课
           </Button>,
-          <Button onClick={() => getRecord()}>刷新</Button>,
+          <Button onClick={() => getSchedules()}>刷新</Button>,
           <Button type="dashed" danger onClick={logout}>
             退出
           </Button>,
@@ -148,7 +148,7 @@ const StudentListPage: FC<StudentPageProps> = ({
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         confirmLoading={confirmLoading}
-        addRecord={addRecord}
+        addCourse={addCourse}
         records={studentSchedules.map((stud) => stud.name)}
       />
     </div>

@@ -5,18 +5,18 @@ import { StudentSchedule, TeacherSchedule } from 'umi';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 
-import { listAllCourses } from '../service';
+import { getAllCourses } from '../service';
 
 export interface CourseSelectionProps {
   visible: boolean;
   onCancel: () => void;
   confirmLoading: boolean;
-  addRecord: (courseId: number) => void;
+  addCourse: (courseId: number) => void;
   records: Array<string>;
 }
 
 export const CourseSelection: FC<CourseSelectionProps> = (props) => {
-  const { visible, onCancel, confirmLoading, records, addRecord } = props;
+  const { visible, onCancel, confirmLoading, records, addCourse } = props;
   const [record, setRecord] = useState<TeacherSchedule[]>([]);
   useEffect(() => {
     getAllCourses();
@@ -29,8 +29,8 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
   }
 
   const getAllCourses = async () => {
-    const record = await listAllCourses();
-    const newRecord = record.data.filter(
+    const record = await getAllCourses();
+    const newRecord: Array<TeacherSchedule> = record.data.filter(
       (reco: StudentSchedule) => !IsInArray(records, reco.name),
     );
     setRecord(newRecord);
@@ -42,7 +42,7 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
       title={`确认${text}吗?`}
       okText="是"
       cancelText="否"
-      onConfirm={() => addRecord(record.id)}
+      onConfirm={() => addCourse(record.id)}
     >
       <a>{text}</a>
     </Popconfirm>

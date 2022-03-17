@@ -1,14 +1,7 @@
 import { AnyAction } from 'redux';
-import {
-  Effect,
-  ImmerReducer,
-  mergeState,
-  Subscription,
-  TeacherSchedule,
-  Entity,
-} from 'umi';
+import { Effect, Entity, ImmerReducer, mergeState, Subscription } from 'umi';
 
-import { addRecord, getRecord, listAllCourses } from './service';
+import { addCourse, getSchedules } from './service';
 
 export interface StudentSchedule extends Entity {
   score: number;
@@ -17,7 +10,6 @@ export interface StudentSchedule extends Entity {
   teacherName: string;
 }
 export interface StudentModelState {
-  record: Array<TeacherSchedule>;
   result: {
     data: Array<StudentSchedule>;
     meta: {
@@ -33,15 +25,13 @@ export interface StudentModelType {
   state: StudentModelState;
   // 同步
   reducers: {
-    // input: Reducer;
     // 启用 immer 之后
     input: ImmerReducer<StudentModelState>;
   };
   // 异步
   effects: {
-    getRecord: Effect;
-    listAllCourses: Effect;
-    addRecord: Effect;
+    getSchedules: Effect;
+    addCourse: Effect;
   };
   // 订阅
   subscriptions: { setup: Subscription };
@@ -51,7 +41,6 @@ const StudentModel: StudentModelType = {
   namespace: 'students',
 
   state: {
-    record: [],
     result: {
       data: [],
       meta: {
@@ -69,16 +58,12 @@ const StudentModel: StudentModelType = {
   },
 
   effects: {
-    *getRecord({ data }, { call, put }) {
-      const result = yield call(getRecord, data);
+    *getSchedules({ data }, { call, put }) {
+      const result = yield call(getSchedules, data);
       if (result) yield put({ type: 'input', data: { result } });
     },
-    *listAllCourses({}, { call, put }) {
-      const record = yield call(listAllCourses);
-      if (record) yield put({ type: 'input', data: { record } });
-    },
-    *addRecord({ data, callback }, { call, put }) {
-      const res = yield call(addRecord, data);
+    *addCourse({ data, callback }, { call, put }) {
+      const res = yield call(addCourse, data);
       callback && callback(res);
     },
   },
@@ -87,7 +72,7 @@ const StudentModel: StudentModelType = {
       return history.listen(({ pathname }: { pathname: string }) => {
         if (pathname === '/students') {
           // dispatch({
-          //   type: 'getRecord',
+          //   type: 'getSchedules',
           //   data: { page: 1, pageSize: 5 },
           // });
         }

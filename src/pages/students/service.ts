@@ -1,7 +1,7 @@
 import request from '@/utils/request';
 import { getLocalStorage } from '@/utils/storage';
 
-export const getRecord = async () => {
+export const getSchedules = async () => {
   return request('/api/student/listStudentAchieves', {
     method: 'post',
     data: {
@@ -17,7 +17,7 @@ export const getRecord = async () => {
     });
 };
 
-export const listAllCourses = async () => {
+export const getAllCourses = async () => {
   return request(`api/student/listAllCourses`, {
     method: 'post',
     data: {},
@@ -31,7 +31,7 @@ export const listAllCourses = async () => {
     });
 };
 
-export const addRecord = async (courseId: number) => {
+export const addCourse = async (courseId: number) => {
   return request(`api/student/addCourse`, {
     method: 'post',
     data: {
