@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 
-import { Button, message, Pagination } from 'antd';
+import { Button, message } from 'antd';
 import {
   connect,
   Dispatch,

@@ -1,9 +1,7 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { Modal } from 'antd';
 import { Achieve, Dispatch } from 'umi';
-import ProCard from '@ant-design/pro-card';
-import { ProFormField } from '@ant-design/pro-form';
 import type { ProColumns } from '@ant-design/pro-table';
 import { EditableProTable } from '@ant-design/pro-table';
 
@@ -59,6 +57,12 @@ export const AchievesModal: FC<AchievesModalProps> = (props) => {
       // width: '15%',
     },
     {
+      title: '更新时间',
+      dataIndex: 'updateTime',
+      valueType: 'date',
+      editable: false,
+    },
+    {
       title: '分数',
       dataIndex: 'score',
       valueType: 'digit',
@@ -84,7 +88,7 @@ export const AchievesModal: FC<AchievesModalProps> = (props) => {
 
   return (
     <Modal
-      title={`本门课选课学生总数：${record?.length}`}
+      title={`本课程选课学生总数：${record?.length}`}
       visible={visible}
       onOk={onCancel}
       onCancel={onCancel}
@@ -95,7 +99,7 @@ export const AchievesModal: FC<AchievesModalProps> = (props) => {
     >
       <EditableProTable<Achieve>
         rowKey="id"
-        headerTitle="学生选课表及打分"
+        headerTitle="学生选课表(打分)"
         maxLength={5}
         recordCreatorProps={false}
         columns={columns}
@@ -122,19 +126,6 @@ export const AchievesModal: FC<AchievesModalProps> = (props) => {
           onChange: setEditableRowKeys,
         }}
       />
-      <ProCard title="表格数据" headerBordered collapsible defaultCollapsed>
-        <ProFormField
-          ignoreFormItem
-          fieldProps={{
-            style: {
-              width: '100%',
-            },
-          }}
-          mode="read"
-          valueType="jsonCode"
-          text={JSON.stringify(dataSource)}
-        />
-      </ProCard>
     </Modal>
   );
 };

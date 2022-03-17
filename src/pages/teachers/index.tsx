@@ -196,7 +196,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
         }}
         headerTitle={`${
           JSON.parse(getLocalStorage('authsessiontoken')).name
-        }老师的课程列表`}
+        }老师任课安排表`}
         toolBarRender={() => [
           <Button type="primary" onClick={add}>
             新增
