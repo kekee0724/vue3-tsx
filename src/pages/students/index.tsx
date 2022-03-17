@@ -6,14 +6,14 @@ import {
   Dispatch,
   history,
   Loading,
-  Student,
   StudentModelState,
+  StudentSchedule,
 } from 'umi';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 
 import { getLocalStorage, setLocalStorage } from '@/utils/storage';
 
-import { CoursesModal } from './components/student.modal';
+import { CourseSelection } from './components/course.selection.modal';
 
 export interface StudentPageProps {
   state: StudentModelState;
@@ -35,12 +35,12 @@ const StudentListPage: FC<StudentPageProps> = ({
 
   const {
     result: {
-      data: students,
+      data: studentSchedules,
       meta: { page: pageIndex, pageSize: pageSize, total },
     },
   } = state;
 
-  const columns: ProColumns<Student>[] = [
+  const columns: ProColumns<StudentSchedule>[] = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -90,7 +90,7 @@ const StudentListPage: FC<StudentPageProps> = ({
     setConfirmLoading(true);
     dispatch({
       type: 'students/addRecord',
-      courseId,
+      data: courseId,
       callback: (res) => {
         if (res) {
           setConfirmLoading(false);
@@ -114,7 +114,7 @@ const StudentListPage: FC<StudentPageProps> = ({
     <div className="list-table">
       <ProTable
         columns={columns}
-        dataSource={students}
+        dataSource={studentSchedules}
         loading={loading}
         rowKey="id"
         search={false}
@@ -144,25 +144,12 @@ const StudentListPage: FC<StudentPageProps> = ({
           </Button>,
         ]}
       />
-      {/* <Pagination
-        className="list-page"
-        total={total}
-        onChange={(pageIndex, pageSize) => getRecord(pageIndex, pageSize)}
-        onShowSizeChange={(pageIndex, pageSize) =>
-          getRecord(pageIndex, pageSize)
-        }
-        current={pageIndex}
-        pageSize={pageSize}
-        showSizeChanger
-        showQuickJumper
-        showTotal={(total) => `共 ${total} 条记录`}
-      /> */}
-      <CoursesModal
+      <CourseSelection
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         confirmLoading={confirmLoading}
         addRecord={addRecord}
-        records={students.map((students) => students.name)}
+        records={studentSchedules.map((stud) => stud.name)}
       />
     </div>
   );

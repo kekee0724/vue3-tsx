@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { Modal, Popconfirm } from 'antd';
-import { TeacherSchedule, Student } from 'umi';
+import { StudentSchedule, TeacherSchedule } from 'umi';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 
 import { listAllCourses } from '../service';
 
-export interface CoursesModalProps {
+export interface CourseSelectionProps {
   visible: boolean;
   onCancel: () => void;
   confirmLoading: boolean;
@@ -15,7 +15,7 @@ export interface CoursesModalProps {
   records: Array<string>;
 }
 
-export const CoursesModal: FC<CoursesModalProps> = (props) => {
+export const CourseSelection: FC<CourseSelectionProps> = (props) => {
   const { visible, onCancel, confirmLoading, records, addRecord } = props;
   const [record, setRecord] = useState<TeacherSchedule[]>([]);
   useEffect(() => {
@@ -31,7 +31,7 @@ export const CoursesModal: FC<CoursesModalProps> = (props) => {
   const getAllCourses = async () => {
     const record = await listAllCourses();
     const newRecord = record.data.filter(
-      (reco: Student) => !IsInArray(records, reco.name),
+      (reco: StudentSchedule) => !IsInArray(records, reco.name),
     );
     setRecord(newRecord);
   };

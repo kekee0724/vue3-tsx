@@ -5,20 +5,21 @@ import {
   mergeState,
   Subscription,
   TeacherSchedule,
-  User,
+  Entity,
 } from 'umi';
 
 import { addRecord, getRecord, listAllCourses } from './service';
 
-export interface Student extends User {
+export interface StudentSchedule extends Entity {
   score: number;
   studentId: number;
   studentName: string;
+  teacherName: string;
 }
 export interface StudentModelState {
   record: Array<TeacherSchedule>;
   result: {
-    data: Array<Student>;
+    data: Array<StudentSchedule>;
     meta: {
       page: number;
       pageSize: number;
@@ -50,6 +51,7 @@ const StudentModel: StudentModelType = {
   namespace: 'students',
 
   state: {
+    record: [],
     result: {
       data: [],
       meta: {
@@ -61,16 +63,6 @@ const StudentModel: StudentModelType = {
   },
 
   reducers: {
-    // input(state, { data }) {
-    //   return {
-    //     ...state,
-    //     ...data,
-    //   };
-    // },
-    // 启用 immer 之后
-    // input(state, { data }) {
-    //   state.result = data.result;
-    // },
     input(state: any, action: AnyAction) {
       return mergeState(state, action);
     },
@@ -78,11 +70,6 @@ const StudentModel: StudentModelType = {
 
   effects: {
     *getRecord({ data }, { call, put }) {
-      // const {
-      //   result: {
-      //     meta: { page: pageIndex, pageSize: pageSize, total },
-      //   },
-      // } = yield select((state: any) => state.students);
       const result = yield call(getRecord, data);
       if (result) yield put({ type: 'input', data: { result } });
     },
@@ -90,8 +77,8 @@ const StudentModel: StudentModelType = {
       const record = yield call(listAllCourses);
       if (record) yield put({ type: 'input', data: { record } });
     },
-    *addRecord({ courseId, callback }, { call, put }) {
-      const res = yield call(addRecord, courseId);
+    *addRecord({ data, callback }, { call, put }) {
+      const res = yield call(addRecord, data);
       callback && callback(res);
     },
   },

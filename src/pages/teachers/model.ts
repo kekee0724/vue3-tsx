@@ -1,12 +1,5 @@
 import { AnyAction } from 'redux';
-import {
-  Effect,
-  ImmerReducer,
-  mergeState,
-  Subscription,
-  User,
-  Entity,
-} from 'umi';
+import { Effect, Entity, ImmerReducer, mergeState, Subscription } from 'umi';
 
 import {
   addRecord,
