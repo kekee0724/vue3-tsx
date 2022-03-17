@@ -4,7 +4,7 @@ import {
   ImmerReducer,
   mergeState,
   Subscription,
-  Teacher,
+  TeacherSchedule,
   User,
 } from 'umi';
 
@@ -16,7 +16,7 @@ export interface Student extends User {
   studentName: string;
 }
 export interface StudentModelState {
-  record: Array<Teacher>;
+  record: Array<TeacherSchedule>;
   result: {
     data: Array<Student>;
     meta: {

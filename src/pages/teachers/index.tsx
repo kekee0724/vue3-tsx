@@ -5,16 +5,17 @@ import {
   Achieve,
   connect,
   Dispatch,
-  Loading,
-  Teacher,
-  TeacherModelState,
   history,
+  Loading,
+  TeacherModelState,
+  TeacherSchedule,
 } from 'umi';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 
-import { AchievesModal } from './components/achieve.modal';
-import { CoursesModal } from './components/teacher.modal';
 import { getLocalStorage, setLocalStorage } from '@/utils/storage';
+
+import { CoursesAddModal } from './components/course.add.modal';
+import { StudScoreInfoModal } from './components/stud.score.info.modal';
 
 export interface TeacherPageProps {
   state: TeacherModelState;
@@ -28,13 +29,15 @@ const TeacherListPage: FC<TeacherPageProps> = ({
   loading,
 }) => {
   useEffect(() => {
-    getRecord(1, 5);
+    getTeacherSchedule(1, 5);
   }, []);
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalAchieveVisible, setAchieveModalVisible] = useState(false);
+  const [scoreInfoVisible, setScoreInfoVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [record, setRecord] = useState<Partial<Teacher>>({});
+  const [teacherSchedule, setTeacherSchedule] = useState<
+    Partial<TeacherSchedule>
+  >({});
   const [achieve, setAchieve] = useState<Array<Achieve>>([]);
 
   const {
@@ -44,7 +47,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
     },
   } = state;
 
-  const columns: ProColumns<Teacher>[] = [
+  const columns: ProColumns<TeacherSchedule>[] = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -69,7 +72,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
       key: 'achieve',
       valueType: 'text',
       render: (text: Array<Achieve>) => (
-        <a onClick={() => showAchieve(text)}>
+        <a onClick={() => showScoreInfo(text)}>
           {text.map((item: any) => item.student).join(',')}
         </a>
       ),
@@ -84,15 +87,15 @@ const TeacherListPage: FC<TeacherPageProps> = ({
       title: '操作',
       key: 'action',
       valueType: 'option',
-      render: (_, record: Teacher) => [
-        <a key="0" onClick={() => edit(record)}>
-          编辑 {record.name}
+      render: (_, teacherSchedule: TeacherSchedule) => [
+        <a key="0" onClick={() => edit(teacherSchedule)}>
+          编辑 {teacherSchedule.name}
         </a>,
         <Popconfirm
           key="1"
           title="确认删除这个课程吗?"
           onConfirm={() => {
-            remove(record.id);
+            remove(teacherSchedule.id);
           }}
           okText="确定"
           cancelText="取消"
@@ -103,7 +106,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
     },
   ];
 
-  const getRecord = (index?: number, size?: number) => {
+  const getTeacherSchedule = (index?: number, size?: number) => {
     dispatch({
       type: 'teachers/getRecord',
       data: { page: index || pageIndex, pageSize: size || pageSize },
@@ -111,13 +114,13 @@ const TeacherListPage: FC<TeacherPageProps> = ({
     return undefined;
   };
 
-  const edit = (record: Teacher) => {
+  const edit = (teacherSchedule: TeacherSchedule) => {
     setModalVisible(true);
-    setRecord(record);
+    setTeacherSchedule(teacherSchedule);
   };
 
-  const showAchieve = (achieve: Array<Achieve>) => {
-    setAchieveModalVisible(true);
+  const showScoreInfo = (achieve: Array<Achieve>) => {
+    setScoreInfoVisible(true);
     setAchieve(achieve);
   };
 
@@ -131,7 +134,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
         console.log('删除', res);
         if (res) {
           message.success('删除成功.');
-          getRecord(pageIndex, pageSize);
+          getTeacherSchedule(pageIndex, pageSize);
         } else {
           message.error('删除失败.');
         }
@@ -141,12 +144,12 @@ const TeacherListPage: FC<TeacherPageProps> = ({
 
   const add = () => {
     setModalVisible(true);
-    setRecord({});
+    setTeacherSchedule({});
   };
 
-  const onFinish = (values: Partial<Teacher>) => {
+  const onFinish = (values: Partial<TeacherSchedule>) => {
     setConfirmLoading(true);
-    const { id } = record;
+    const { id } = teacherSchedule;
 
     let type;
     if (id) {
@@ -163,7 +166,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
           setConfirmLoading(false);
           setModalVisible(false);
           message.success(`${id === 0 ? '新增' : '编辑'}成功.`);
-          getRecord(pageIndex, pageSize);
+          getTeacherSchedule(pageIndex, pageSize);
         } else {
           setConfirmLoading(false);
           message.error(`${id === 0 ? '新增' : '编辑'}失败.`);
@@ -190,7 +193,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
           density: true,
           fullScreen: true,
           reload: () => {
-            getRecord(pageIndex, pageSize);
+            getTeacherSchedule(pageIndex, pageSize);
           },
           setting: true,
         }}
@@ -201,7 +204,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
           <Button type="primary" onClick={add}>
             新增
           </Button>,
-          <Button onClick={() => getRecord()}>刷新</Button>,
+          <Button onClick={() => getTeacherSchedule()}>刷新</Button>,
           <Button type="dashed" danger onClick={logout}>
             退出
           </Button>,
@@ -210,9 +213,11 @@ const TeacherListPage: FC<TeacherPageProps> = ({
       <Pagination
         className="list-page"
         total={total}
-        onChange={(pageIndex, pageSize) => getRecord(pageIndex, pageSize)}
+        onChange={(pageIndex, pageSize) =>
+          getTeacherSchedule(pageIndex, pageSize)
+        }
         onShowSizeChange={(pageIndex, pageSize) =>
-          getRecord(pageIndex, pageSize)
+          getTeacherSchedule(pageIndex, pageSize)
         }
         current={pageIndex}
         pageSize={pageSize}
@@ -220,16 +225,16 @@ const TeacherListPage: FC<TeacherPageProps> = ({
         showQuickJumper
         showTotal={(total) => `共 ${total} 条记录`}
       />
-      <CoursesModal
+      <CoursesAddModal
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
-        record={record}
+        record={teacherSchedule}
         onFinish={onFinish}
         confirmLoading={confirmLoading}
       />
-      <AchievesModal
-        visible={modalAchieveVisible}
-        onCancel={() => setAchieveModalVisible(false)}
+      <StudScoreInfoModal
+        visible={scoreInfoVisible}
+        onCancel={() => setScoreInfoVisible(false)}
         record={achieve}
         dispatch={dispatch}
         // onFinish={onFinish}

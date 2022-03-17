@@ -13,14 +13,14 @@ const waitTime = (time: number = 100) => {
   });
 };
 
-export interface AchievesModalProps {
+export interface StudScoreInfoModalProps {
   visible: boolean;
   record: Array<Achieve>;
   onCancel: () => void;
   dispatch: Dispatch;
 }
 
-export const AchievesModal: FC<AchievesModalProps> = (props) => {
+export const StudScoreInfoModal: FC<StudScoreInfoModalProps> = (props) => {
   const { visible, record, onCancel, dispatch } = props;
   const [editableKeys, setEditableRowKeys] = useState<React.Key[]>([]);
   const [dataSource, setDataSource] = useState<Achieve[]>();

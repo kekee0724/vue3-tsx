@@ -7,9 +7,12 @@ import { setLocalStorage } from '@/utils/storage';
 
 import { loginUser, register } from './service';
 
-export interface User {
+export interface Entity {
   id: number;
   name: string;
+}
+
+export interface User extends Entity {
   email: string;
   password: string;
   updateTime: string;

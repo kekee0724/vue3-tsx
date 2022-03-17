@@ -2,13 +2,13 @@ import React, { FC, useEffect } from 'react';
 
 import { DatePicker, Form, Input, message, Modal, Switch } from 'antd';
 import moment from 'moment';
-import { Teacher } from 'umi';
+import { TeacherSchedule } from 'umi';
 
-export interface CoursesModalProps {
+export interface CoursesAddModalProps {
   visible: boolean;
-  record: Partial<Teacher>;
+  record: Partial<TeacherSchedule>;
   onCancel: () => void;
-  onFinish: (values: Partial<Teacher>) => void;
+  onFinish: (values: Partial<TeacherSchedule>) => void;
   confirmLoading: boolean;
 }
 
@@ -17,7 +17,7 @@ const layout = {
   wrapperCol: { span: 20 },
 };
 
-export const CoursesModal: FC<CoursesModalProps> = (props) => {
+export const CoursesAddModal: FC<CoursesAddModalProps> = (props) => {
   const { visible, record, onCancel, onFinish, confirmLoading } = props;
   const [form] = Form.useForm();
 

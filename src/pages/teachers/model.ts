@@ -1,5 +1,12 @@
 import { AnyAction } from 'redux';
-import { Effect, ImmerReducer, mergeState, Subscription, User } from 'umi';
+import {
+  Effect,
+  ImmerReducer,
+  mergeState,
+  Subscription,
+  User,
+  Entity,
+} from 'umi';
 
 import {
   addRecord,
@@ -9,24 +16,23 @@ import {
   getRecord,
 } from './service';
 
-export interface Achieve {
-  id: number;
-  name: string;
+export interface Achieve extends Entity {
+  course: string;
   score: number;
   student: string;
-  course: string;
-}
-
-export interface Teacher extends User {
   updateTime: string;
+}
+export interface TeacherSchedule extends Entity {
   achieve: Array<Achieve>;
+  isValid: boolean;
   period: number;
   teacherId: number;
   teacherName: string;
+  updateTime: string;
 }
 export interface TeacherModelState {
   result: {
-    data: Array<Teacher>;
+    data: Array<TeacherSchedule>;
     meta: {
       page: number;
       pageSize: number;
@@ -88,11 +94,6 @@ const TeacherModel: TeacherModelType = {
 
   effects: {
     *getRecord({ data }, { call, put }) {
-      // const {
-      //   result: {
-      //     meta: { page: pageIndex, pageSize: pageSize, total },
-      //   },
-      // } = yield select((state: any) => state.teachers);
       const result = yield call(getRecord, data);
       if (result) yield put({ type: 'input', data: { result } });
     },

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { Modal, Popconfirm } from 'antd';
-import { Teacher, Student } from 'umi';
+import { TeacherSchedule, Student } from 'umi';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 
@@ -17,7 +17,7 @@ export interface CoursesModalProps {
 
 export const CoursesModal: FC<CoursesModalProps> = (props) => {
   const { visible, onCancel, confirmLoading, records, addRecord } = props;
-  const [record, setRecord] = useState<Teacher[]>([]);
+  const [record, setRecord] = useState<TeacherSchedule[]>([]);
   useEffect(() => {
     getAllCourses();
   }, [visible]);
@@ -36,7 +36,7 @@ export const CoursesModal: FC<CoursesModalProps> = (props) => {
     setRecord(newRecord);
   };
 
-  const renderPopconfirm = (text: string, record: Teacher) => (
+  const renderPopconfirm = (text: string, record: TeacherSchedule) => (
     <Popconfirm
       key="popconfirm"
       title={`确认${text}吗?`}
@@ -48,7 +48,7 @@ export const CoursesModal: FC<CoursesModalProps> = (props) => {
     </Popconfirm>
   );
 
-  const columns: ProColumns<Teacher>[] = [
+  const columns: ProColumns<TeacherSchedule>[] = [
     {
       dataIndex: 'id',
       title: 'id',
@@ -97,7 +97,7 @@ export const CoursesModal: FC<CoursesModalProps> = (props) => {
         confirmLoading={confirmLoading}
         width={800}
       >
-        <ProTable<Teacher>
+        <ProTable<TeacherSchedule>
           columns={columns}
           dataSource={record}
           rowKey="id"
