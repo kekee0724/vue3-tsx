@@ -21,6 +21,7 @@
     ]
   },
   "dependencies": {
+    "@ant-design/pro-card": "^1.18.40",
     "@ant-design/pro-layout": "^6.5.0",
     "@ant-design/pro-table": "^2.2.7",
     "ahooks": "^3.1.10",

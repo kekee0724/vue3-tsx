@@ -2,13 +2,13 @@ import React, { FC, useEffect } from 'react';
 
 import { DatePicker, Form, Input, message, Modal, Switch } from 'antd';
 import moment from 'moment';
-import { User } from 'umi';
+import { Teacher } from 'umi';
 
-export interface UserModalProps {
+export interface CoursesModalProps {
   visible: boolean;
-  record: Partial<User>;
+  record: Partial<Teacher>;
   onCancel: () => void;
-  onFinish: (values: Partial<User>) => void;
+  onFinish: (values: Partial<Teacher>) => void;
   confirmLoading: boolean;
 }
 
@@ -17,7 +17,7 @@ const layout = {
   wrapperCol: { span: 20 },
 };
 
-export const UserModal: FC<UserModalProps> = (props) => {
+export const CoursesModal: FC<CoursesModalProps> = (props) => {
   const { visible, record, onCancel, onFinish, confirmLoading } = props;
   const [form] = Form.useForm();
 
@@ -30,7 +30,7 @@ export const UserModal: FC<UserModalProps> = (props) => {
       });
     else form.resetFields();
   }, [visible]);
-  console.log(record);
+
   const onOk = () => form.submit();
 
   const onFinishFailed = (e: any) => message.error(e.errorFields[0].errors[0]);
@@ -69,7 +69,11 @@ export const UserModal: FC<UserModalProps> = (props) => {
           <Form.Item label="学时" name="period">
             <Input />
           </Form.Item>
-          <Form.Item label="更新时间" name="updateTime">
+          <Form.Item
+            label="更新时间"
+            name="updateTime"
+            initialValue={moment(new Date())}
+          >
             <DatePicker disabled />
           </Form.Item>
           <Form.Item label="启用" name="isValid" valuePropName="checked">

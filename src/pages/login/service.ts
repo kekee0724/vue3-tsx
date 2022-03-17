@@ -1,23 +1,11 @@
-import { message } from 'antd';
-import { extend } from 'umi-request';
+import { User } from 'umi';
 
-const errorHandler = function (error: any) {
-  if (error.response) {
-    if (error.response.status >= 400) {
-      message.error(error?.data?.error);
-    }
-  } else {
-    message.error('网络连接不稳定');
-  }
-  throw error;
-};
+import request from '@/utils/request';
 
-const extendRequest = extend({ errorHandler });
-
-export const loginUser = async (data: any) => {
-  return extendRequest(`api/auth/login`, {
+export const loginUser = async (user: User) => {
+  return request(`api/${user.role}/login`, {
     method: 'post',
-    data,
+    data: { [user.role]: user },
   })
     .then(function (response) {
       return response;
@@ -28,10 +16,10 @@ export const loginUser = async (data: any) => {
     });
 };
 
-export const register = async (data: any) => {
-  return extendRequest(`api/auth/register`, {
+export const register = async (user: User) => {
+  return request(`api/${user.role}/register`, {
     method: 'post',
-    data,
+    data: { [user.role]: user },
   })
     .then(function (response) {
       return response;

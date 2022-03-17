@@ -1,34 +1,50 @@
 import { FC, useEffect, useState } from 'react';
 
 import { Button, message, Pagination, Popconfirm } from 'antd';
-import { connect, Dispatch, Loading, User, UserModelState } from 'umi';
+import {
+  Achieve,
+  connect,
+  Dispatch,
+  Loading,
+  Teacher,
+  TeacherModelState,
+  history,
+} from 'umi';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 
-import { UserModal } from './components/user.modal';
+import { AchievesModal } from './components/achieve.modal';
+import { CoursesModal } from './components/teacher.modal';
+import { getLocalStorage, setLocalStorage } from '@/utils/storage';
 
-export interface UserPageProps {
-  state: UserModelState;
+export interface TeacherPageProps {
+  state: TeacherModelState;
   dispatch: Dispatch;
   loading: boolean;
 }
 
-const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
+const TeacherListPage: FC<TeacherPageProps> = ({
+  state,
+  dispatch,
+  loading,
+}) => {
   useEffect(() => {
     getRecord(1, 5);
   }, []);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalAchieveVisible, setAchieveModalVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [record, setRecord] = useState<Partial<User>>({});
+  const [record, setRecord] = useState<Partial<Teacher>>({});
+  const [achieve, setAchieve] = useState<Array<Achieve>>([]);
 
   const {
     result: {
-      data: users,
+      data: teachers,
       meta: { page: pageIndex, pageSize: pageSize, total },
     },
   } = state;
 
-  const columns: ProColumns<User>[] = [
+  const columns: ProColumns<Teacher>[] = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -40,12 +56,23 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
       dataIndex: 'name',
       key: 'name',
       valueType: 'text',
-      render: (text: React.ReactNode) => <a>{text}</a>,
+      // render: (text: React.ReactNode) => <a>{text}</a>,
     },
     {
       title: '学时',
       dataIndex: 'period',
       key: 'period',
+    },
+    {
+      title: '选课学生',
+      dataIndex: 'achieve',
+      key: 'achieve',
+      valueType: 'text',
+      render: (text: Array<Achieve>) => (
+        <a onClick={() => showAchieve(text)}>
+          {text.map((item: any) => item.student).join(',')}
+        </a>
+      ),
     },
     {
       title: '更新时间',
@@ -57,7 +84,7 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
       title: '操作',
       key: 'action',
       valueType: 'option',
-      render: (_, record: User) => [
+      render: (_, record: Teacher) => [
         <a key="0" onClick={() => edit(record)}>
           编辑 {record.name}
         </a>,
@@ -78,20 +105,25 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
 
   const getRecord = (index?: number, size?: number) => {
     dispatch({
-      type: 'users/getRecord',
+      type: 'teachers/getRecord',
       data: { page: index || pageIndex, pageSize: size || pageSize },
     });
     return undefined;
   };
 
-  const edit = (record: User) => {
+  const edit = (record: Teacher) => {
     setModalVisible(true);
     setRecord(record);
   };
 
+  const showAchieve = (achieve: Array<Achieve>) => {
+    setAchieveModalVisible(true);
+    setAchieve(achieve);
+  };
+
   const remove = (id: number) => {
     dispatch({
-      type: 'users/deleteRecord',
+      type: 'teachers/deleteRecord',
       data: {
         id,
       },
@@ -112,15 +144,15 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
     setRecord({});
   };
 
-  const onFinish = (values: Partial<User>) => {
+  const onFinish = (values: Partial<Teacher>) => {
     setConfirmLoading(true);
     const { id } = record;
 
     let type;
     if (id) {
-      type = 'users/editRecord';
+      type = 'teachers/editRecord';
     } else {
-      type = 'users/addRecord';
+      type = 'teachers/addRecord';
     }
 
     dispatch({
@@ -140,11 +172,16 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
     });
   };
 
+  const logout = () => {
+    setLocalStorage('authsessiontoken', '');
+    history.push('/login');
+  };
+
   return (
     <div className="list-table">
       <ProTable
         columns={columns}
-        dataSource={users}
+        dataSource={teachers}
         loading={loading}
         rowKey="id"
         search={false}
@@ -157,12 +194,17 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
           },
           setting: true,
         }}
-        headerTitle="我的课程列表"
+        headerTitle={`${
+          JSON.parse(getLocalStorage('authsessiontoken')).name
+        }老师的课程列表`}
         toolBarRender={() => [
           <Button type="primary" onClick={add}>
             新增
           </Button>,
           <Button onClick={() => getRecord()}>刷新</Button>,
+          <Button type="dashed" danger onClick={logout}>
+            退出
+          </Button>,
         ]}
       />
       <Pagination
@@ -178,24 +220,32 @@ const UserListPage: FC<UserPageProps> = ({ state, dispatch, loading }) => {
         showQuickJumper
         showTotal={(total) => `共 ${total} 条记录`}
       />
-      <UserModal
+      <CoursesModal
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         record={record}
         onFinish={onFinish}
         confirmLoading={confirmLoading}
-      ></UserModal>
+      />
+      <AchievesModal
+        visible={modalAchieveVisible}
+        onCancel={() => setAchieveModalVisible(false)}
+        record={achieve}
+        dispatch={dispatch}
+        // onFinish={onFinish}
+        // confirmLoading={confirmLoading}
+      />
     </div>
   );
 };
 
 // 简写
 const mapStateToProps = ({
-  users: state,
+  teachers: state,
   loading,
 }: {
-  users: UserModelState;
+  teachers: TeacherModelState;
   loading: Loading;
-}) => ({ state, loading: loading.models.users });
+}) => ({ state, loading: loading.models.teachers });
 
-export default connect(mapStateToProps)(UserListPage);
+export default connect(mapStateToProps)(TeacherListPage);

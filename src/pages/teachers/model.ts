@@ -1,21 +1,32 @@
-import produce, { Draft } from 'immer';
-import { get, isArray, isObjectLike, isString, mergeWith, set } from 'lodash';
 import { AnyAction } from 'redux';
-import { Effect, ImmerReducer, mergeState, Subscription } from 'umi';
+import { Effect, ImmerReducer, mergeState, Subscription, User } from 'umi';
 
-import { addRecord, deleteRecord, editRecord, getRecord } from './service';
+import {
+  addRecord,
+  deleteRecord,
+  editAchieve,
+  editRecord,
+  getRecord,
+} from './service';
 
-export interface User {
+export interface Achieve {
   id: number;
   name: string;
-  email: string;
-  updateTime: string;
-  updateTime: string;
-  isValid: number;
+  score: number;
+  student: string;
+  course: string;
 }
-export interface UserModelState {
+
+export interface Teacher extends User {
+  updateTime: string;
+  achieve: Array<Achieve>;
+  period: number;
+  teacherId: number;
+  teacherName: string;
+}
+export interface TeacherModelState {
   result: {
-    data: Array<User>;
+    data: Array<Teacher>;
     meta: {
       page: number;
       pageSize: number;
@@ -24,19 +35,20 @@ export interface UserModelState {
   };
 }
 
-export interface UserModelType {
-  namespace: 'users';
-  state: UserModelState;
+export interface TeacherModelType {
+  namespace: 'teachers';
+  state: TeacherModelState;
   // 同步
   reducers: {
     // input: Reducer;
     // 启用 immer 之后
-    input: ImmerReducer<UserModelState>;
+    input: ImmerReducer<TeacherModelState>;
   };
   // 异步
   effects: {
     getRecord: Effect;
     editRecord: Effect;
+    editAchieve: Effect;
     deleteRecord: Effect;
     addRecord: Effect;
   };
@@ -44,8 +56,8 @@ export interface UserModelType {
   subscriptions: { setup: Subscription };
 }
 
-const UserModel: UserModelType = {
-  namespace: 'users',
+const TeacherModel: TeacherModelType = {
+  namespace: 'teachers',
 
   state: {
     result: {
@@ -80,12 +92,16 @@ const UserModel: UserModelType = {
       //   result: {
       //     meta: { page: pageIndex, pageSize: pageSize, total },
       //   },
-      // } = yield select((state: any) => state.users);
+      // } = yield select((state: any) => state.teachers);
       const result = yield call(getRecord, data);
       if (result) yield put({ type: 'input', data: { result } });
     },
     *editRecord({ data, callback }, { call, put }) {
       const res = yield call(editRecord, data);
+      callback && callback(res);
+    },
+    *editAchieve({ data, callback }, { call, put }) {
+      const res = yield call(editAchieve, data);
       callback && callback(res);
     },
     *deleteRecord({ data, callback }, { call, put }) {
@@ -100,7 +116,7 @@ const UserModel: UserModelType = {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname }: { pathname: string }) => {
-        if (pathname === '/users') {
+        if (pathname === '/teachers') {
           // dispatch({
           //   type: 'getRecord',
           //   data: { page: 1, pageSize: 5 },
@@ -111,4 +127,4 @@ const UserModel: UserModelType = {
   },
 };
 
-export default UserModel;
+export default TeacherModel;

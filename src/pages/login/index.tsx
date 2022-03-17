@@ -2,9 +2,11 @@ import './index.less';
 
 import React, { FC, Fragment, useState } from 'react';
 
-import { Button, Form, Input, Row } from 'antd';
+import { Button, Form, Input, Radio, Row } from 'antd';
 import { connect, Dispatch, Loading, LoginModelState } from 'umi';
+
 import logo from './girl-icon.svg';
+
 const FormItem = Form.Item;
 
 export interface LoginPageProps {
@@ -68,6 +70,18 @@ const Login: FC<LoginPageProps> = ({ state, dispatch, loading }) => {
           <label>密码</label>
           <FormItem name="password" rules={[{ required: true }]} hasFeedback>
             <Input type="password" placeholder={'密码'} required />
+          </FormItem>
+          <label>角色</label>
+          <FormItem
+            name="role"
+            // label="角色"
+            initialValue={'teacher'}
+            rules={[{ required: true, message: '请选择一个!' }]}
+          >
+            <Radio.Group>
+              <Radio.Button value="teacher">老师</Radio.Button>
+              <Radio.Button value="student">学生</Radio.Button>
+            </Radio.Group>
           </FormItem>
           {isLogin && (
             <Row>

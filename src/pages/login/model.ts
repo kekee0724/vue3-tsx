@@ -11,9 +11,10 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  password: string;
   updateTime: string;
-  updateTime: string;
-  isValid: number;
+  isValid: boolean;
+  role: string;
 }
 export interface LoginModelState {}
 
@@ -70,10 +71,10 @@ const LoginModel: LoginModelType = {
     *register({ data, callback }, { call, put }) {
       try {
         const res = yield call(register, data);
-        console.log(res);
-        if (res) {
+        console.log(2233, res);
+        if (res?.code === 'ok') {
           setLocalStorage('authsessiontoken', res?.token);
-          history.push('/posts');
+          history.push(`/${data.role}s`);
         }
         callback && callback(res);
       } catch (error) {
@@ -83,10 +84,10 @@ const LoginModel: LoginModelType = {
     *login({ data, callback }, { put, call, select }) {
       try {
         const res = yield call(loginUser, data);
-        console.log(res);
-        if (res) {
+        console.log(3344, res);
+        if (res?.code === 'ok') {
           setLocalStorage('authsessiontoken', res?.token);
-          history.push('/posts');
+          history.push(`/${data.role}s`);
         }
         callback && callback(res);
       } catch (error) {
