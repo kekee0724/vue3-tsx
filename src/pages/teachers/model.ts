@@ -2,11 +2,11 @@ import { AnyAction } from 'redux';
 import { Effect, Entity, ImmerReducer, mergeState, Subscription } from 'umi';
 
 import {
-  addRecord,
-  deleteRecord,
+  addCourse,
+  delCourse,
   editAchieve,
-  editRecord,
-  getRecord,
+  editCourse,
+  getTeacherSchedule,
 } from './service';
 
 export interface Achieve extends Entity {
@@ -39,17 +39,16 @@ export interface TeacherModelType {
   state: TeacherModelState;
   // 同步
   reducers: {
-    // input: Reducer;
     // 启用 immer 之后
     input: ImmerReducer<TeacherModelState>;
   };
   // 异步
   effects: {
-    getRecord: Effect;
-    editRecord: Effect;
+    getTeacherSchedule: Effect;
+    editCourse: Effect;
     editAchieve: Effect;
-    deleteRecord: Effect;
-    addRecord: Effect;
+    delCourse: Effect;
+    addCourse: Effect;
   };
   // 订阅
   subscriptions: { setup: Subscription };
@@ -70,40 +69,30 @@ const TeacherModel: TeacherModelType = {
   },
 
   reducers: {
-    // input(state, { data }) {
-    //   return {
-    //     ...state,
-    //     ...data,
-    //   };
-    // },
-    // 启用 immer 之后
-    // input(state, { data }) {
-    //   state.result = data.result;
-    // },
     input(state: any, action: AnyAction) {
       return mergeState(state, action);
     },
   },
 
   effects: {
-    *getRecord({ data }, { call, put }) {
-      const result = yield call(getRecord, data);
+    *getTeacherSchedule({ data }, { call, put }) {
+      const result = yield call(getTeacherSchedule, data);
       if (result) yield put({ type: 'input', data: { result } });
     },
-    *editRecord({ data, callback }, { call, put }) {
-      const res = yield call(editRecord, data);
+    *editCourse({ data, callback }, { call, put }) {
+      const res = yield call(editCourse, data);
       callback && callback(res);
     },
     *editAchieve({ data, callback }, { call, put }) {
       const res = yield call(editAchieve, data);
       callback && callback(res);
     },
-    *deleteRecord({ data, callback }, { call, put }) {
-      const res = yield call(deleteRecord, data);
+    *delCourse({ data, callback }, { call, put }) {
+      const res = yield call(delCourse, data);
       callback && callback(res);
     },
-    *addRecord({ data, callback }, { call, put }) {
-      const res = yield call(addRecord, data);
+    *addCourse({ data, callback }, { call, put }) {
+      const res = yield call(addCourse, data);
       callback && callback(res);
     },
   },
@@ -112,7 +101,7 @@ const TeacherModel: TeacherModelType = {
       return history.listen(({ pathname }: { pathname: string }) => {
         if (pathname === '/teachers') {
           // dispatch({
-          //   type: 'getRecord',
+          //   type: 'getTeacherSchedule',
           //   data: { page: 1, pageSize: 5 },
           // });
         }

@@ -3,7 +3,7 @@ import { Achieve, TeacherSchedule } from 'umi';
 import request from '@/utils/request';
 import { getLocalStorage } from '@/utils/storage';
 
-export const getRecord = async () => {
+export const getTeacherSchedule = async () => {
   return request('/api/teacher/listTeacherCourses', {
     method: 'post',
     data: {
@@ -19,7 +19,7 @@ export const getRecord = async () => {
     });
 };
 
-export const editRecord = async (course: TeacherSchedule) => {
+export const editCourse = async (course: TeacherSchedule) => {
   return request(`api/teacher/editCourse`, {
     method: 'post',
     data: { course },
@@ -47,7 +47,7 @@ export const editAchieve = async (achieve: Achieve) => {
     });
 };
 
-export const addRecord = async (course: TeacherSchedule) => {
+export const addCourse = async (course: TeacherSchedule) => {
   return request(`api/teacher/addCourse`, {
     method: 'post',
     data: {
@@ -64,7 +64,7 @@ export const addRecord = async (course: TeacherSchedule) => {
     });
 };
 
-export const deleteRecord = async ({ id: courseId }: { id: number }) => {
+export const delCourse = async ({ id: courseId }: { id: number }) => {
   return request(`api/teacher/delCourse`, {
     method: 'post',
     data: { courseId },

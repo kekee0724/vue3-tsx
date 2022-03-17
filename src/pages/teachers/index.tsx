@@ -108,7 +108,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
 
   const getTeacherSchedule = (index?: number, size?: number) => {
     dispatch({
-      type: 'teachers/getRecord',
+      type: 'teachers/getTeacherSchedule',
       data: { page: index || pageIndex, pageSize: size || pageSize },
     });
     return undefined;
@@ -126,7 +126,7 @@ const TeacherListPage: FC<TeacherPageProps> = ({
 
   const remove = (id: number) => {
     dispatch({
-      type: 'teachers/deleteRecord',
+      type: 'teachers/delCourse',
       data: {
         id,
       },
@@ -153,9 +153,9 @@ const TeacherListPage: FC<TeacherPageProps> = ({
 
     let type;
     if (id) {
-      type = 'teachers/editRecord';
+      type = 'teachers/editCourse';
     } else {
-      type = 'teachers/addRecord';
+      type = 'teachers/addCourse';
     }
 
     dispatch({
