@@ -25,7 +25,7 @@ export interface OrderPageProps {
 
 const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
   useEffect(() => {
-    // getSchedules(1, 5);
+    getSchedules(1, 5);
   }, []);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -33,7 +33,7 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
 
   const {
     result: {
-      data: orderSchedules,
+      data: { orders: orderSchedules },
       meta: { page: pageIndex, pageSize: pageSize, total },
     },
   } = state;
@@ -46,29 +46,35 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
       key: 'id',
     },
     {
-      title: '课程名',
-      dataIndex: 'name',
-      key: 'name',
+      title: '店名',
+      dataIndex: 'storeName',
+      key: 'storeName',
       valueType: 'text',
       // render: (text: React.ReactNode) => <a>{text}</a>,
     },
     {
-      title: '老师',
-      dataIndex: 'teacherName',
-      key: 'teacherName',
+      title: '验光师',
+      dataIndex: 'clerkName',
+      key: 'clerkName',
       valueType: 'text',
     },
     {
-      title: '更新时间',
-      dataIndex: 'updateTime',
-      valueType: 'date',
-      key: 'updateTime',
+      title: '顾客',
+      dataIndex: 'customerName',
+      key: 'customerName',
+      valueType: 'text',
     },
     {
-      title: '得分',
-      dataIndex: 'score',
-      key: 'score',
-      valueType: 'digit',
+      title: '预定时间',
+      dataIndex: 'orderTime',
+      valueType: 'dateTime',
+      key: 'orderTime',
+    },
+    {
+      title: '备注',
+      dataIndex: 'remark',
+      key: 'remark',
+      valueType: 'text',
     },
   ];
 
@@ -93,11 +99,11 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
         if (res) {
           setConfirmLoading(false);
           setModalVisible(false);
-          message.success(`选课成功.`);
+          message.success(`预约成功.`);
           getSchedules(pageIndex, pageSize);
         } else {
           setConfirmLoading(false);
-          message.error(`选课失败.`);
+          message.error(`预约失败.`);
         }
       },
     });
@@ -129,10 +135,10 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
           },
           setting: true,
         }}
-        headerTitle={`${token?.name}同学的课程表`}
+        headerTitle={`${token?.name}，欢迎你`}
         toolBarRender={() => [
           <Button type="primary" onClick={add}>
-            选课
+            预约
           </Button>,
           <Button onClick={() => getSchedules()}>刷新</Button>,
           <Button type="dashed" danger onClick={logout}>

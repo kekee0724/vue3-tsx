@@ -5,10 +5,10 @@ const token =
   getLocalStorage('authsessiontoken') &&
   JSON.parse(getLocalStorage('authsessiontoken'));
 export const getSchedules = async () => {
-  return request('/api/student/getSchedules', {
+  return request('/api/user/getUserInfo', {
     method: 'post',
     data: {
-      studentId: token?.id,
+      userId: token?.id,
     },
   })
     .then(function (response) {

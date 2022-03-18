@@ -19,7 +19,7 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
   const { visible, onCancel, confirmLoading, records, addSchedule } = props;
   const [record, setRecord] = useState<TeacherSchedule[]>([]);
   useEffect(() => {
-    getAllCourse();
+    // getAllCourse();
   }, [visible]);
   console.log(record, records);
 

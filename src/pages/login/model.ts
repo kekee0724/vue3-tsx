@@ -76,7 +76,7 @@ const LoginModel: LoginModelType = {
         const res = yield call(register, data);
         if (res?.code === 'ok') {
           setLocalStorage('authsessiontoken', res?.token);
-          history.push(`/${res.data.role}s`);
+          history.push(`/order`);
         }
         callback && callback(res);
       } catch (error) {
@@ -88,7 +88,7 @@ const LoginModel: LoginModelType = {
         const res = yield call(loginUser, data);
         if (res?.code === 'ok') {
           setLocalStorage('authsessiontoken', res?.token);
-          history.push(`/${res.data.role}s`);
+          history.push(`/order`);
         }
         callback && callback(res);
       } catch (error) {

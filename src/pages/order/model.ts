@@ -11,7 +11,9 @@ export interface OrderSchedule extends Entity {
 }
 export interface OrderModelState {
   result: {
-    data: Array<OrderSchedule>;
+    data: {
+      orders: Array<OrderSchedule>;
+    };
     meta: {
       page: number;
       pageSize: number;
@@ -42,7 +44,7 @@ const OrderModel: OrderModelType = {
 
   state: {
     result: {
-      data: [],
+      data: { orders: [] },
       meta: {
         total: 0,
         pageSize: 5,
