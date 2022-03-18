@@ -3,15 +3,15 @@ import { Effect, Entity, ImmerReducer, mergeState, Subscription } from 'umi';
 
 import { addSchedule, getSchedules } from './service';
 
-export interface StudentSchedule extends Entity {
+export interface OrderSchedule extends Entity {
   score: number;
-  studentId: number;
-  studentName: string;
+  orderId: number;
+  orderName: string;
   teacherName: string;
 }
-export interface StudentModelState {
+export interface OrderModelState {
   result: {
-    data: Array<StudentSchedule>;
+    data: Array<OrderSchedule>;
     meta: {
       page: number;
       pageSize: number;
@@ -20,13 +20,13 @@ export interface StudentModelState {
   };
 }
 
-export interface StudentModelType {
-  namespace: 'students';
-  state: StudentModelState;
+export interface OrderModelType {
+  namespace: 'orders';
+  state: OrderModelState;
   // 同步
   reducers: {
     // 启用 immer 之后
-    input: ImmerReducer<StudentModelState>;
+    input: ImmerReducer<OrderModelState>;
   };
   // 异步
   effects: {
@@ -37,8 +37,8 @@ export interface StudentModelType {
   subscriptions: { setup: Subscription };
 }
 
-const StudentModel: StudentModelType = {
-  namespace: 'students',
+const OrderModel: OrderModelType = {
+  namespace: 'orders',
 
   state: {
     result: {
@@ -70,7 +70,7 @@ const StudentModel: StudentModelType = {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname }: { pathname: string }) => {
-        if (pathname === '/students') {
+        if (pathname === '/orders') {
           // dispatch({
           //   type: 'getSchedules',
           //   data: { page: 1, pageSize: 5 },
@@ -81,4 +81,4 @@ const StudentModel: StudentModelType = {
   },
 };
 
-export default StudentModel;
+export default OrderModel;

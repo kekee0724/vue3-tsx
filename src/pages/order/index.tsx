@@ -6,8 +6,8 @@ import {
   Dispatch,
   history,
   Loading,
-  StudentModelState,
-  StudentSchedule,
+  OrderModelState,
+  OrderSchedule,
 } from 'umi';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 
@@ -15,17 +15,13 @@ import { getLocalStorage, setLocalStorage } from '@/utils/storage';
 
 import { CourseSelection } from './components/course.selection.modal';
 
-export interface StudentPageProps {
-  state: StudentModelState;
+export interface OrderPageProps {
+  state: OrderModelState;
   dispatch: Dispatch;
   loading: boolean;
 }
 
-const StudentListPage: FC<StudentPageProps> = ({
-  state,
-  dispatch,
-  loading,
-}) => {
+const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
   useEffect(() => {
     getSchedules(1, 5);
   }, []);
@@ -35,12 +31,12 @@ const StudentListPage: FC<StudentPageProps> = ({
 
   const {
     result: {
-      data: studentSchedules,
+      data: orderSchedules,
       meta: { page: pageIndex, pageSize: pageSize, total },
     },
   } = state;
 
-  const columns: ProColumns<StudentSchedule>[] = [
+  const columns: ProColumns<OrderSchedule>[] = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -76,7 +72,7 @@ const StudentListPage: FC<StudentPageProps> = ({
 
   const getSchedules = (index?: number, size?: number) => {
     dispatch({
-      type: 'students/getSchedules',
+      type: 'orders/getSchedules',
       data: { page: index || pageIndex, pageSize: size || pageSize },
     });
     return undefined;
@@ -89,7 +85,7 @@ const StudentListPage: FC<StudentPageProps> = ({
   const addSchedule = (courseId: number) => {
     setConfirmLoading(true);
     dispatch({
-      type: 'students/addSchedule',
+      type: 'orders/addSchedule',
       data: courseId,
       callback: (res) => {
         if (res) {
@@ -114,7 +110,7 @@ const StudentListPage: FC<StudentPageProps> = ({
     <div className="list-table">
       <ProTable
         columns={columns}
-        dataSource={studentSchedules}
+        dataSource={orderSchedules}
         loading={loading}
         rowKey="id"
         search={false}
@@ -149,7 +145,7 @@ const StudentListPage: FC<StudentPageProps> = ({
         onCancel={() => setModalVisible(false)}
         confirmLoading={confirmLoading}
         addSchedule={addSchedule}
-        records={studentSchedules.map((stud) => stud.name)}
+        records={orderSchedules.map((stud) => stud.name)}
       />
     </div>
   );
@@ -157,11 +153,11 @@ const StudentListPage: FC<StudentPageProps> = ({
 
 // 简写
 const mapStateToProps = ({
-  students: state,
+  orders: state,
   loading,
 }: {
-  students: StudentModelState;
+  orders: OrderModelState;
   loading: Loading;
-}) => ({ state, loading: loading.models.students });
+}) => ({ state, loading: loading.models.orders });
 
-export default connect(mapStateToProps)(StudentListPage);
+export default connect(mapStateToProps)(OrderListPage);

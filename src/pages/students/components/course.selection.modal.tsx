@@ -30,7 +30,7 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
 
   const getAllCourse = async () => {
     const record = await getAllCourses();
-    const newRecord: Array<TeacherSchedule> = record.data.filter(
+    const newRecord: Array<TeacherSchedule> = record?.data?.filter(
       (reco: StudentSchedule) => !IsInArray(records, reco.name),
     );
     setRecord(newRecord);

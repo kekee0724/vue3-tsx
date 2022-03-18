@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { Modal, Popconfirm } from 'antd';
-import { StudentSchedule, TeacherSchedule } from 'umi';
+import { OrderSchedule, TeacherSchedule } from 'umi';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 
@@ -30,8 +30,8 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
 
   const getAllCourse = async () => {
     const record = await getAllCourses();
-    const newRecord: Array<TeacherSchedule> = record.data.filter(
-      (reco: StudentSchedule) => !IsInArray(records, reco.name),
+    const newRecord: Array<TeacherSchedule> = record?.data?.filter(
+      (reco: OrderSchedule) => !IsInArray(records, reco.name),
     );
     setRecord(newRecord);
   };
