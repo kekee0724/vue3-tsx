@@ -7,7 +7,7 @@ import {
   history,
   Loading,
   OrderModelState,
-  OrderSchedule,
+  Orders,
 } from 'umi';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 
@@ -33,12 +33,12 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
 
   const {
     result: {
-      data: orderSchedules,
+      data: Orderss,
       meta: { page: pageIndex, pageSize: pageSize, total },
     },
   } = state;
 
-  const columns: ProColumns<OrderSchedule>[] = [
+  const columns: ProColumns<Orders>[] = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -112,7 +112,7 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
     <div className="list-table">
       <ProTable
         columns={columns}
-        dataSource={orderSchedules}
+        dataSource={Orderss}
         loading={loading}
         rowKey="id"
         search={false}
@@ -145,7 +145,7 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
         onCancel={() => setModalVisible(false)}
         confirmLoading={confirmLoading}
         addSchedule={addSchedule}
-        records={orderSchedules.map((stud) => stud.name)}
+        records={Orderss.map((stud) => stud.name)}
       />
     </div>
   );

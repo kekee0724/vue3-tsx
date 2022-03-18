@@ -4,7 +4,7 @@ import { getLocalStorage } from '@/utils/storage';
 const token =
   getLocalStorage('authsessiontoken') &&
   JSON.parse(getLocalStorage('authsessiontoken'));
-export const getSchedules = async () => {
+export const getOrders = async () => {
   return request('/api/user/getUserInfo', {
     method: 'post',
     data: {
@@ -20,7 +20,7 @@ export const getSchedules = async () => {
     });
 };
 
-export const getAllCourses = async () => {
+export const getAllClerks = async () => {
   return request(`api/student/listAllCourses`, {
     method: 'post',
     data: {},
@@ -34,8 +34,8 @@ export const getAllCourses = async () => {
     });
 };
 
-export const addSchedule = async (courseId: number) => {
-  return request(`api/student/addSchedule`, {
+export const addOrders = async (courseId: number) => {
+  return request(`api/student/addOrders`, {
     method: 'post',
     data: {
       studentId: token?.id,

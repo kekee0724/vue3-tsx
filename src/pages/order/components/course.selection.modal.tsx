@@ -1,22 +1,22 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { Modal, Popconfirm } from 'antd';
-import { OrderSchedule, TeacherSchedule } from 'umi';
+import { Orders, TeacherSchedule } from 'umi';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 
-import { getAllCourses } from '../service';
+import { getAllClerks } from '../service';
 
 export interface CourseSelectionProps {
   visible: boolean;
   onCancel: () => void;
   confirmLoading: boolean;
-  addSchedule: (courseId: number) => void;
+  addOrders: (courseId: number) => void;
   records: Array<string>;
 }
 
 export const CourseSelection: FC<CourseSelectionProps> = (props) => {
-  const { visible, onCancel, confirmLoading, records, addSchedule } = props;
+  const { visible, onCancel, confirmLoading, records, addOrders } = props;
   const [record, setRecord] = useState<TeacherSchedule[]>([]);
   useEffect(() => {
     // getAllCourse();
@@ -29,9 +29,9 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
   }
 
   const getAllCourse = async () => {
-    const record = await getAllCourses();
+    const record = await getAllClerks();
     const newRecord: Array<TeacherSchedule> = record?.data?.filter(
-      (reco: OrderSchedule) => !IsInArray(records, reco.name),
+      (reco: Orders) => !IsInArray(records, reco.name),
     );
     setRecord(newRecord);
   };
@@ -42,7 +42,7 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
       title={`确认${text}吗?`}
       okText="是"
       cancelText="否"
-      onConfirm={() => addSchedule(record.id)}
+      onConfirm={() => addOrders(record.id)}
     >
       <a>{text}</a>
     </Popconfirm>

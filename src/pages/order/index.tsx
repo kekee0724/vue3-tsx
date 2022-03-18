@@ -7,7 +7,7 @@ import {
   history,
   Loading,
   OrderModelState,
-  OrderSchedule,
+  Orders,
 } from 'umi';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 
@@ -25,7 +25,7 @@ export interface OrderPageProps {
 
 const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
   useEffect(() => {
-    getSchedules(1, 5);
+    getOrders(1, 5);
   }, []);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -33,12 +33,12 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
 
   const {
     result: {
-      data: { orders: orderSchedules },
+      data: { orders: Orderss },
       meta: { page: pageIndex, pageSize: pageSize, total },
     },
   } = state;
 
-  const columns: ProColumns<OrderSchedule>[] = [
+  const columns: ProColumns<Orders>[] = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -78,9 +78,9 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
     },
   ];
 
-  const getSchedules = (index?: number, size?: number) => {
+  const getOrders = (index?: number, size?: number) => {
     dispatch({
-      type: 'orders/getSchedules',
+      type: 'orders/getOrders',
       data: { page: index || pageIndex, pageSize: size || pageSize },
     });
     return undefined;
@@ -90,17 +90,17 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
     setModalVisible(true);
   };
 
-  const addSchedule = (courseId: number) => {
+  const addOrders = (courseId: number) => {
     setConfirmLoading(true);
     dispatch({
-      type: 'orders/addSchedule',
+      type: 'orders/addOrders',
       data: courseId,
       callback: (res) => {
         if (res) {
           setConfirmLoading(false);
           setModalVisible(false);
           message.success(`预约成功.`);
-          getSchedules(pageIndex, pageSize);
+          getOrders(pageIndex, pageSize);
         } else {
           setConfirmLoading(false);
           message.error(`预约失败.`);
@@ -118,7 +118,7 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
     <div className="list-table">
       <ProTable
         columns={columns}
-        dataSource={orderSchedules}
+        dataSource={Orderss}
         loading={loading}
         rowKey="id"
         search={false}
@@ -131,7 +131,7 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
           density: true,
           fullScreen: true,
           reload: () => {
-            getSchedules(pageIndex, pageSize);
+            getOrders(pageIndex, pageSize);
           },
           setting: true,
         }}
@@ -140,7 +140,7 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
           <Button type="primary" onClick={add}>
             预约
           </Button>,
-          <Button onClick={() => getSchedules()}>刷新</Button>,
+          <Button onClick={() => getOrders()}>刷新</Button>,
           <Button type="dashed" danger onClick={logout}>
             退出
           </Button>,
@@ -150,8 +150,8 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         confirmLoading={confirmLoading}
-        addSchedule={addSchedule}
-        records={orderSchedules.map((stud) => stud.name)}
+        addOrders={addOrders}
+        records={Orderss.map((stud) => stud.name)}
       />
     </div>
   );

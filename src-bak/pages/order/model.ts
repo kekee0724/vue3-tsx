@@ -3,7 +3,7 @@ import { Effect, Entity, ImmerReducer, mergeState, Subscription } from 'umi';
 
 import { addSchedule, getSchedules } from './service';
 
-export interface OrderSchedule extends Entity {
+export interface Orders extends Entity {
   score: number;
   orderId: number;
   orderName: string;
@@ -11,7 +11,7 @@ export interface OrderSchedule extends Entity {
 }
 export interface OrderModelState {
   result: {
-    data: Array<OrderSchedule>;
+    data: Array<Orders>;
     meta: {
       page: number;
       pageSize: number;

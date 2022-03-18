@@ -1,18 +1,18 @@
 import { AnyAction } from 'redux';
 import { Effect, Entity, ImmerReducer, mergeState, Subscription } from 'umi';
 
-import { addSchedule, getSchedules } from './service';
+import { addOrders, getOrders } from './service';
 
-export interface OrderSchedule extends Entity {
-  score: number;
-  orderId: number;
-  orderName: string;
-  teacherName: string;
+export interface Orders extends Entity {
+  clerkName: string;
+  customerName: string;
+  orderTime: string;
+  remark: string;
 }
 export interface OrderModelState {
   result: {
     data: {
-      orders: Array<OrderSchedule>;
+      orders: Array<Orders>;
     };
     meta: {
       page: number;
@@ -32,8 +32,8 @@ export interface OrderModelType {
   };
   // 异步
   effects: {
-    getSchedules: Effect;
-    addSchedule: Effect;
+    getOrders: Effect;
+    addOrders: Effect;
   };
   // 订阅
   subscriptions: { setup: Subscription };
@@ -60,16 +60,16 @@ const OrderModel: OrderModelType = {
   },
 
   effects: {
-    *getSchedules({ data }, { call, put }) {
+    *getOrders({ data }, { call, put }) {
       try {
-        const result = yield call(getSchedules, data);
+        const result = yield call(getOrders, data);
         if (result) yield put({ type: 'input', data: { result } });
       } catch (error) {
         console.log(error);
       }
     },
-    *addSchedule({ data, callback }, { call, put }) {
-      const res = yield call(addSchedule, data);
+    *addOrders({ data, callback }, { call, put }) {
+      const res = yield call(addOrders, data);
       callback && callback(res);
     },
   },
@@ -78,7 +78,7 @@ const OrderModel: OrderModelType = {
       return history.listen(({ pathname }: { pathname: string }) => {
         if (pathname === '/orders') {
           // dispatch({
-          //   type: 'getSchedules',
+          //   type: 'getOrders',
           //   data: { page: 1, pageSize: 5 },
           // });
         }
