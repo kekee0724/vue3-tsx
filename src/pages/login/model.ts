@@ -74,10 +74,9 @@ const LoginModel: LoginModelType = {
     *register({ data, callback }, { call, put }) {
       try {
         const res = yield call(register, data);
-        console.log(2233, res);
         if (res?.code === 'ok') {
           setLocalStorage('authsessiontoken', res?.token);
-          history.push(`/${data.role}s`);
+          history.push(`/${res.data.role}s`);
         }
         callback && callback(res);
       } catch (error) {
@@ -87,10 +86,9 @@ const LoginModel: LoginModelType = {
     *login({ data, callback }, { put, call, select }) {
       try {
         const res = yield call(loginUser, data);
-        console.log(3344, res);
         if (res?.code === 'ok') {
           setLocalStorage('authsessiontoken', res?.token);
-          history.push(`/${data.role}s`);
+          history.push(`/${res.data.role}s`);
         }
         callback && callback(res);
       } catch (error) {

@@ -74,7 +74,7 @@ const LoginModel: LoginModelType = {
     *register({ data, callback }, { call, put }) {
       try {
         const res = yield call(register, data);
-        console.log(2233, res);
+
         if (res?.code === 'ok') {
           setLocalStorage('authsessiontoken', res?.token);
           history.push(`/${data.role}s`);

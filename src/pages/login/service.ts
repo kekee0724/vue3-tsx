@@ -3,9 +3,9 @@ import { User } from 'umi';
 import request from '@/utils/request';
 
 export const loginUser = async (user: User) => {
-  return request(`api/${user.role}/login`, {
+  return request(`api/auth/login`, {
     method: 'post',
-    data: { [user.role]: user },
+    data: { user },
   })
     .then(function (response) {
       return response;
@@ -17,9 +17,9 @@ export const loginUser = async (user: User) => {
 };
 
 export const register = async (user: User) => {
-  return request(`api/${user.role}/register`, {
+  return request(`api/auth/register`, {
     method: 'post',
-    data: { [user.role]: user },
+    data: { user },
   })
     .then(function (response) {
       return response;

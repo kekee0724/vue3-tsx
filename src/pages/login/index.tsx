@@ -59,6 +59,21 @@ const Login: FC<LoginPageProps> = ({ state, dispatch, loading }) => {
               </FormItem>
             </Fragment>
           )}
+          {!isLogin && (
+            <Fragment>
+              <label>手机号</label>
+              <FormItem
+                name="phone"
+                rules={[
+                  { required: true, message: '手机号不能为空' },
+                  { pattern: /^1[0-9]{10}/, message: '请输入正确的手机号' },
+                ]}
+                hasFeedback
+              >
+                <Input placeholder={`手机号`} />
+              </FormItem>
+            </Fragment>
+          )}
           <label>邮件地址</label>
           <FormItem
             name="email"
@@ -71,18 +86,23 @@ const Login: FC<LoginPageProps> = ({ state, dispatch, loading }) => {
           <FormItem name="password" rules={[{ required: true }]} hasFeedback>
             <Input type="password" placeholder={'密码'} required />
           </FormItem>
-          <label>角色</label>
-          <FormItem
-            name="role"
-            // label="角色"
-            initialValue={'teacher'}
-            rules={[{ required: true, message: '请选择一个!' }]}
-          >
-            <Radio.Group>
-              <Radio.Button value="teacher">老师</Radio.Button>
-              <Radio.Button value="student">学生</Radio.Button>
-            </Radio.Group>
-          </FormItem>
+          {!isLogin && (
+            <Fragment>
+              <label>角色</label>
+              <FormItem
+                name="role"
+                // label="角色"
+                initialValue={'customer'}
+                rules={[{ required: true, message: '请选择一个!' }]}
+              >
+                <Radio.Group>
+                  <Radio.Button value="customer">顾客</Radio.Button>
+                  <Radio.Button value="shopowner">店长</Radio.Button>
+                  <Radio.Button value="clerk">验光师</Radio.Button>
+                </Radio.Group>
+              </FormItem>
+            </Fragment>
+          )}
           {isLogin && (
             <Row>
               <Button

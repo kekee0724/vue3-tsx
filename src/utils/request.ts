@@ -62,11 +62,11 @@ request.interceptors.request.use((url, options) => {
     };
     return {
       url: options.mock ? url : `${baseUrl}${url}`,
-      options: { ...options, headers: headers },
+      options: { ...options },
     };
   } else {
     return {
-      url: url,
+      url: options.mock ? url : `${baseUrl}${url}`,
       options: { ...options },
     };
   }
