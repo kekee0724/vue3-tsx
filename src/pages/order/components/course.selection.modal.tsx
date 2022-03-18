@@ -19,7 +19,7 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
   const { visible, onCancel, confirmLoading, records, addOrders } = props;
   const [record, setRecord] = useState<TeacherSchedule[]>([]);
   useEffect(() => {
-    // getAllCourse();
+    getAllCourse();
   }, [visible]);
   console.log(record, records);
 
@@ -56,37 +56,44 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
       // width: 150,
     },
     {
+      dataIndex: 'storeName',
+      title: '店名',
+    },
+    {
+      dataIndex: 'address',
+      title: '地址',
+    },
+    {
+      title: '门店手机',
+      dataIndex: 'storePhone',
+      valueType: 'text',
+      key: 'storePhone',
+    },
+    {
       dataIndex: 'name',
-      title: '课程名',
+      title: '验光师',
       valueType: 'text',
       // width: 150,
     },
     {
-      dataIndex: 'period',
-      title: '学时',
+      title: '验光师手机',
+      dataIndex: 'clerkPhone',
+      valueType: 'text',
+      key: 'clerkPhone',
     },
-    {
-      dataIndex: 'teacherName',
-      title: '老师',
-    },
-    {
-      title: '更新时间',
-      dataIndex: 'updateTime',
-      valueType: 'date',
-      key: 'updateTime',
-    },
-    {
-      title: '启用',
-      dataIndex: 'isValid',
-      valueType: 'switch',
-      key: 'isValid',
-    },
+    // {
+    //   title: '启用',
+    //   dataIndex: 'isValid',
+    //   valueType: 'switch',
+    //   key: 'isValid',
+    // },
     {
       title: '操作',
       dataIndex: 'x',
       valueType: 'option',
       render: (_, record) => {
-        let node = record.isValid ? renderPopconfirm('选课', record) : '选课';
+        // let node = record.isValid ? renderPopconfirm('预约', record) : '预约';
+        let node = renderPopconfirm('预约', record);
         return [node];
       },
     },
@@ -95,7 +102,7 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
   return (
     <div>
       <Modal
-        title={'学生选课'}
+        title={'顾客预约'}
         visible={visible}
         onOk={onCancel}
         onCancel={onCancel}

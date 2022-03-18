@@ -8,6 +8,7 @@ export interface Orders extends Entity {
   customerName: string;
   orderTime: string;
   remark: string;
+  isValid: boolean;
 }
 export interface OrderModelState {
   result: {

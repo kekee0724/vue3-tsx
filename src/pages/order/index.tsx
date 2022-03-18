@@ -71,6 +71,12 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
       key: 'orderTime',
     },
     {
+      title: '启用',
+      dataIndex: 'isValid',
+      valueType: 'switch',
+      key: 'isValid',
+    },
+    {
       title: '备注',
       dataIndex: 'remark',
       key: 'remark',

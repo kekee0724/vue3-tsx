@@ -21,7 +21,7 @@ export const getOrders = async () => {
 };
 
 export const getAllClerks = async () => {
-  return request(`api/student/listAllCourses`, {
+  return request(`api/user/getAllClerks`, {
     method: 'post',
     data: {},
   })
@@ -35,7 +35,7 @@ export const getAllClerks = async () => {
 };
 
 export const addOrders = async (courseId: number) => {
-  return request(`api/student/addOrders`, {
+  return request(`api/user/addOrders`, {
     method: 'post',
     data: {
       studentId: token?.id,
