@@ -10,7 +10,7 @@ import {
   OrderModelState,
   Orders,
 } from 'umi';
-import ProTable, { ProColumns } from '@ant-design/pro-table';
+import EditableProTable, { ProColumns } from '@ant-design/pro-table';
 
 import { getLocalStorage, setLocalStorage } from '@/utils/storage';
 
@@ -20,6 +20,14 @@ import { OrderAddModal } from './components/order.add.modal';
 const token = getLocalStorage('authsessiontoken')
   ? JSON.parse(getLocalStorage('authsessiontoken'))
   : { name: '' };
+
+const waitTime = (time: number = 100) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, time);
+  });
+};
 export interface OrderPageProps {
   state: OrderModelState;
   dispatch: Dispatch;
@@ -35,6 +43,8 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [clerk, setClerk] = useState<Partial<Clerks>>();
+  const [editableKeys, setEditableRowKeys] = useState<React.Key[]>([]);
+
   const {
     result: {
       data: { orders },
@@ -42,11 +52,27 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
     },
   } = state;
 
+  const editOrdered = (data: Orders) => {
+    dispatch({
+      type: 'orders/editOrdered',
+      data,
+      callback: (res) => {
+        if (res) {
+          message.success(JSON.stringify(res.data));
+          getOrders(pageIndex, pageSize);
+        } else {
+          message.error(`修改失败.`);
+        }
+      },
+    });
+  };
+
   const columns: ProColumns<Orders>[] = [
     {
       title: 'Id',
       dataIndex: 'id',
       valueType: 'digit',
+      editable: false,
       key: 'id',
     },
     {
@@ -54,6 +80,7 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
       dataIndex: 'storeName',
       key: 'storeName',
       valueType: 'text',
+      editable: false,
       // render: (text: React.ReactNode) => <a>{text}</a>,
     },
     {
@@ -61,12 +88,14 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
       dataIndex: 'clerkName',
       key: 'clerkName',
       valueType: 'text',
+      editable: false,
     },
     {
       title: '顾客',
       dataIndex: 'customerName',
       key: 'customerName',
       valueType: 'text',
+      editable: false,
     },
     {
       title: '预定时间',
@@ -85,6 +114,21 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
       dataIndex: 'remark',
       key: 'remark',
       valueType: 'text',
+    },
+    {
+      title: '操作',
+      valueType: 'option',
+      // width: 100,
+      render: (text, record, _, action) => [
+        <a
+          key="editable"
+          onClick={() => {
+            action?.startEditable?.(record.id);
+          }}
+        >
+          编辑
+        </a>,
+      ],
     },
   ];
 
@@ -135,7 +179,7 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
 
   return (
     <div className="list-table">
-      <ProTable
+      <EditableProTable<Orders>
         columns={columns}
         dataSource={orders}
         loading={loading}
@@ -153,6 +197,22 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
             getOrders(pageIndex, pageSize);
           },
           setting: true,
+        }}
+        // onChange={setDataSource}
+        editable={{
+          // type: 'multiple',
+          // defaultDom = {save,cancel,delete} 可以酌情添加和使用
+          actionRender: (row, config, defaultDom) => [
+            defaultDom.save,
+            defaultDom.cancel,
+          ],
+          editableKeys,
+          onSave: async (rowKey, data, row) => {
+            // console.log(rowKey, data, row);
+            editOrdered(data);
+            await waitTime(2000);
+          },
+          onChange: setEditableRowKeys,
         }}
         headerTitle={`${token?.name}，欢迎你`}
         toolBarRender={() => [

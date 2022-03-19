@@ -91,8 +91,8 @@ export const ClerkSelection: FC<ClerkSelectionProps> = (props) => {
       dataIndex: 'x',
       valueType: 'option',
       render: (_, record) => {
-        // let node = record.isValid ? renderPopconfirm('预约', record) : '预约';
-        let node = renderPopconfirm('预约', record);
+        let node = record.storeName ? renderPopconfirm('预约', record) : '预约';
+        // let node = renderPopconfirm('预约', record);
         return [node];
       },
     },

@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import { Effect, Entity, ImmerReducer, mergeState, Subscription } from 'umi';
 
-import { addOrders, getOrders } from './service';
+import { addOrders, editOrdered, getOrders } from './service';
 
 export interface Orders extends Entity {
   clerkName: string;
@@ -48,6 +48,7 @@ export interface OrderModelType {
   effects: {
     getOrders: Effect;
     addOrders: Effect;
+    editOrdered: Effect;
   };
   // 订阅
   subscriptions: { setup: Subscription };
@@ -84,6 +85,10 @@ const OrderModel: OrderModelType = {
     },
     *addOrders({ data, callback }, { call, put }) {
       const res = yield call(addOrders, data);
+      callback && callback(res);
+    },
+    *editOrdered({ data, callback }, { call, put }) {
+      const res = yield call(editOrdered, data);
       callback && callback(res);
     },
   },

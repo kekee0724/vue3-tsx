@@ -55,3 +55,17 @@ export const addOrders = async (data: Clerks) => {
       return false;
     });
 };
+
+export const editOrdered = async (data: Clerks) => {
+  return request(`api/user/editOrdered`, {
+    method: 'post',
+    data,
+  })
+    .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+      return false;
+    });
+};

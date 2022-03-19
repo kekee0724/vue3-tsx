@@ -38,7 +38,7 @@ export const OrderAddModal: FC<OrderAddModalProps> = (props) => {
   return (
     <div>
       <Modal
-        title={`预约验光师${clerk?.name}`}
+        title={`预约${clerk?.storeName}门店验光师${clerk?.name}`}
         visible={visible}
         onOk={onOk}
         onCancel={onCancel}
@@ -55,10 +55,11 @@ export const OrderAddModal: FC<OrderAddModalProps> = (props) => {
             isValid: true,
           }}
         >
-          {/* <Form.Item label="验光师" name="name" rules={[{ required: true }]}>
-            <Input disabled />
-          </Form.Item> */}
-          <Form.Item label="备注" name="remark">
+          <Form.Item
+            label="备注"
+            name="remark"
+            rules={[{ required: true, message: '备注必填' }]}
+          >
             <Input />
           </Form.Item>
           <Form.Item
@@ -67,11 +68,8 @@ export const OrderAddModal: FC<OrderAddModalProps> = (props) => {
             rules={[{ required: true }]}
             // initialValue={moment(new Date())}
           >
-            <DatePicker mode="date" />
+            <DatePicker showTime />
           </Form.Item>
-          {/* <Form.Item label="启用" name="isValid" valuePropName="checked">
-            <Switch />
-          </Form.Item> */}
         </Form>
       </Modal>
     </div>
