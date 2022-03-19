@@ -5,7 +5,11 @@ import { addOrders, editOrdered, getOrders } from './service';
 
 export interface Orders extends Entity {
   clerkName: string;
+  clerkPhone?: string;
   customerName: string;
+  customerPhone?: string;
+  storeName?: string;
+  storePhone?: string;
   orderTime: string;
   remark: string;
   isValid: boolean;

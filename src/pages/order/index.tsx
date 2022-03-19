@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 
-import { Button, message } from 'antd';
+import { Button, message, Radio, Tooltip } from 'antd';
 import {
   Clerks,
   connect,
@@ -10,12 +10,14 @@ import {
   OrderModelState,
   Orders,
 } from 'umi';
+import { PhoneOutlined } from '@ant-design/icons';
 import EditableProTable, { ProColumns } from '@ant-design/pro-table';
 
 import { getLocalStorage, removeLocalStorage } from '@/utils/storage';
 
 import { ClerkSelection } from './components/clerk.selection.modal';
 import { OrderAddModal } from './components/order.add.modal';
+import { callTel } from '@/utils/callTel';
 
 const waitTime = (time: number = 100) => {
   return new Promise((resolve) => {
@@ -77,7 +79,16 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
       key: 'storeName',
       valueType: 'text',
       editable: false,
-      // render: (text: React.ReactNode) => <a>{text}</a>,
+      render: (text: React.ReactNode, record) => (
+        <Fragment>
+          {text}&nbsp;
+          <Tooltip title={record?.storePhone}>
+            <a onClick={() => callTel(record?.storePhone)}>
+              <PhoneOutlined />
+            </a>
+          </Tooltip>
+        </Fragment>
+      ),
     },
     {
       title: '验光师',
@@ -85,6 +96,16 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
       key: 'clerkName',
       valueType: 'text',
       editable: false,
+      render: (text: React.ReactNode, record) => (
+        <Fragment>
+          {text}&nbsp;
+          <Tooltip title={record?.clerkPhone}>
+            <a onClick={() => callTel(record?.clerkPhone)}>
+              <PhoneOutlined />
+            </a>
+          </Tooltip>
+        </Fragment>
+      ),
     },
     {
       title: '顾客',
@@ -92,6 +113,16 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
       key: 'customerName',
       valueType: 'text',
       editable: false,
+      render: (text: React.ReactNode, record) => (
+        <Fragment>
+          {text}&nbsp;
+          <Tooltip title={record?.customerPhone}>
+            <a onClick={() => callTel(record?.customerPhone)}>
+              <PhoneOutlined />
+            </a>
+          </Tooltip>
+        </Fragment>
+      ),
     },
     {
       title: '预定时间',
@@ -214,11 +245,30 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
           },
           onChange: setEditableRowKeys,
         }}
-        headerTitle={`${token?.name}，欢迎你`}
+        headerTitle={
+          <Fragment>
+            <Radio.Group value={token?.role}>
+              {token?.role === 'customer' && (
+                <Radio.Button value="customer">顾客</Radio.Button>
+              )}
+              {token?.role === 'shopowner' && (
+                <Radio.Button value="shopowner">店长</Radio.Button>
+              )}
+              {token?.role === 'clerk' && (
+                <Radio.Button value="clerk">验光师</Radio.Button>
+              )}
+            </Radio.Group>
+            &nbsp;{token?.name}，欢迎你
+          </Fragment>
+        }
         toolBarRender={() => [
-          <Button type="primary" onClick={add}>
-            预约
-          </Button>,
+          <Fragment>
+            {token?.role === 'customer' && (
+              <Button type="primary" onClick={add}>
+                预约
+              </Button>
+            )}
+          </Fragment>,
           <Button onClick={() => getOrders()}>刷新</Button>,
           <Button type="dashed" danger onClick={logout}>
             退出
