@@ -1,9 +1,12 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 
-import { Modal, Popconfirm } from 'antd';
-import { Orders, Clerks } from 'umi';
+import { Modal, Popconfirm, Tooltip } from 'antd';
+import { Clerks, Orders } from 'umi';
+import { PhoneOutlined } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
+
+import { callTel } from '@/utils/callTel';
 
 import { getAllClerks } from '../service';
 
@@ -49,37 +52,61 @@ export const ClerkSelection: FC<ClerkSelectionProps> = (props) => {
 
   const columns: ProColumns<Clerks>[] = [
     {
-      dataIndex: 'id',
       title: 'id',
+      dataIndex: 'id',
       valueType: 'text',
+      key: 'id',
       // width: 150,
     },
     {
-      dataIndex: 'storeName',
       title: '店名',
+      dataIndex: 'storeName',
+      key: 'storeName',
+      render: (text: React.ReactNode, record) => (
+        <Fragment>
+          {text}&nbsp;
+          <Tooltip title={record?.storePhone}>
+            <a onClick={() => callTel(record?.storePhone)}>
+              <PhoneOutlined />
+            </a>
+          </Tooltip>
+        </Fragment>
+      ),
     },
     {
-      dataIndex: 'address',
       title: '地址',
+      dataIndex: 'address',
+      key: 'address',
     },
+    // {
+    //   title: '门店手机',
+    //   dataIndex: 'storePhone',
+    //   valueType: 'text',
+    //   key: 'storePhone',
+    // },
     {
-      title: '门店手机',
-      dataIndex: 'storePhone',
-      valueType: 'text',
-      key: 'storePhone',
-    },
-    {
-      dataIndex: 'name',
       title: '验光师',
+      dataIndex: 'name',
       valueType: 'text',
+      key: 'name',
       // width: 150,
+      render: (text: React.ReactNode, record) => (
+        <Fragment>
+          {text}&nbsp;
+          <Tooltip title={record?.clerkPhone}>
+            <a onClick={() => callTel(record?.clerkPhone)}>
+              <PhoneOutlined />
+            </a>
+          </Tooltip>
+        </Fragment>
+      ),
     },
-    {
-      title: '验光师手机',
-      dataIndex: 'clerkPhone',
-      valueType: 'text',
-      key: 'clerkPhone',
-    },
+    // {
+    //   title: '验光师手机',
+    //   dataIndex: 'clerkPhone',
+    //   valueType: 'text',
+    //   key: 'clerkPhone',
+    // },
     // {
     //   title: '启用',
     //   dataIndex: 'isValid',

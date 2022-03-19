@@ -1,4 +1,4 @@
-import { Modal } from 'antd';
+import { Modal, message } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 export function callModal(
@@ -19,6 +19,10 @@ export function callModal(
 }
 
 export function callTel(tel: string | undefined) {
+  if (!tel) {
+    message.error('号码不存在');
+    return;
+  }
   callModal(
     `您确定要拨打${tel}？`,
     () => {
