@@ -14,7 +14,8 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 
 import { getLocalStorage, setLocalStorage } from '@/utils/storage';
 
-import { CourseSelection } from './components/clerk.selection.modal';
+import { ClerkSelection } from './components/clerk.selection.modal';
+import { OrderAddModal } from './components/order.add.modal';
 
 const token = getLocalStorage('authsessiontoken')
   ? JSON.parse(getLocalStorage('authsessiontoken'))
@@ -30,12 +31,13 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
     getOrders(1, 5);
   }, []);
 
+  const [orderAddVisible, setOrderAddVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-
+  const [clerk, setClerk] = useState<Partial<Clerks>>();
   const {
     result: {
-      data: { orders: Orderss },
+      data: { orders },
       meta: { page: pageIndex, pageSize: pageSize, total },
     },
   } = state;
@@ -98,7 +100,16 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
     setModalVisible(true);
   };
 
-  const addOrders = (record: Clerks) => {
+  const selectClerk = (clerk: Clerks) => {
+    setConfirmLoading(false);
+    setModalVisible(false);
+    setClerk(clerk);
+    setOrderAddVisible(true);
+  };
+
+  const onFinish = (record: Clerks) => {
+    record = { ...clerk, ...record };
+    console.log(record);
     setConfirmLoading(true);
     dispatch({
       type: 'orders/addOrders',
@@ -106,7 +117,7 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
       callback: (res) => {
         if (res) {
           setConfirmLoading(false);
-          setModalVisible(false);
+          setOrderAddVisible(false);
           message.success(`预约成功.`);
           getOrders(pageIndex, pageSize);
         } else {
@@ -126,7 +137,7 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
     <div className="list-table">
       <ProTable
         columns={columns}
-        dataSource={Orderss}
+        dataSource={orders}
         loading={loading}
         rowKey="id"
         search={false}
@@ -154,12 +165,19 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
           </Button>,
         ]}
       />
-      <CourseSelection
+      <ClerkSelection
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         confirmLoading={confirmLoading}
-        addOrders={addOrders}
-        records={Orderss.map((stud) => stud.name)}
+        selectClerk={selectClerk}
+        records={orders.map((stud) => stud.name)}
+      />
+      <OrderAddModal
+        visible={orderAddVisible}
+        onCancel={() => setOrderAddVisible(false)}
+        clerk={clerk}
+        onFinish={onFinish}
+        confirmLoading={confirmLoading}
       />
     </div>
   );

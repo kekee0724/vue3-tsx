@@ -40,10 +40,10 @@ export const addOrders = async (data: Clerks) => {
   return request(`api/user/addOrders`, {
     method: 'post',
     data: {
-      customerId: token?.id,
+      customerId: token?.customerId,
       storeId: data.storeId,
       clerkId: data.id,
-      orderTime: data.orderTime,
+      orderTime: data.orderTime?.toISOString(),
       remark: data.remark,
     },
   })

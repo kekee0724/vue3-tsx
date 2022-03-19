@@ -19,7 +19,7 @@ export interface Clerks extends Entity {
   storeId: number;
   storeName: string;
   storePhone: string;
-  orderTime?: string;
+  orderTime?: moment.Moment;
   remark?: string;
 }
 

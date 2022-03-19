@@ -7,28 +7,27 @@ import ProTable from '@ant-design/pro-table';
 
 import { getAllClerks } from '../service';
 
-export interface CourseSelectionProps {
+export interface ClerkSelectionProps {
   visible: boolean;
   onCancel: () => void;
   confirmLoading: boolean;
-  addOrders: (record: Clerks) => void;
+  selectClerk: (record: Clerks) => void;
   records: Array<string>;
 }
 
-export const CourseSelection: FC<CourseSelectionProps> = (props) => {
-  const { visible, onCancel, confirmLoading, records, addOrders } = props;
+export const ClerkSelection: FC<ClerkSelectionProps> = (props) => {
+  const { visible, onCancel, confirmLoading, records, selectClerk } = props;
   const [record, setRecord] = useState<Clerks[]>([]);
   useEffect(() => {
-    getAllCourse();
+    getAllClerk();
   }, [visible]);
-  console.log(record, records);
 
   function IsInArray(arr: any[], val: number | string) {
     var testStr = ',' + arr.join(',') + ',';
     return testStr.indexOf(',' + val + ',') != -1;
   }
 
-  const getAllCourse = async () => {
+  const getAllClerk = async () => {
     const record = await getAllClerks();
     const newRecord: Array<Clerks> = record?.data?.filter(
       (reco: Orders) => !IsInArray(records, reco.name),
@@ -42,7 +41,7 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
       title={`确认${text}吗?`}
       okText="是"
       cancelText="否"
-      onConfirm={() => addOrders(record)}
+      onConfirm={() => selectClerk(record)}
     >
       <a>{text}</a>
     </Popconfirm>
