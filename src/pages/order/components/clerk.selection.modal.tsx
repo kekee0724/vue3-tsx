@@ -78,12 +78,6 @@ export const ClerkSelection: FC<ClerkSelectionProps> = (props) => {
       dataIndex: 'address',
       key: 'address',
     },
-    // {
-    //   title: '门店手机',
-    //   dataIndex: 'storePhone',
-    //   valueType: 'text',
-    //   key: 'storePhone',
-    // },
     {
       title: '验光师',
       dataIndex: 'name',
@@ -101,12 +95,6 @@ export const ClerkSelection: FC<ClerkSelectionProps> = (props) => {
         </Fragment>
       ),
     },
-    // {
-    //   title: '验光师手机',
-    //   dataIndex: 'clerkPhone',
-    //   valueType: 'text',
-    //   key: 'clerkPhone',
-    // },
     // {
     //   title: '启用',
     //   dataIndex: 'isValid',
