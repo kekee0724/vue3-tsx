@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { Button, message } from 'antd';
 import {
+  Clerks,
   connect,
   Dispatch,
   history,
@@ -13,7 +14,8 @@ import ProTable, { ProColumns } from '@ant-design/pro-table';
 
 import { getLocalStorage, setLocalStorage } from '@/utils/storage';
 
-import { CourseSelection } from './components/course.selection.modal';
+import { CourseSelection } from './components/clerk.selection.modal';
+
 const token = getLocalStorage('authsessiontoken')
   ? JSON.parse(getLocalStorage('authsessiontoken'))
   : { name: '' };
@@ -96,11 +98,11 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
     setModalVisible(true);
   };
 
-  const addOrders = (courseId: number) => {
+  const addOrders = (record: Clerks) => {
     setConfirmLoading(true);
     dispatch({
       type: 'orders/addOrders',
-      data: courseId,
+      data: record,
       callback: (res) => {
         if (res) {
           setConfirmLoading(false);

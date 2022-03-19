@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { Modal, Popconfirm } from 'antd';
-import { Orders, TeacherSchedule } from 'umi';
+import { Orders, Clerks } from 'umi';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 
@@ -11,13 +11,13 @@ export interface CourseSelectionProps {
   visible: boolean;
   onCancel: () => void;
   confirmLoading: boolean;
-  addOrders: (courseId: number) => void;
+  addOrders: (record: Clerks) => void;
   records: Array<string>;
 }
 
 export const CourseSelection: FC<CourseSelectionProps> = (props) => {
   const { visible, onCancel, confirmLoading, records, addOrders } = props;
-  const [record, setRecord] = useState<TeacherSchedule[]>([]);
+  const [record, setRecord] = useState<Clerks[]>([]);
   useEffect(() => {
     getAllCourse();
   }, [visible]);
@@ -30,25 +30,25 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
 
   const getAllCourse = async () => {
     const record = await getAllClerks();
-    const newRecord: Array<TeacherSchedule> = record?.data?.filter(
+    const newRecord: Array<Clerks> = record?.data?.filter(
       (reco: Orders) => !IsInArray(records, reco.name),
     );
     setRecord(newRecord);
   };
 
-  const renderPopconfirm = (text: string, record: TeacherSchedule) => (
+  const renderPopconfirm = (text: string, record: Clerks) => (
     <Popconfirm
       key="popconfirm"
       title={`确认${text}吗?`}
       okText="是"
       cancelText="否"
-      onConfirm={() => addOrders(record.id)}
+      onConfirm={() => addOrders(record)}
     >
       <a>{text}</a>
     </Popconfirm>
   );
 
-  const columns: ProColumns<TeacherSchedule>[] = [
+  const columns: ProColumns<Clerks>[] = [
     {
       dataIndex: 'id',
       title: 'id',
@@ -110,7 +110,7 @@ export const CourseSelection: FC<CourseSelectionProps> = (props) => {
         confirmLoading={confirmLoading}
         width={800}
       >
-        <ProTable<TeacherSchedule>
+        <ProTable<Clerks>
           columns={columns}
           dataSource={record}
           rowKey="id"

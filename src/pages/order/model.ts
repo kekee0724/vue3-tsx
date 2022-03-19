@@ -10,6 +10,19 @@ export interface Orders extends Entity {
   remark: string;
   isValid: boolean;
 }
+
+export interface Clerks extends Entity {
+  address: string;
+  clerkPhone: string;
+  id: number;
+  name: string;
+  storeId: number;
+  storeName: string;
+  storePhone: string;
+  orderTime?: string;
+  remark?: string;
+}
+
 export interface OrderModelState {
   result: {
     data: {

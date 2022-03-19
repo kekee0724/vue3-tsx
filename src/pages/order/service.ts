@@ -1,3 +1,5 @@
+import { Clerks } from 'umi';
+
 import request from '@/utils/request';
 import { getLocalStorage } from '@/utils/storage';
 
@@ -34,12 +36,15 @@ export const getAllClerks = async () => {
     });
 };
 
-export const addOrders = async (courseId: number) => {
+export const addOrders = async (data: Clerks) => {
   return request(`api/user/addOrders`, {
     method: 'post',
     data: {
-      studentId: token?.id,
-      courseId,
+      customerId: token?.id,
+      storeId: data.storeId,
+      clerkId: data.id,
+      orderTime: data.orderTime,
+      remark: data.remark,
     },
   })
     .then(function (response) {
