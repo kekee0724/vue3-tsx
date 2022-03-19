@@ -3,14 +3,14 @@ import { Clerks } from 'umi';
 import request from '@/utils/request';
 import { getLocalStorage } from '@/utils/storage';
 
-const token =
-  getLocalStorage('authsessiontoken') &&
-  JSON.parse(getLocalStorage('authsessiontoken'));
 export const getOrders = async () => {
+  const userId =
+    getLocalStorage('authsessiontoken') &&
+    JSON.parse(getLocalStorage('authsessiontoken'))?.id;
   return request('/api/user/getUserInfo', {
     method: 'post',
     data: {
-      userId: token?.id,
+      userId,
     },
   })
     .then(function (response) {
@@ -37,10 +37,13 @@ export const getAllClerks = async () => {
 };
 
 export const addOrders = async (data: Clerks) => {
+  const customerId =
+    getLocalStorage('authsessiontoken') &&
+    JSON.parse(getLocalStorage('authsessiontoken'))?.customerId;
   return request(`api/user/addOrders`, {
     method: 'post',
     data: {
-      customerId: token?.customerId,
+      customerId,
       storeId: data.storeId,
       clerkId: data.id,
       orderTime: data.orderTime?.toISOString(),

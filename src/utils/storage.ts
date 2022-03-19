@@ -24,6 +24,14 @@ export function setLocalStorage(key: string, value: string): string {
   return setValue(localStorage, key, value), value;
 }
 
+export function removeLocalStorage(key: string): void {
+  localStorage.removeItem(getKey(key));
+}
+
+export function clearLocalStorage(): void {
+  localStorage.clear();
+}
+
 export function getLocalToken() {
   return getLocalStorage('authsessiontoken');
 }

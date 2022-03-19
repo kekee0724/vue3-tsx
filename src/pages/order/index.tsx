@@ -12,14 +12,10 @@ import {
 } from 'umi';
 import EditableProTable, { ProColumns } from '@ant-design/pro-table';
 
-import { getLocalStorage, setLocalStorage } from '@/utils/storage';
+import { getLocalStorage, removeLocalStorage } from '@/utils/storage';
 
 import { ClerkSelection } from './components/clerk.selection.modal';
 import { OrderAddModal } from './components/order.add.modal';
-
-const token = getLocalStorage('authsessiontoken')
-  ? JSON.parse(getLocalStorage('authsessiontoken'))
-  : { name: '' };
 
 const waitTime = (time: number = 100) => {
   return new Promise((resolve) => {
@@ -173,9 +169,13 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
   };
 
   const logout = () => {
-    setLocalStorage('authsessiontoken', '');
+    removeLocalStorage('authsessiontoken');
     history.push('/login');
   };
+
+  const token =
+    getLocalStorage('authsessiontoken') &&
+    JSON.parse(getLocalStorage('authsessiontoken'));
 
   return (
     <div className="list-table">
