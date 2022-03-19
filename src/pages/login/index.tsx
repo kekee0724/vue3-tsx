@@ -5,7 +5,7 @@ import React, { FC, Fragment, useState } from 'react';
 import { Button, Form, Input, Radio, Row } from 'antd';
 import { connect, Dispatch, Loading, LoginModelState } from 'umi';
 
-import logo from './girl-icon.svg';
+import logo from './logo.jpg';
 
 const FormItem = Form.Item;
 
