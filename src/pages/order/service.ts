@@ -2,6 +2,7 @@ import { Clerks } from 'umi';
 
 import request from '@/utils/request';
 import { getLocalStorage } from '@/utils/storage';
+import moment from 'moment';
 
 export const getOrders = async () => {
   const userId =
@@ -62,7 +63,8 @@ export const addOrders = async (data: Clerks) => {
 export const editOrdered = async (data: Clerks) => {
   return request(`api/user/editOrdered`, {
     method: 'post',
-    data,
+    // data
+    data: { ...data, orderTime: moment(data?.orderTime)!.toISOString() },
   })
     .then(function (response) {
       return response;

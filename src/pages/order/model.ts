@@ -10,7 +10,7 @@ export interface Orders extends Entity {
   customerPhone?: string;
   storeName?: string;
   storePhone?: string;
-  orderTime: string;
+  orderTime: moment.Moment;
   remark: string;
   isValid: boolean;
 }
@@ -23,7 +23,7 @@ export interface Clerks extends Entity {
   storeId: number;
   storeName: string;
   storePhone: string;
-  orderTime?: moment.Moment;
+  orderTime?: moment.Moment & string;
   remark?: string;
 }
 

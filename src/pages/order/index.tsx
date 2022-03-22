@@ -129,6 +129,7 @@ const OrderListPage: FC<OrderPageProps> = ({ state, dispatch, loading }) => {
       dataIndex: 'orderTime',
       valueType: 'dateTime',
       key: 'orderTime',
+      width: 150,
     },
     {
       title: '启用',
