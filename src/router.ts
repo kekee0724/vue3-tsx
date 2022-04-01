@@ -2,14 +2,25 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 import Home from '@levi-a/views/Home.vue'
 import { About, Demo, Test } from '@levi-a/views'
-import { Suning } from '@levi-a/mobile'
+import { Suning, FileUpload } from '@levi-a/mobile'
 import Study from '@levi-a/views/Study.vue'
+import FileUploads from '@levi-a/mobile/FileUpload.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/upload',
+    name: 'FileUpload',
+    component: FileUpload
+  },
+  {
+    path: '/uploads',
+    name: 'FileUploads',
+    component: FileUploads
   },
   {
     path: '/suning',
