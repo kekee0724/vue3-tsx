@@ -6,7 +6,7 @@ import {
   ref,
 } from "vue";
 import axios from "axios";
-import { message } from "ant-design-vue";
+import { Toast } from "antd-mobile-vue-next";
 export const FileUpload = defineComponent({
   name: "App",
   setup(props, context) {
@@ -60,19 +60,19 @@ export const FileUpload = defineComponent({
     const handleChange = (info: any) => {
       // const data=info.file.response
       // if (data.code === 200) {
-      //   message.success(`${data.msg}`);
+      //   Toast.success(`${data.msg}`);
       // } else if (data.code === 2) {
-      //   message.error(`${data.msg}`);
+      //   Toast.fail(`${data.msg}`);
       // } else {
-      //   message.error(`${data.msg}`);
+      //   Toast.fail(`${data.msg}`);
       // }
       if (info.file.status !== "uploading") {
         console.log(info.file, info.fileList);
       }
       if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
+        Toast.success(`${info.file.name} file uploaded successfully`);
       } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
+        Toast.fail(`${info.file.name} file upload failed.`);
       }
     };
 

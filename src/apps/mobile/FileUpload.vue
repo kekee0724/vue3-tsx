@@ -1,5 +1,5 @@
 <template>
-  <a-config-provider :locale="locale">
+  <!-- <a-config-provider :locale="locale"> -->
     <div class="clearfix">
       <a-upload
         action="http://127.0.0.1:8000/fileUpload/upload/"
@@ -17,10 +17,10 @@
         <img alt="example" style="width: 100%" :src="previewImage" />
       </a-modal>
     </div>
-  </a-config-provider>
+  <!-- </a-config-provider> -->
 </template>
 <script>
-import locale from 'ant-design-vue/lib/locale-provider/zh_CN'
+// import locale from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 function getBase64 (file) {
   return new Promise((resolve, reject) => {
@@ -33,7 +33,7 @@ function getBase64 (file) {
 export default {
   data () {
     return {
-      locale,
+      // locale,
       previewVisible: false,
       previewImage: '',
       fileList: [

@@ -1,6 +1,5 @@
 import axios from 'axios'
-// import { Toast } from 'antd-mobile'
-import { message } from 'ant-design-vue'
+import { Toast } from 'antd-mobile-vue-next'
 import { stringify } from 'qs'
 import config from '../../config'
 
@@ -31,7 +30,7 @@ const getRequest = (method: any) => {
       .then((res) => {
         if (typeof res.data !== 'object') {
           console.error('数据格式响应错误:', res.data)
-          message.error('前方拥挤，请刷新再试')
+          Toast.fail('前方拥挤，请刷新再试')
           return Promise.reject(res)
         }
 
@@ -41,8 +40,8 @@ const getRequest = (method: any) => {
             return
           }
           // silent 选项，错误不提示
-          if (res.data.message && !options.silent) {
-            message.error(res.data.message)
+          if (res.data.Toast && !options.silent) {
+            Toast.fail(res.data.Toast)
           }
           return Promise.reject(res.data)
         }
@@ -50,7 +49,7 @@ const getRequest = (method: any) => {
         return res.data
       })
       .catch((err) => {
-        message.error('系统错误', 2)
+        Toast.fail('系统错误', 2)
         return Promise.reject(err)
       })
   }

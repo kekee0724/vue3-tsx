@@ -14,7 +14,7 @@ export const HelloWord = defineComponent({
       <>
         <h1>{prop.msg}</h1>
         <button onClick={() => { count.value++ }}>count is: {count.value}</button>
-        <p>Edit <code>components/HelloWorld.vue</code> to test hot module replacement.</p>
+        <p>Edit <code>src/core-ui/components/HelloWorld.tsx</code> to test hot module replacement.</p>
       </>
     );
   },
