@@ -1,13 +1,9 @@
-import path from 'path';
-import { defineConfig } from 'vite';
-import Markdown from 'vite-plugin-md';
-import vitePluginString from 'vite-plugin-string';
-import tsconfigPaths from 'vite-tsconfig-paths';
-
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-
-import config from './src/config';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import path from 'path'
+import config from './src/config'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 const pathResolve = (pathStr: string) => {
   return path.resolve(__dirname, pathStr)
@@ -19,23 +15,6 @@ console.log('process:::env', base)
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vitePluginString(
-      {
-        include: [
-          '**/*.txt'
-        ],
-        compress: false
-      }),
-    vueJsx({
-      // options are passed on to @vue/babel-plugin-jsx
-    }),
-    vue({
-      include: [/\.vue$/, /\.md$/]
-    }),
-    Markdown(),
-    tsconfigPaths()
-  ],
   css: {
     preprocessorOptions: {
       less: {
@@ -77,4 +56,5 @@ export default defineConfig({
     assetsInlineLimit: 2048,
     cssCodeSplit: true
   },
-});
+  plugins: [vue(), vueJsx(), tsconfigPaths()]
+})
