@@ -124,13 +124,24 @@ module.exports = {
       {
         // 匹配哪些文件
         test: /\.js$/,
-        // 排除css/js/html资源
+        // 排除node_modules资源
         exclude: /node_modules/,
         // 使用一个loader进行处理
         loader: 'eslint-loader',
         options: {
           // 自动修复eslint错误
-          fix: true,
+          // fix: true,
+        },
+      },
+      {
+        // 匹配哪些文件
+        test: /\.js$/,
+        // 排除css/js/html资源
+        exclude: /node_modules/,
+        // 使用一个loader进行处理
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env'],
         },
       },
     ],
