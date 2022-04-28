@@ -1,9 +1,9 @@
-import { defineComponent } from 'vue';
-import {RouterLink, RouterView} from 'vue-router';
-// import './assets/css/main.scss'
+import { defineComponent } from "vue";
+
+import { RouterLink, RouterView } from "vue-router";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   setup() {
     return () => (
       <>
@@ -12,8 +12,8 @@ export default defineComponent({
           <RouterLink to="/about">About</RouterLink> |
           <RouterLink to="/demo">Demo</RouterLink>
         </div>
-        <RouterView/>
+        <RouterView />
       </>
     );
-  }
+  },
 });

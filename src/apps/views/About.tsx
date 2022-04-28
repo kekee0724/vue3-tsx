@@ -1,7 +1,13 @@
-import { computed, defineComponent, getCurrentInstance, reactive, ref, isRef, toRefs, onBeforeUnmount, onMounted } from "vue";
+import {
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  reactive,
+  ref,
+  toRefs
+} from "vue"
 
-import Logo from "@/assets/images/logo.png";
-import { HelloWord } from "@levi-m/core-ui";
+import { HelloWord } from "@levi-m/core-ui"
 
 export const About = defineComponent({
   name: 'App',
@@ -16,19 +22,11 @@ export const About = defineComponent({
     const res = reactive({ name: '可可' }); //定义响应式数据，针对对象
     return () => (
       <>
-        {/* <h1>About.tsx</h1> */}
         <h1>{res.name}</h1>
-        {/* <img src={Logo} /> */}
         <div>
           <div class="tab">
             {/* <router-link to="/demo/study">
               <div class="children">学成在线</div>
-            </router-link>
-            <router-link to="/demo/shop">
-              <div class="children">品优购</div>
-            </router-link>
-            <router-link to="/demo/form">
-              <div class="children">From</div>
             </router-link>
             <router-link to="/demo/test">
               <div class="children">Test</div>

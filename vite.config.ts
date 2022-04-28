@@ -29,7 +29,7 @@ export default defineConfig({
       '/api': {
         // target: 'http://localhost:3000',
         // 当遇到 /api 路径时，将其转换成 target 的值，这里我们为了测试，写了新蜂商城的请求地址
-        target: 'http://47.99.134.126:28019/api/v1',
+        target: 'http://127.0.0.1:8071/api/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '') // 将 /api 重写为空
       }
