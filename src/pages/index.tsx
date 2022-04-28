@@ -17,7 +17,7 @@ export default function IndexPage() {
     if (!isAuth()) {
       history.push('/login');
     } else {
-      history.push('/posts');
+      history.push('/order');
     }
   }, []);
   return (
